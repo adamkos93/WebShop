@@ -1,0 +1,15 @@
+C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop.UserService\bin\Debug\netcoreapp1.1\WebShop.UserService.deps.json
+C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop.UserService\bin\Debug\netcoreapp1.1\WebShop.UserService.runtimeconfig.json
+C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop.UserService\bin\Debug\netcoreapp1.1\WebShop.UserService.runtimeconfig.dev.json
+C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop.UserService\bin\Debug\netcoreapp1.1\WebShop.UserService.dll
+C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop.UserService\bin\Debug\netcoreapp1.1\WebShop.UserService.pdb
+C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop.UserService\bin\Debug\netcoreapp1.1\WebShop.Data.dll
+C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop.UserService\bin\Debug\netcoreapp1.1\WebShop.Infrastructure.dll
+C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop.UserService\bin\Debug\netcoreapp1.1\WebShop.Shared.dll
+C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop.UserService\bin\Debug\netcoreapp1.1\WebShop.Infrastructure.pdb
+C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop.UserService\bin\Debug\netcoreapp1.1\WebShop.Data.pdb
+C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop.UserService\bin\Debug\netcoreapp1.1\WebShop.Shared.pdb
+C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop.UserService\obj\Debug\netcoreapp1.1\WebShop.UserService.csprojResolveAssemblyReference.cache
+C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop.UserService\obj\Debug\netcoreapp1.1\WebShop.UserService.AssemblyInfo.cs
+C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop.UserService\obj\Debug\netcoreapp1.1\WebShop.UserService.dll
+C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop.UserService\obj\Debug\netcoreapp1.1\WebShop.UserService.pdb

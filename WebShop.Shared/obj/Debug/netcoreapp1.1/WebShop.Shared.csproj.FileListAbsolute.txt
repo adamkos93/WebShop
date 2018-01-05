@@ -1,0 +1,7 @@
+C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop.Shared\bin\Debug\netcoreapp1.1\WebShop.Shared.deps.json
+C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop.Shared\bin\Debug\netcoreapp1.1\WebShop.Shared.dll
+C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop.Shared\bin\Debug\netcoreapp1.1\WebShop.Shared.pdb
+C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop.Shared\obj\Debug\netcoreapp1.1\WebShop.Shared.AssemblyInfo.cs
+C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop.Shared\obj\Debug\netcoreapp1.1\WebShop.Shared.dll
+C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop.Shared\obj\Debug\netcoreapp1.1\WebShop.Shared.pdb
+C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop.Shared\obj\Debug\netcoreapp1.1\WebShop.Shared.csprojResolveAssemblyReference.cache

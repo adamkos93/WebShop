@@ -1,0 +1,15 @@
+C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop.ProductService\bin\Debug\netcoreapp1.1\WebShop.ProductService.deps.json
+C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop.ProductService\bin\Debug\netcoreapp1.1\WebShop.ProductService.runtimeconfig.json
+C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop.ProductService\bin\Debug\netcoreapp1.1\WebShop.ProductService.runtimeconfig.dev.json
+C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop.ProductService\bin\Debug\netcoreapp1.1\WebShop.ProductService.dll
+C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop.ProductService\bin\Debug\netcoreapp1.1\WebShop.ProductService.pdb
+C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop.ProductService\bin\Debug\netcoreapp1.1\WebShop.Data.dll
+C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop.ProductService\bin\Debug\netcoreapp1.1\WebShop.Infrastructure.dll
+C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop.ProductService\bin\Debug\netcoreapp1.1\WebShop.Shared.dll
+C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop.ProductService\bin\Debug\netcoreapp1.1\WebShop.Infrastructure.pdb
+C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop.ProductService\bin\Debug\netcoreapp1.1\WebShop.Data.pdb
+C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop.ProductService\bin\Debug\netcoreapp1.1\WebShop.Shared.pdb
+C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop.ProductService\obj\Debug\netcoreapp1.1\WebShop.ProductService.csprojResolveAssemblyReference.cache
+C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop.ProductService\obj\Debug\netcoreapp1.1\WebShop.ProductService.AssemblyInfo.cs
+C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop.ProductService\obj\Debug\netcoreapp1.1\WebShop.ProductService.dll
+C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop.ProductService\obj\Debug\netcoreapp1.1\WebShop.ProductService.pdb

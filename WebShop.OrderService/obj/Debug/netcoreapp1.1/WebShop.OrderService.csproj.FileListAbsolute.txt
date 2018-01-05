@@ -1,0 +1,15 @@
+C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop.OrderService\bin\Debug\netcoreapp1.1\WebShop.OrderService.deps.json
+C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop.OrderService\bin\Debug\netcoreapp1.1\WebShop.OrderService.runtimeconfig.json
+C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop.OrderService\bin\Debug\netcoreapp1.1\WebShop.OrderService.runtimeconfig.dev.json
+C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop.OrderService\bin\Debug\netcoreapp1.1\WebShop.OrderService.dll
+C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop.OrderService\bin\Debug\netcoreapp1.1\WebShop.OrderService.pdb
+C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop.OrderService\bin\Debug\netcoreapp1.1\WebShop.Data.dll
+C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop.OrderService\bin\Debug\netcoreapp1.1\WebShop.Infrastructure.dll
+C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop.OrderService\bin\Debug\netcoreapp1.1\WebShop.Shared.dll
+C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop.OrderService\bin\Debug\netcoreapp1.1\WebShop.Infrastructure.pdb
+C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop.OrderService\bin\Debug\netcoreapp1.1\WebShop.Data.pdb
+C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop.OrderService\bin\Debug\netcoreapp1.1\WebShop.Shared.pdb
+C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop.OrderService\obj\Debug\netcoreapp1.1\WebShop.OrderService.csprojResolveAssemblyReference.cache
+C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop.OrderService\obj\Debug\netcoreapp1.1\WebShop.OrderService.AssemblyInfo.cs
+C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop.OrderService\obj\Debug\netcoreapp1.1\WebShop.OrderService.dll
+C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop.OrderService\obj\Debug\netcoreapp1.1\WebShop.OrderService.pdb
