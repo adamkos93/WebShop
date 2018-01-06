@@ -15,3 +15,20 @@ C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop\bin\Debug\ne
 C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop\bin\Debug\netcoreapp1.1\WebShop.Infrastructure.pdb
 C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop\obj\Debug\netcoreapp1.1\WebShop.dll
 C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop\obj\Debug\netcoreapp1.1\WebShop.pdb
+D:\WebShopRepo\WebShop\WebShop\bin\Debug\netcoreapp1.1\WebShop.deps.json
+D:\WebShopRepo\WebShop\WebShop\bin\Debug\netcoreapp1.1\WebShop.runtimeconfig.json
+D:\WebShopRepo\WebShop\WebShop\bin\Debug\netcoreapp1.1\WebShop.runtimeconfig.dev.json
+D:\WebShopRepo\WebShop\WebShop\bin\Debug\netcoreapp1.1\WebShop.dll
+D:\WebShopRepo\WebShop\WebShop\bin\Debug\netcoreapp1.1\WebShop.pdb
+D:\WebShopRepo\WebShop\WebShop\bin\Debug\netcoreapp1.1\WebShop.Data.dll
+D:\WebShopRepo\WebShop\WebShop\bin\Debug\netcoreapp1.1\WebShop.Infrastructure.dll
+D:\WebShopRepo\WebShop\WebShop\bin\Debug\netcoreapp1.1\WebShop.Shared.dll
+D:\WebShopRepo\WebShop\WebShop\bin\Debug\netcoreapp1.1\WebShop.UserService.dll
+D:\WebShopRepo\WebShop\WebShop\bin\Debug\netcoreapp1.1\WebShop.Shared.pdb
+D:\WebShopRepo\WebShop\WebShop\bin\Debug\netcoreapp1.1\WebShop.UserService.pdb
+D:\WebShopRepo\WebShop\WebShop\bin\Debug\netcoreapp1.1\WebShop.Data.pdb
+D:\WebShopRepo\WebShop\WebShop\bin\Debug\netcoreapp1.1\WebShop.Infrastructure.pdb
+D:\WebShopRepo\WebShop\WebShop\obj\Debug\netcoreapp1.1\WebShop.csprojResolveAssemblyReference.cache
+D:\WebShopRepo\WebShop\WebShop\obj\Debug\netcoreapp1.1\WebShop.AssemblyInfo.cs
+D:\WebShopRepo\WebShop\WebShop\obj\Debug\netcoreapp1.1\WebShop.dll
+D:\WebShopRepo\WebShop\WebShop\obj\Debug\netcoreapp1.1\WebShop.pdb

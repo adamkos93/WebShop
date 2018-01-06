@@ -72,16 +72,13 @@ namespace WebShop
             }
             app.UseMiddleware<ErrorHandlerMiddleware>();
             //app.UseSession();
+            //test
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
                     template: "{controller}/{action}/{id?}",
                     defaults: new { controller = "User", action = "Index" });
-
-                //routes.MapRoute(
-                //    name: "default",
-                //    template: "{controller=User}/{action=Index}/{id?}");
             });
         }
     }

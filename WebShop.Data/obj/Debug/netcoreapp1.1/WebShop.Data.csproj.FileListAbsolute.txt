@@ -5,3 +5,10 @@ C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop.Data\obj\Deb
 C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop.Data\obj\Debug\netcoreapp1.1\WebShop.Data.dll
 C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop.Data\obj\Debug\netcoreapp1.1\WebShop.Data.pdb
 C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop.Data\obj\Debug\netcoreapp1.1\WebShop.Data.csprojResolveAssemblyReference.cache
+D:\WebShopRepo\WebShop\WebShop.Data\bin\Debug\netcoreapp1.1\WebShop.Data.deps.json
+D:\WebShopRepo\WebShop\WebShop.Data\bin\Debug\netcoreapp1.1\WebShop.Data.dll
+D:\WebShopRepo\WebShop\WebShop.Data\bin\Debug\netcoreapp1.1\WebShop.Data.pdb
+D:\WebShopRepo\WebShop\WebShop.Data\obj\Debug\netcoreapp1.1\WebShop.Data.csprojResolveAssemblyReference.cache
+D:\WebShopRepo\WebShop\WebShop.Data\obj\Debug\netcoreapp1.1\WebShop.Data.AssemblyInfo.cs
+D:\WebShopRepo\WebShop\WebShop.Data\obj\Debug\netcoreapp1.1\WebShop.Data.dll
+D:\WebShopRepo\WebShop\WebShop.Data\obj\Debug\netcoreapp1.1\WebShop.Data.pdb

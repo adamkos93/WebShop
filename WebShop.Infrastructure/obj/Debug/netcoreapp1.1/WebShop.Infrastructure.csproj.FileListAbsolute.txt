@@ -9,3 +9,14 @@ C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop.Infrastructu
 C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop.Infrastructure\obj\Debug\netcoreapp1.1\WebShop.Infrastructure.AssemblyInfo.cs
 C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop.Infrastructure\obj\Debug\netcoreapp1.1\WebShop.Infrastructure.dll
 C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop.Infrastructure\obj\Debug\netcoreapp1.1\WebShop.Infrastructure.pdb
+D:\WebShopRepo\WebShop\WebShop.Infrastructure\bin\Debug\netcoreapp1.1\WebShop.Infrastructure.deps.json
+D:\WebShopRepo\WebShop\WebShop.Infrastructure\bin\Debug\netcoreapp1.1\WebShop.Infrastructure.dll
+D:\WebShopRepo\WebShop\WebShop.Infrastructure\bin\Debug\netcoreapp1.1\WebShop.Infrastructure.pdb
+D:\WebShopRepo\WebShop\WebShop.Infrastructure\bin\Debug\netcoreapp1.1\WebShop.Data.dll
+D:\WebShopRepo\WebShop\WebShop.Infrastructure\bin\Debug\netcoreapp1.1\WebShop.Shared.dll
+D:\WebShopRepo\WebShop\WebShop.Infrastructure\bin\Debug\netcoreapp1.1\WebShop.Data.pdb
+D:\WebShopRepo\WebShop\WebShop.Infrastructure\bin\Debug\netcoreapp1.1\WebShop.Shared.pdb
+D:\WebShopRepo\WebShop\WebShop.Infrastructure\obj\Debug\netcoreapp1.1\WebShop.Infrastructure.csprojResolveAssemblyReference.cache
+D:\WebShopRepo\WebShop\WebShop.Infrastructure\obj\Debug\netcoreapp1.1\WebShop.Infrastructure.AssemblyInfo.cs
+D:\WebShopRepo\WebShop\WebShop.Infrastructure\obj\Debug\netcoreapp1.1\WebShop.Infrastructure.dll
+D:\WebShopRepo\WebShop\WebShop.Infrastructure\obj\Debug\netcoreapp1.1\WebShop.Infrastructure.pdb

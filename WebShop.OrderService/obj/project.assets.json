@@ -10540,10 +10540,10 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Adam\\documents\\visual studio 2017\\Projects\\WebShop\\WebShop.OrderService\\WebShop.OrderService.csproj",
+      "projectUniqueName": "D:\\WebShopRepo\\WebShop\\WebShop.OrderService\\WebShop.OrderService.csproj",
       "projectName": "WebShop.OrderService",
-      "projectPath": "C:\\Users\\Adam\\documents\\visual studio 2017\\Projects\\WebShop\\WebShop.OrderService\\WebShop.OrderService.csproj",
-      "outputPath": "C:\\Users\\Adam\\documents\\visual studio 2017\\Projects\\WebShop\\WebShop.OrderService\\obj\\",
+      "projectPath": "D:\\WebShopRepo\\WebShop\\WebShop.OrderService\\WebShop.OrderService.csproj",
+      "outputPath": "D:\\WebShopRepo\\WebShop\\WebShop.OrderService\\obj\\",
       "projectStyle": "PackageReference",
       "originalTargetFrameworks": [
         "netcoreapp1.1"
@@ -10551,8 +10551,8 @@
       "frameworks": {
         "netcoreapp1.1": {
           "projectReferences": {
-            "C:\\Users\\Adam\\documents\\visual studio 2017\\Projects\\WebShop\\WebShop.Infrastructure\\WebShop.Infrastructure.csproj": {
-              "projectPath": "C:\\Users\\Adam\\documents\\visual studio 2017\\Projects\\WebShop\\WebShop.Infrastructure\\WebShop.Infrastructure.csproj"
+            "D:\\WebShopRepo\\WebShop\\WebShop.Infrastructure\\WebShop.Infrastructure.csproj": {
+              "projectPath": "D:\\WebShopRepo\\WebShop\\WebShop.Infrastructure\\WebShop.Infrastructure.csproj"
             }
           }
         }

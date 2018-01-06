@@ -8621,10 +8621,10 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Adam\\documents\\visual studio 2017\\Projects\\WebShop\\WebShop.Shared\\WebShop.Shared.csproj",
+      "projectUniqueName": "D:\\WebShopRepo\\WebShop\\WebShop.Shared\\WebShop.Shared.csproj",
       "projectName": "WebShop.Shared",
-      "projectPath": "C:\\Users\\Adam\\documents\\visual studio 2017\\Projects\\WebShop\\WebShop.Shared\\WebShop.Shared.csproj",
-      "outputPath": "C:\\Users\\Adam\\documents\\visual studio 2017\\Projects\\WebShop\\WebShop.Shared\\obj\\",
+      "projectPath": "D:\\WebShopRepo\\WebShop\\WebShop.Shared\\WebShop.Shared.csproj",
+      "outputPath": "D:\\WebShopRepo\\WebShop\\WebShop.Shared\\obj\\",
       "projectStyle": "PackageReference",
       "originalTargetFrameworks": [
         "netcoreapp1.1"

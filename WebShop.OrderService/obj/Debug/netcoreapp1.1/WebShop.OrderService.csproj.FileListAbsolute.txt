@@ -13,3 +13,18 @@ C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop.OrderService
 C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop.OrderService\obj\Debug\netcoreapp1.1\WebShop.OrderService.AssemblyInfo.cs
 C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop.OrderService\obj\Debug\netcoreapp1.1\WebShop.OrderService.dll
 C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop.OrderService\obj\Debug\netcoreapp1.1\WebShop.OrderService.pdb
+D:\WebShopRepo\WebShop\WebShop.OrderService\bin\Debug\netcoreapp1.1\WebShop.OrderService.deps.json
+D:\WebShopRepo\WebShop\WebShop.OrderService\bin\Debug\netcoreapp1.1\WebShop.OrderService.runtimeconfig.json
+D:\WebShopRepo\WebShop\WebShop.OrderService\bin\Debug\netcoreapp1.1\WebShop.OrderService.runtimeconfig.dev.json
+D:\WebShopRepo\WebShop\WebShop.OrderService\bin\Debug\netcoreapp1.1\WebShop.OrderService.dll
+D:\WebShopRepo\WebShop\WebShop.OrderService\bin\Debug\netcoreapp1.1\WebShop.OrderService.pdb
+D:\WebShopRepo\WebShop\WebShop.OrderService\bin\Debug\netcoreapp1.1\WebShop.Data.dll
+D:\WebShopRepo\WebShop\WebShop.OrderService\bin\Debug\netcoreapp1.1\WebShop.Infrastructure.dll
+D:\WebShopRepo\WebShop\WebShop.OrderService\bin\Debug\netcoreapp1.1\WebShop.Shared.dll
+D:\WebShopRepo\WebShop\WebShop.OrderService\bin\Debug\netcoreapp1.1\WebShop.Infrastructure.pdb
+D:\WebShopRepo\WebShop\WebShop.OrderService\bin\Debug\netcoreapp1.1\WebShop.Data.pdb
+D:\WebShopRepo\WebShop\WebShop.OrderService\bin\Debug\netcoreapp1.1\WebShop.Shared.pdb
+D:\WebShopRepo\WebShop\WebShop.OrderService\obj\Debug\netcoreapp1.1\WebShop.OrderService.csprojResolveAssemblyReference.cache
+D:\WebShopRepo\WebShop\WebShop.OrderService\obj\Debug\netcoreapp1.1\WebShop.OrderService.AssemblyInfo.cs
+D:\WebShopRepo\WebShop\WebShop.OrderService\obj\Debug\netcoreapp1.1\WebShop.OrderService.dll
+D:\WebShopRepo\WebShop\WebShop.OrderService\obj\Debug\netcoreapp1.1\WebShop.OrderService.pdb

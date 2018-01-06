@@ -8126,10 +8126,10 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Adam\\documents\\visual studio 2017\\Projects\\WebShop\\WebShop.Data\\WebShop.Data.csproj",
+      "projectUniqueName": "D:\\WebShopRepo\\WebShop\\WebShop.Data\\WebShop.Data.csproj",
       "projectName": "WebShop.Data",
-      "projectPath": "C:\\Users\\Adam\\documents\\visual studio 2017\\Projects\\WebShop\\WebShop.Data\\WebShop.Data.csproj",
-      "outputPath": "C:\\Users\\Adam\\documents\\visual studio 2017\\Projects\\WebShop\\WebShop.Data\\obj\\",
+      "projectPath": "D:\\WebShopRepo\\WebShop\\WebShop.Data\\WebShop.Data.csproj",
+      "outputPath": "D:\\WebShopRepo\\WebShop\\WebShop.Data\\obj\\",
       "projectStyle": "PackageReference",
       "originalTargetFrameworks": [
         "netcoreapp1.1"

@@ -11198,10 +11198,10 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Adam\\documents\\visual studio 2017\\Projects\\WebShop\\WebShop\\WebShop.csproj",
+      "projectUniqueName": "D:\\WebShopRepo\\WebShop\\WebShop\\WebShop.csproj",
       "projectName": "WebShop",
-      "projectPath": "C:\\Users\\Adam\\documents\\visual studio 2017\\Projects\\WebShop\\WebShop\\WebShop.csproj",
-      "outputPath": "C:\\Users\\Adam\\documents\\visual studio 2017\\Projects\\WebShop\\WebShop\\obj\\",
+      "projectPath": "D:\\WebShopRepo\\WebShop\\WebShop\\WebShop.csproj",
+      "outputPath": "D:\\WebShopRepo\\WebShop\\WebShop\\obj\\",
       "projectStyle": "PackageReference",
       "originalTargetFrameworks": [
         "netcoreapp1.1"
@@ -11209,11 +11209,11 @@
       "frameworks": {
         "netcoreapp1.1": {
           "projectReferences": {
-            "C:\\Users\\Adam\\documents\\visual studio 2017\\Projects\\WebShop\\WebShop.UserService\\WebShop.UserService.csproj": {
-              "projectPath": "C:\\Users\\Adam\\documents\\visual studio 2017\\Projects\\WebShop\\WebShop.UserService\\WebShop.UserService.csproj"
+            "D:\\WebShopRepo\\WebShop\\WebShop.UserService\\WebShop.UserService.csproj": {
+              "projectPath": "D:\\WebShopRepo\\WebShop\\WebShop.UserService\\WebShop.UserService.csproj"
             },
-            "C:\\Users\\Adam\\documents\\visual studio 2017\\Projects\\WebShop\\WebShop.Shared\\WebShop.Shared.csproj": {
-              "projectPath": "C:\\Users\\Adam\\documents\\visual studio 2017\\Projects\\WebShop\\WebShop.Shared\\WebShop.Shared.csproj"
+            "D:\\WebShopRepo\\WebShop\\WebShop.Shared\\WebShop.Shared.csproj": {
+              "projectPath": "D:\\WebShopRepo\\WebShop\\WebShop.Shared\\WebShop.Shared.csproj"
             }
           }
         }
