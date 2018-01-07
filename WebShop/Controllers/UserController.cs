@@ -25,13 +25,6 @@ namespace WebShop.Controllers
             _flurlClient = new FlurlClient(_url);
         }
 
-
-        [HttpGet("index")]
-        public IActionResult Index()
-        {
-            return View("~/Views/Index.cshtml");
-        }
-
         [Authorize]
         [HttpGet("test")]
         public IActionResult Test()
@@ -52,7 +45,7 @@ namespace WebShop.Controllers
                 });
             }
             //return Json(response);
-            return View("~/Views/Index.cshtml", response);
+            return View(response);
         }
 
 

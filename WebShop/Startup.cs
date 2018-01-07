@@ -13,6 +13,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using WebShop.Handlers;
+using System.IO;
 
 namespace WebShop
 {
@@ -70,16 +71,26 @@ namespace WebShop
             {
                 app.UseDeveloperExceptionPage();
             }
+            //app.Use(async (context, next) => {
+            //    await next();
+            //    if (context.Response.StatusCode == 404 &&
+            //       !Path.HasExtension(context.Request.Path.Value) &&
+            //       !context.Request.Path.Value.StartsWith("/api/")) //TODO CHANGE CONDITION
+            //    {
+            //        context.Request.Path = "/index.html"; // TODO CHANGE PATH
+            //        await next();
+            //    }
+            //});
             app.UseMiddleware<ErrorHandlerMiddleware>();
             //app.UseSession();
-            //test
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller}/{action}/{id?}",
-                    defaults: new { controller = "User", action = "Index" });
+                    template: "{controller=Home}/{action=Index}/{id?}");
             });
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
         }
     }
 }
