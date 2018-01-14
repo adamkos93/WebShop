@@ -1,0 +1,43 @@
+// body {
+//   margin: 0px;
+//   padding: 0px;
+//   font-family: "Helvetica Nueue", Helvetica,Arial;
+// }
+
+// #main_container {
+//   margin-left: 0px;
+// }
+
+// #main_container.visible {
+//   margin-left:185px;
+// }
+$sidebar-border-color: transparent;
+$sidebar-bg-color: #2e2f33;
+$sidebar-font-color: #dadada;
+$sidebar-hover-bg-color: #444;
+
+.app {
+	background-color: rgb(237, 238, 240);
+	height: 100vh;
+	display: flex;
+}
+
+.page {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	background-color: #363642;
+}
+
+
+
+
+.hide {
+	font-size: 0;
+	visibility: hidden;
+}
+
+.page-content {
+	color: $sidebar-font-color;
+	padding: 10px 10px 10px 20px;
+}

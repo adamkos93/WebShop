@@ -1,4 +1,9 @@
-<h1>Application says what?</h1>
-<ul>
-   <li *ngFor="let value of apiValues">{{value}}</li>
-</ul>
+<div class="app">
+  <app-category></app-category>
+  <div class="page">
+    <app-navbar></app-navbar>
+    <div class="page-content">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
