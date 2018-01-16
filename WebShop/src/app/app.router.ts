@@ -3,6 +3,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { ModuleWithProviders } from '@angular/core';
+import { ProductComponent } from './index';
+import { ProductListComponent } from './product-list/product-list.component';
+import { RegisterComponent } from './register/register.component';
 
 export const router: Routes = [
   { 
@@ -17,6 +20,21 @@ export const router: Routes = [
   { 
     path:'login',
     component: LoginComponent, 
+    pathMatch: 'full',
+  },
+  { 
+    path:'register',
+    component: RegisterComponent, 
+    pathMatch: 'full',
+  },
+  { 
+    path:'product',
+    component: ProductComponent, 
+    pathMatch: 'full',
+  },
+  { 
+    path:'product-list',
+    component: ProductListComponent, 
     pathMatch: 'full',
   },
 ];

@@ -29,9 +29,6 @@ $sidebar-hover-bg-color: #444;
 	background-color: #363642;
 }
 
-
-
-
 .hide {
 	font-size: 0;
 	visibility: hidden;
@@ -40,4 +37,8 @@ $sidebar-hover-bg-color: #444;
 .page-content {
 	color: $sidebar-font-color;
 	padding: 10px 10px 10px 20px;
+}
+.invalid-control {
+  color:rgb(180, 52, 52);
+  margin-top: 3px;
 }

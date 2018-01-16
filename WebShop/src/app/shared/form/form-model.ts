@@ -14,5 +14,5 @@ export abstract class FormModel {
     return this.form;
   }
 
-  abstract initializeModel(data1: any): FormGroup;
+  abstract initializeModel(data: any): FormGroup;
 }

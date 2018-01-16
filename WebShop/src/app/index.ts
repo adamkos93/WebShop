@@ -4,3 +4,7 @@ export * from './login/login.component';
 export * from './login/login.form-model';
 export * from './app.component';
 export * from './shared';
+export * from './register/register.component';
+export * from './register/register.form-model';
+export * from './product-list/product-list.component';
+export * from './product/product.component';

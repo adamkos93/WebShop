@@ -1,5 +1,6 @@
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
+import { EmailValidator } from '../shared/validators/email.validator';
 import { FormModel } from '../shared/form/form-model';
 import { ILogin } from '../shared/types/login.types';
 import { Injectable } from '@angular/core';
@@ -13,8 +14,8 @@ export class LoginFormModel extends FormModel{
   initializeModel(data: ILogin): FormGroup {
     if(!this.form) {
       this.form = this.fb.group({
-        email: ['', Validators.required],
-        password: ['', Validators.required]
+        email: ['', EmailValidator.valid()],
+        password: ['', Validators.minLength(5)]
       })
     }
     if(data) {

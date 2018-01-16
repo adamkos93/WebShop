@@ -3,21 +3,23 @@
 <div class="row">
   <div class="col-md-4"></div>
   <div class="col-md-4">
-    <h1 class="sign-in">Sign in</h1>
+    <h1 class="sign-in">Zaloguj</h1>
     <form [formGroup]="loginForm">
       <div class="form-group">
         <label for="email">Email</label>
-        <input formControlName="email" type="text" class="form-control" ng-control="email" placeholder="email" required>
+        <input formControlName="email" type="text" class="form-control" placeholder="email">
+        <div class="invalid-control" *ngIf="!loginForm.controls['email'].valid && loginForm.controls['email'].touched">Email jest nieprawidłowy.</div>
       </div>
 
       <div class="form-group">
-        <label for="password">Password</label>
-        <input formControlName="password" type="password" class="form-control" ng-control="password" placeholder="password" required>
+        <label for="password">Hasło</label>
+        <input formControlName="password" type="password" class="form-control" placeholder="hasło">
+        <div class="invalid-control" *ngIf="!loginForm.controls['password'].valid && loginForm.controls['password'].touched">Hasło musi się składać z conajmniej 6 znaków.</div>
       </div>
 
-      <a href="#" class="sign-up">Zarejestruj się</a>
+      <a routerLink="/register" class="sign-up">Zarejestruj się</a>
       <br>
-      <button type="submit" class="btn btn-default login-btn" (click)="save()">Submit</button>
+      <button type="submit" class="btn btn-default login-btn" (click)="submit()">Wyślij</button>
     </form>
   </div>
   <div class="col-md-4"></div>

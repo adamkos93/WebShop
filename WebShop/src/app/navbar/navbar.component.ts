@@ -1,20 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 
+import { AccountService } from './../shared/services/account.service';
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html'
 })
 export class NavbarComponent implements OnInit {
-
-  constructor() { }
+  isLogged = false;
+  constructor(private accoutnService: AccountService) { }
 
 
   ngOnInit() {
-
+    this.accoutnService.isLogged.subscribe(data =>{
+      this.isLogged = data;
+    })
   }
 
-  signIn(event: Event) {
-    event.preventDefault();
-    console.log("123")
+  logout(){
+    // czyszczenie ciastek, sesji, localStorage
+    // czyszczenie po stronie backendu sesji
   }
 }

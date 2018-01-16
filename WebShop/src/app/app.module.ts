@@ -1,4 +1,4 @@
-import { AppComponent, CategoryComponent, LoginComponent, LoginFormModel, NavbarComponent } from './index';
+import { AccountService, AppComponent, CategoryComponent, HttpService, LoaderComponent, LoginComponent, LoginFormModel, NavbarComponent, ProductComponent, ProductListComponent, RegisterComponent, RegisterFormModel } from './index';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { BrowserModule } from '@angular/platform-browser';
@@ -12,7 +12,11 @@ import { routes } from './app.router';
     AppComponent,
     NavbarComponent,
     CategoryComponent,
-    LoginComponent
+    LoginComponent,
+    LoaderComponent,
+    RegisterComponent,
+    ProductComponent,
+    ProductListComponent
   ],
   imports: [
     BrowserModule,
@@ -22,7 +26,7 @@ import { routes } from './app.router';
     NgbModule.forRoot(),
     routes
   ],
-  providers: [LoginFormModel],
+  providers: [LoginFormModel, AccountService, HttpService, RegisterFormModel],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

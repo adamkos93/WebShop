@@ -57,6 +57,11 @@ namespace WebShop.Infrastucture.Services.ServiceUser
 
             user.Password = hash;
             user.Salt = salt;
+
+            if (String.IsNullOrEmpty(user.Role))
+            {
+                user.Role = "user";
+            }
             var newUser = _mapper.Map<UserDto, User>(user);
             await _userRepository.RegisterAsync(newUser);
 

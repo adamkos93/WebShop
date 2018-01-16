@@ -44,17 +44,16 @@ namespace WebShop.Controllers
                     Secure = true
                 });
             }
-            //return Json(response);
-            return View(response);
+            return Json(response);
         }
 
 
         [HttpPost("registerAsync")]
         public async Task<IActionResult> Register([FromBody] UserDto user)
         {
-            var request = await _url.AppendPathSegments("user", "register").PostJsonAsync(user);
+            await _url.AppendPathSegments("user", "register").PostJsonAsync(user);
             //var request = await _flurlClient.BaseUrl.AppendPathSegments("user", "register").WithHeader("charset", "UTF-8").WithHeader("data", "text/html").WithHeader("Content-Type", "application/json").PostJsonAsync(new { Login = user.Login, Email = user.Email, Password = user.Password, Role = user.Role });
-            return Json(request);
+            return Json("OK");
         }
     }
 }

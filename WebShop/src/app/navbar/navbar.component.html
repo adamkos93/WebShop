@@ -3,9 +3,13 @@
     <a href="#" class="top-nav-item">Page Link</a>
     <a href="#" class="top-nav-item">Page Link</a>
     <a href="#" class="top-nav-item">Page Link</a>
-    <a href="#" class="top-nav-item item-right" routerLink="/login">
+    <a *ngIf="isLogged" class="top-nav-item item-right" (click)="logout()">
+      <i class="fa fa-user" aria-hidden="true"></i>
+      <span class="sidebar-item-title">Wyloguj</span>
+    </a>
+    <a *ngIf="!isLogged" href="#" class="top-nav-item item-right" routerLink="/login">
         <i class="fa fa-user" aria-hidden="true"></i>
-        <span class="sidebar-item-title">Account</span>
+        <span class="sidebar-item-title">Zaloguj</span>
     </a>
     <a href="#" class="top-nav-item item-right">
         <i class="fa fa-shopping-basket" aria-hidden="true"></i>
