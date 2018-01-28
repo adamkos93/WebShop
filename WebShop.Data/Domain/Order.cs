@@ -18,6 +18,8 @@ namespace WebShop.Data.Domain
 
         public string PostCode { get; set; }
 
+        public string Status { get; set; }
+
         public int? StreetNumber { get; set; }
 
         public int FlatNumber { get; set; }

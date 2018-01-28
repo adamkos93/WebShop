@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-category',
@@ -6,11 +6,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CategoryComponent implements OnInit {
 
+  @ViewChild('burger') burger;
+  @ViewChild('sidebar') sidebar;
+
+  isOpen = true;
   constructor() { }
 
-
   ngOnInit() {
-
   }
   
+  toggleMenu() {
+    this.isOpen = !this.isOpen;
+  }
 }

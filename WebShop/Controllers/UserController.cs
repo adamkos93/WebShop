@@ -25,7 +25,7 @@ namespace WebShop.Controllers
             _flurlClient = new FlurlClient(_url);
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpGet("test")]
         public IActionResult Test()
         {

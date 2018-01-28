@@ -8,9 +8,10 @@ using WebShop.Data;
 namespace WebShop.Data.Migrations
 {
     [DbContext(typeof(StoreWebDbContext))]
-    partial class StoreWebDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180122222642_changeTypeOfImageInProductTable")]
+    partial class changeTypeOfImageInProductTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")

@@ -14,6 +14,8 @@ namespace WebShop.Infrastucture.Services.ServiceProduct
 
         Task<IEnumerable<ProductDto>> GetAllAsync();
 
+        Task<IEnumerable<ProductDto>> GetAllByCategoryAsync(int categoryId);
+
         Task<IEnumerable<ProductDto>> BrowseAsync(string name = "");
 
         Task AddAsync(ProductDto product);

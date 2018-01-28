@@ -28,6 +28,9 @@ namespace WebShop.Infrastucture.Repositories
         public async Task<IEnumerable<Product>> GetAllAsync()
             => await _storeWebDbContext.Product.ToListAsync();
 
+        public async Task<IEnumerable<Product>> GetAllByCategoryAsync(int categoryId)
+            => await _storeWebDbContext.Product.Where(x=>x.CategoryId==categoryId).ToListAsync();
+
         public async Task<IEnumerable<Product>> BrowseAsync(string name = "")
         {
             var products = _storeWebDbContext.Product.AsEnumerable();

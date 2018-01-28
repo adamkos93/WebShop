@@ -15,6 +15,8 @@ namespace WebShop.Data.Repositories
 
         Task<IEnumerable<Product>> GetAllAsync();
 
+        Task<IEnumerable<Product>> GetAllByCategoryAsync(int categoryId);
+
         Task<IEnumerable<Product>> BrowseAsync(string name = "");
 
         Task AddAsync(Product product);

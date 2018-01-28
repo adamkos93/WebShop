@@ -38,6 +38,14 @@ namespace WebShop.Infrastucture.Services.ServiceProduct
             return _mapper.Map<IEnumerable<Product>, IEnumerable<ProductDto>>(products);
         }
 
+        public async Task<IEnumerable<ProductDto>> GetAllByCategoryAsync(int categoryId)
+        {
+            if (categoryId <= 0 ) { throw new ArgumentNullException(nameof(categoryId)); }
+            var products = await _productRepository.GetAllByCategoryAsync(categoryId);
+            if (products == null) { throw new NullReferenceException(nameof(products)); }
+            return _mapper.Map<IEnumerable<Product>, IEnumerable<ProductDto>>(products);
+        }
+
         public async Task<IEnumerable<ProductDto>> BrowseAsync(string name = "")
         {
             if (name == null) { throw new ArgumentNullException(nameof(name)); }
@@ -52,8 +60,10 @@ namespace WebShop.Infrastucture.Services.ServiceProduct
             var domainProduct = _mapper.Map<ProductDto, Product>(product);
             await _productRepository.AddAsync(domainProduct);
         }
+
         public async Task UpdateAsync(ProductDto product)
         {
+            //TODO: DO POPRAWKI
             if (product == null) { throw new ArgumentNullException(nameof(product)); }
             var domainProduct = _mapper.Map<ProductDto, Product>(product);
             await _productRepository.UpdateAsync(domainProduct);
@@ -61,6 +71,7 @@ namespace WebShop.Infrastucture.Services.ServiceProduct
 
         public async Task DeleteAsync(int id)
         {
+            //TODO: DO POPRAWKI
             if (id < 0) { throw new ArgumentException(nameof(id)); }
             await _productRepository.DeleteAsync(id);
         }

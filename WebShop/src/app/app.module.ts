@@ -1,4 +1,4 @@
-import { AccountService, AppComponent, CategoryComponent, HttpService, LoaderComponent, LoginComponent, LoginFormModel, NavbarComponent, ProductComponent, ProductListComponent, RegisterComponent, RegisterFormModel } from './index';
+import { AccountService, AddProductComponent, AddProductFormModel, AppComponent, CategoryComponent, HttpService, LoaderComponent, LoaderService, LoginComponent, LoginFormModel, NavbarComponent, ProductComponent, ProductListComponent, ProductService, RegisterComponent, RegisterFormModel } from './index';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { BrowserModule } from '@angular/platform-browser';
@@ -16,7 +16,8 @@ import { routes } from './app.router';
     LoaderComponent,
     RegisterComponent,
     ProductComponent,
-    ProductListComponent
+    ProductListComponent,
+    AddProductComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +27,7 @@ import { routes } from './app.router';
     NgbModule.forRoot(),
     routes
   ],
-  providers: [LoginFormModel, AccountService, HttpService, RegisterFormModel],
+  providers: [LoginFormModel, AccountService, HttpService, RegisterFormModel,AddProductFormModel,ProductService, LoaderService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

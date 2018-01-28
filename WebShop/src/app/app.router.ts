@@ -1,5 +1,6 @@
 import { RouterModule, Routes } from '@angular/router';
 
+import { AddProductComponent } from './add-product/add-product.component';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { ModuleWithProviders } from '@angular/core';
@@ -35,6 +36,11 @@ export const router: Routes = [
   { 
     path:'product-list',
     component: ProductListComponent, 
+    pathMatch: 'full',
+  },
+  { 
+    path:'add-product',
+    component: AddProductComponent, 
     pathMatch: 'full',
   },
 ];

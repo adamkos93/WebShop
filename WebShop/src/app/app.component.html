@@ -3,7 +3,7 @@
   <div class="page">
     <app-navbar></app-navbar>
     <div class="page-content">
-      <div *ngIf="!isLoaderVisible">
+      <div [hidden]="isLoaderVisible"> <!--TODO: UPEWNIC SIE CZY TO DOBRE ROZWIAZANIE!-->
         <router-outlet></router-outlet>
       </div>
       <app-loader *ngIf="isLoaderVisible"></app-loader>

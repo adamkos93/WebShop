@@ -32,6 +32,20 @@ namespace WebShop.ProductService.Controllers
             return Json(result);
         }
 
+        [HttpGet("getAll")]
+        public async Task<IActionResult> GetAllProducts()
+        {
+            var result = await _productService.GetAllAsync();
+            return Json(result);
+        }
+
+        [HttpGet("getAllByCategory")]
+        public async Task<IActionResult> GetAllProductByCategory(int categoryId)
+        {
+            var result = await _productService.GetAllByCategoryAsync(categoryId);
+            return Json(result);
+        }
+
         // POST api/values
         [HttpPost("addProduct")]
         public async Task<IActionResult> AddProduct([FromBody]ProductDto product)

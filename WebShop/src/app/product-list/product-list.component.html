@@ -1,0 +1,13 @@
+<div class="list-group">
+  <div class="row">
+    <div *ngFor="let product of products" class="col-md-3 product-item">
+      <a class="product-link" routerLink="/">
+        <div class="image-wrapper">
+            <img [src]="product.image" class="product-image">
+        </div>
+        <h4 class="product-name">{{product.name}}</h4>
+        <h5 class="product-price">{{product.price}}</h5>
+    </a>
+    </div>
+  </div>
+</div>

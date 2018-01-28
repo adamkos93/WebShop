@@ -19,7 +19,8 @@ $sidebar-hover-bg-color: #444;
 .app {
 	background-color: rgb(237, 238, 240);
 	height: 100vh;
-	display: flex;
+  display: flex;
+  z-index:1;
 }
 
 .page {
@@ -36,9 +37,13 @@ $sidebar-hover-bg-color: #444;
 
 .page-content {
 	color: $sidebar-font-color;
-	padding: 10px 10px 10px 20px;
+	padding: 10px 20px 10px 20px;
 }
 .invalid-control {
   color:rgb(180, 52, 52);
   margin-top: 3px;
+}
+.submit-btn {
+  margin-top: 10px !important;
+  cursor: pointer;
 }

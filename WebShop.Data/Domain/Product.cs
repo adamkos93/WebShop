@@ -16,6 +16,10 @@ namespace WebShop.Data.Domain
 
         public double Price { get; set; }
 
+        public string Image { get; set; }
+
+        public string Description { get; set; }
+
         public List<OrderProduct> OrderProducts { get; set; }
     }
 }

@@ -1,0 +1,40 @@
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+      <h1 class="sign-in">Dodaj produkt</h1>
+      <form [formGroup]="addProductForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="category">Wybierz kategorie:</label>
+            <select class="form-control" formControlName="categoryId"  *ngIf="categories.length > 1">
+                <option value="" selected>Wybierz</option>
+                <option *ngFor="let option of categories" [value]="option.key">{{option.value}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+          <label for="name">Nazwa</label>
+          <input formControlName="name" type="text" class="form-control" placeholder="nazwa">
+          <div class="invalid-control" *ngIf="!addProductForm.controls['name'].valid && addProductForm.controls['name'].touched">Nazwa jest nieprawidłowy.</div>
+        </div>
+
+        <div class="form-group">
+          <label for="price">Cena</label>
+          <input formControlName="price" type="text" class="form-control" placeholder="cena">
+          <div class="invalid-control" *ngIf="!addProductForm.controls['price'].valid && addProductForm.controls['price'].touched">Cena jest nieprawidłowa.</div>
+        </div>
+
+        <div class="form-group">
+            <label for="image">Dodaj zdjęcie</label>
+            <input id="image" type="file" class="form-control" accept=".png, .jpg, .jpeg" (change)="onFileChange($event)" #imageInput>
+            <div class="invalid-control" *ngIf="!addProductForm.controls['image'].valid && addProductForm.controls['image'].touched">Obraz jest nieprawidłowy.</div>
+        </div>
+        <!-- <img *ngIf="image" [src]="image" style="height:200px; width:200px;"> -->
+        <div class="form-group">
+            <label for="description">Opis</label>
+            <textarea formControlName="description" class="form-control" rows="4" id="description"></textarea>
+       </div>
+
+      <button type="submit" [disabled]="addProductForm.invalid" class="btn btn-default submit-btn">Wyślij</button>
+      </form>
+    </div>
+    <div class="col-md-4"></div>
+  </div>

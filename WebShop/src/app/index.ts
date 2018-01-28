@@ -8,3 +8,5 @@ export * from './register/register.component';
 export * from './register/register.form-model';
 export * from './product-list/product-list.component';
 export * from './product/product.component';
+export * from './add-product/add-product.component';
+export * from './add-product/add-product.form-model';

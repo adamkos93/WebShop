@@ -1,0 +1,35 @@
+.product-item {
+  background-color: rgb(105, 102, 102);
+  border: 5px solid #363642;
+}
+.product-image {
+  max-width: 170px;
+  max-height: 132px;
+  position: absolute;
+  margin: auto;
+  top: 10px;
+  left: 0;
+  right: 0;
+}
+.image-wrapper {
+  display: block;
+    height: 132px;
+    line-height: 132px;
+    width: 170px;
+    text-align: center;
+    background: rgb(105, 102, 102);
+}
+.product-name {
+  margin-top: 10px;
+}
+.product-price, .product-name {
+  text-align: center;
+  color: #fff !important;
+}
+
+a.product-link {
+  text-decoration: none !important;
+  :hover {
+    text-decoration: none !important;
+  }
+}

@@ -18,11 +18,14 @@ namespace WebShop.Infrastucture.DTO
 
         public string PostCode { get; set; }
 
+        public string Status { get; set; }
+
         public int? StreetNumber { get; set; }
 
         public int FlatNumber { get; set; }
 
         public int UserId { get; set; }
+
 
         public List<int> ProductIds { get; set; }
 

@@ -31,12 +31,11 @@ export class LoginComponent implements OnInit {
       const model = <ILogin> this.loginForm.value;
       this.accountService.login(model).subscribe(data =>{
         if(data) {
-          const response = data.json();
-          if(response['token']) {
-            localStorage.setItem('token', response['token']);
+          if(data.token) {
+            localStorage.setItem('token', data.token);
           }
-          if(response['role']) {
-            localStorage.setItem('role', response['role']);
+          if(data.role) {
+            localStorage.setItem('role', data.role);
           }
           this.setLogged(true);
           this.router.navigateByUrl('product-list');

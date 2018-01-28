@@ -17,10 +17,167 @@ webpackEmptyAsyncContext.id = "../../../../../src/$$_lazy_route_resource lazy re
 
 /***/ }),
 
+/***/ "../../../../../src/app/add-product/add-product.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"row\">\r\n    <div class=\"col-md-4\"></div>\r\n    <div class=\"col-md-4\">\r\n      <h1 class=\"sign-in\">Dodaj produkt</h1>\r\n      <form [formGroup]=\"addProductForm\" (ngSubmit)=\"onSubmit()\">\r\n        <div class=\"form-group\">\r\n            <label for=\"category\">Wybierz kategorie:</label>\r\n            <select class=\"form-control\" formControlName=\"categoryId\"  *ngIf=\"categories.length > 1\">\r\n                <option value=\"\" selected>Wybierz</option>\r\n                <option *ngFor=\"let option of categories\" [value]=\"option.key\">{{option.value}}</option>\r\n            </select>\r\n        </div>\r\n        <div class=\"form-group\">\r\n          <label for=\"name\">Nazwa</label>\r\n          <input formControlName=\"name\" type=\"text\" class=\"form-control\" placeholder=\"nazwa\">\r\n          <div class=\"invalid-control\" *ngIf=\"!addProductForm.controls['name'].valid && addProductForm.controls['name'].touched\">Nazwa jest nieprawidłowy.</div>\r\n        </div>\r\n\r\n        <div class=\"form-group\">\r\n          <label for=\"price\">Cena</label>\r\n          <input formControlName=\"price\" type=\"text\" class=\"form-control\" placeholder=\"cena\">\r\n          <div class=\"invalid-control\" *ngIf=\"!addProductForm.controls['price'].valid && addProductForm.controls['price'].touched\">Cena jest nieprawidłowa.</div>\r\n        </div>\r\n\r\n        <div class=\"form-group\">\r\n            <label for=\"image\">Dodaj zdjęcie</label>\r\n            <input id=\"image\" type=\"file\" class=\"form-control\" accept=\".png, .jpg, .jpeg\" (change)=\"onFileChange($event)\" #imageInput>\r\n            <div class=\"invalid-control\" *ngIf=\"!addProductForm.controls['image'].valid && addProductForm.controls['image'].touched\">Obraz jest nieprawidłowy.</div>\r\n        </div>\r\n        <!-- <img *ngIf=\"image\" [src]=\"image\" style=\"height:200px; width:200px;\"> -->\r\n        <div class=\"form-group\">\r\n            <label for=\"description\">Opis</label>\r\n            <textarea formControlName=\"description\" class=\"form-control\" rows=\"4\" id=\"description\"></textarea>\r\n       </div>\r\n\r\n      <button type=\"submit\" [disabled]=\"addProductForm.invalid\" class=\"btn btn-default submit-btn\">Wyślij</button>\r\n      </form>\r\n    </div>\r\n    <div class=\"col-md-4\"></div>\r\n  </div>\r\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/add-product/add-product.component.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("../../../core/esm5/core.js");
+var add_product_form_model_1 = __webpack_require__("../../../../../src/app/add-product/add-product.form-model.ts");
+var product_service_1 = __webpack_require__("../../../../../src/app/shared/services/product.service.ts");
+var router_1 = __webpack_require__("../../../router/esm5/router.js");
+var AddProductComponent = (function () {
+    function AddProductComponent(addProductFormModel, router, productService) {
+        this.addProductFormModel = addProductFormModel;
+        this.router = router;
+        this.productService = productService;
+        this.image = '';
+        this.categories = [];
+    }
+    Object.defineProperty(AddProductComponent.prototype, "addProductForm", {
+        get: function () {
+            return this.addProductFormModel.model;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    AddProductComponent.prototype.ngOnInit = function () {
+        this.initializeFormModel(null);
+        this.categories = [
+            { key: '1', value: 'Sport' },
+            { key: '2', value: 'Dom' }
+        ];
+    };
+    AddProductComponent.prototype.initializeFormModel = function (data) {
+        this.addProductFormModel.initializeModel(data);
+    };
+    AddProductComponent.prototype.onFileChange = function (event) {
+        var _this = this;
+        if (event.target.files.length > 0) {
+            var file = event.target.files[0];
+            var myReader_1 = new FileReader();
+            myReader_1.onloadend = function (e) {
+                _this.image = myReader_1.result;
+                console.log(_this.image);
+            };
+            myReader_1.readAsDataURL(file);
+        }
+    };
+    AddProductComponent.prototype.onSubmit = function () {
+        var _this = this;
+        if (this.image) {
+            this.addProductForm.get('image').setValue(this.image);
+        }
+        var price = this.addProductForm.get('price').value;
+        if (price) {
+            this.addProductForm.get('price').setValue(price.replace(',', '.')); //todo: dodanie walidacji 
+        }
+        if (this.addProductForm.valid) {
+            var model = this.addProductForm.value;
+            this.productService.addProduct(model).subscribe(function (data) {
+                _this.router.navigateByUrl('product-list');
+            });
+        }
+        else {
+            this.router.navigateByUrl('add-product');
+        }
+    };
+    AddProductComponent = __decorate([
+        core_1.Component({
+            selector: 'app-add-product',
+            template: __webpack_require__("../../../../../src/app/add-product/add-product.component.html")
+        }),
+        __metadata("design:paramtypes", [add_product_form_model_1.AddProductFormModel, router_1.Router, product_service_1.ProductService])
+    ], AddProductComponent);
+    return AddProductComponent;
+}());
+exports.AddProductComponent = AddProductComponent;
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/add-product/add-product.form-model.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var forms_1 = __webpack_require__("../../../forms/esm5/forms.js");
+var form_model_1 = __webpack_require__("../../../../../src/app/shared/form/form-model.ts");
+var core_1 = __webpack_require__("../../../core/esm5/core.js");
+var AddProductFormModel = (function (_super) {
+    __extends(AddProductFormModel, _super);
+    function AddProductFormModel(fb) {
+        var _this = _super.call(this) || this;
+        _this.fb = fb;
+        return _this;
+    }
+    AddProductFormModel.prototype.initializeModel = function (data) {
+        if (!this.form) {
+            this.form = this.fb.group({
+                name: ['', forms_1.Validators.required],
+                price: ['', forms_1.Validators.required],
+                categoryId: [null, forms_1.Validators.required],
+                image: null,
+                description: ['', forms_1.Validators.required]
+            });
+        }
+        if (data) {
+            this.form.patchValue(data, { emitEvent: false }); //do sprawdzenia!
+        }
+        return this.form;
+    };
+    AddProductFormModel = __decorate([
+        core_1.Injectable(),
+        __metadata("design:paramtypes", [forms_1.FormBuilder])
+    ], AddProductFormModel);
+    return AddProductFormModel;
+}(form_model_1.FormModel));
+exports.AddProductFormModel = AddProductFormModel;
+
+
+/***/ }),
+
 /***/ "../../../../../src/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"app\">\n  <app-category></app-category>\n  <div class=\"page\">\n    <app-navbar></app-navbar>\n    <div class=\"page-content\">\n      <div *ngIf=\"!isLoaderVisible\">\n        <router-outlet></router-outlet>\n      </div>\n      <app-loader *ngIf=\"isLoaderVisible\"></app-loader>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"app\">\n  <app-category></app-category>\n  <div class=\"page\">\n    <app-navbar></app-navbar>\n    <div class=\"page-content\">\n      <div [hidden]=\"isLoaderVisible\"> <!--TODO: UPEWNIC SIE CZY TO DOBRE ROZWIAZANIE!-->\n        <router-outlet></router-outlet>\n      </div>\n      <app-loader *ngIf=\"isLoaderVisible\"></app-loader>\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -46,12 +203,18 @@ var AppComponent = (function () {
         this.httpService = httpService;
         this.apiValues = [];
         this.isLoaderVisible = false;
+        this.isRouterOutletVisible = true;
     }
     AppComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.httpService.isLoading.subscribe(function (value) {
-            _this.isLoaderVisible = value;
+        this.loaderSubscription = this.httpService.isLoading.subscribe(function (value) {
+            setTimeout(function () {
+                _this.isLoaderVisible = value;
+            }, 0);
         });
+    };
+    AppComponent.prototype.ngOnDestroy = function () {
+        this.loaderSubscription.unsubscribe();
     };
     AppComponent = __decorate([
         core_1.Component({
@@ -99,7 +262,8 @@ var AppModule = (function () {
                 index_1.LoaderComponent,
                 index_1.RegisterComponent,
                 index_1.ProductComponent,
-                index_1.ProductListComponent
+                index_1.ProductListComponent,
+                index_1.AddProductComponent
             ],
             imports: [
                 platform_browser_1.BrowserModule,
@@ -109,7 +273,7 @@ var AppModule = (function () {
                 ng_bootstrap_1.NgbModule.forRoot(),
                 app_router_1.routes
             ],
-            providers: [index_1.LoginFormModel, index_1.AccountService, index_1.HttpService, index_1.RegisterFormModel],
+            providers: [index_1.LoginFormModel, index_1.AccountService, index_1.HttpService, index_1.RegisterFormModel, index_1.AddProductFormModel, index_1.ProductService, index_1.LoaderService],
             bootstrap: [index_1.AppComponent]
         })
     ], AppModule);
@@ -127,6 +291,7 @@ exports.AppModule = AppModule;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var router_1 = __webpack_require__("../../../router/esm5/router.js");
+var add_product_component_1 = __webpack_require__("../../../../../src/app/add-product/add-product.component.ts");
 var login_component_1 = __webpack_require__("../../../../../src/app/login/login.component.ts");
 var index_1 = __webpack_require__("../../../../../src/app/index.ts");
 var product_list_component_1 = __webpack_require__("../../../../../src/app/product-list/product-list.component.ts");
@@ -161,6 +326,11 @@ exports.router = [
         component: product_list_component_1.ProductListComponent,
         pathMatch: 'full',
     },
+    {
+        path: 'add-product',
+        component: add_product_component_1.AddProductComponent,
+        pathMatch: 'full',
+    },
 ];
 exports.routes = router_1.RouterModule.forRoot(exports.router);
 
@@ -170,7 +340,7 @@ exports.routes = router_1.RouterModule.forRoot(exports.router);
 /***/ "../../../../../src/app/category/category.compoent.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"sidebar expanded\">\r\n    <div class=\"sidebar-item no-hover\" id=\"burger\">\r\n      <i class=\"fa fa-bars hand\" aria-hidden=\"true\"></i>\r\n      <span class=\"sidebar-item-title\">Astuce Media</span>\r\n    </div>\r\n    <div class=\"sidebar-item active\">\r\n      <a href=\"#\">\r\n        <i class=\"fa fa-database\" aria-hidden=\"true\"></i>\r\n        <span class=\"sidebar-item-title\">Data Management</span>\r\n      </a>\r\n    </div>\r\n    <div class=\"sidebar-item\">\r\n      <a href=\"#\">\r\n        <i class=\"fa fa-map-o\" aria-hidden=\"true\"></i>\r\n        <span class=\"sidebar-item-title\">Location</span>\r\n      </a>\r\n    </div>\r\n    <div class=\"sidebar-item\">\r\n      <a href=\"#\">\r\n        <i class=\"fa fa-link\" aria-hidden=\"true\"></i>\r\n        <span class=\"sidebar-item-title\">Dynamic Links</span>\r\n      </a>\r\n    </div>\r\n    <div class=\"sidebar-item\">\r\n      <a href=\"#\">\r\n        <i class=\"fa fa-code\" aria-hidden=\"true\"></i>\r\n        <span class=\"sidebar-item-title\">Custom Scripting</span>\r\n      </a>\r\n    </div>\r\n    <div class=\"sidebar-item\">\r\n      <a href=\"#\">\r\n        <i class=\"fa fa-picture-o\" aria-hidden=\"true\"></i>\r\n        <span class=\"sidebar-item-title\">Asset Management</span>\r\n      </a>\r\n    </div>\r\n</div>\r\n"
+module.exports = "<div class=\"sidebar\" [ngClass]=\"{'expanded': isOpen }\" #sidebar>\r\n    <div class=\"sidebar-item no-hover\" #burger (click)=\"toggleMenu()\">\r\n      <i class=\"fa fa-bars hand\" aria-hidden=\"true\"></i>\r\n      <span class=\"sidebar-item-title\" [ngClass]=\"{'hide': !isOpen }\">Kategorie</span>\r\n    </div>\r\n    <div class=\"sidebar-item active\">\r\n      <a href=\"#\">\r\n        <i class=\"fa fa-database\" aria-hidden=\"true\"></i>\r\n        <span class=\"sidebar-item-title\" [ngClass]=\"{'hide': !isOpen }\">Data Management</span>\r\n      </a>\r\n    </div>\r\n    <div class=\"sidebar-item\">\r\n      <a href=\"#\">\r\n        <i class=\"fa fa-map-o\" aria-hidden=\"true\"></i>\r\n        <span class=\"sidebar-item-title\" [ngClass]=\"{'hide': !isOpen }\">Location</span>\r\n      </a>\r\n    </div>\r\n    <div class=\"sidebar-item\">\r\n      <a href=\"#\">\r\n        <i class=\"fa fa-link\" aria-hidden=\"true\"></i>\r\n        <span class=\"sidebar-item-title\" [ngClass]=\"{'hide': !isOpen }\">Dynamic Links</span>\r\n      </a>\r\n    </div>\r\n    <div class=\"sidebar-item\">\r\n      <a href=\"#\">\r\n        <i class=\"fa fa-code\" aria-hidden=\"true\"></i>\r\n        <span class=\"sidebar-item-title\" [ngClass]=\"{'hide': !isOpen }\">Custom Scripting</span>\r\n      </a>\r\n    </div>\r\n    <div class=\"sidebar-item\">\r\n      <a href=\"#\">\r\n        <i class=\"fa fa-picture-o\" aria-hidden=\"true\"></i>\r\n        <span class=\"sidebar-item-title\" [ngClass]=\"{'hide': !isOpen }\">Asset Management</span>\r\n      </a>\r\n    </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -192,9 +362,21 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__("../../../core/esm5/core.js");
 var CategoryComponent = (function () {
     function CategoryComponent() {
+        this.isOpen = true;
     }
     CategoryComponent.prototype.ngOnInit = function () {
     };
+    CategoryComponent.prototype.toggleMenu = function () {
+        this.isOpen = !this.isOpen;
+    };
+    __decorate([
+        core_1.ViewChild('burger'),
+        __metadata("design:type", Object)
+    ], CategoryComponent.prototype, "burger", void 0);
+    __decorate([
+        core_1.ViewChild('sidebar'),
+        __metadata("design:type", Object)
+    ], CategoryComponent.prototype, "sidebar", void 0);
     CategoryComponent = __decorate([
         core_1.Component({
             selector: 'app-category',
@@ -228,6 +410,8 @@ __export(__webpack_require__("../../../../../src/app/register/register.component
 __export(__webpack_require__("../../../../../src/app/register/register.form-model.ts"));
 __export(__webpack_require__("../../../../../src/app/product-list/product-list.component.ts"));
 __export(__webpack_require__("../../../../../src/app/product/product.component.ts"));
+__export(__webpack_require__("../../../../../src/app/add-product/add-product.component.ts"));
+__export(__webpack_require__("../../../../../src/app/add-product/add-product.form-model.ts"));
 
 
 /***/ }),
@@ -235,7 +419,7 @@ __export(__webpack_require__("../../../../../src/app/product/product.component.t
 /***/ "../../../../../src/app/login/login.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\r\n\r\n<div class=\"row\">\r\n  <div class=\"col-md-4\"></div>\r\n  <div class=\"col-md-4\">\r\n    <h1 class=\"sign-in\">Zaloguj</h1>\r\n    <form [formGroup]=\"loginForm\">\r\n      <div class=\"form-group\">\r\n        <label for=\"email\">Email</label>\r\n        <input formControlName=\"email\" type=\"text\" class=\"form-control\" placeholder=\"email\">\r\n        <div class=\"invalid-control\" *ngIf=\"!loginForm.controls['email'].valid && loginForm.controls['email'].touched\">Email jest nieprawidłowy.</div>\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n        <label for=\"password\">Hasło</label>\r\n        <input formControlName=\"password\" type=\"password\" class=\"form-control\" placeholder=\"hasło\">\r\n        <div class=\"invalid-control\" *ngIf=\"!loginForm.controls['password'].valid && loginForm.controls['password'].touched\">Hasło musi się składać z conajmniej 6 znaków.</div>\r\n      </div>\r\n\r\n      <a routerLink=\"/register\" class=\"sign-up\">Zarejestruj się</a>\r\n      <br>\r\n      <button type=\"submit\" class=\"btn btn-default login-btn\" (click)=\"submit()\">Wyślij</button>\r\n    </form>\r\n  </div>\r\n  <div class=\"col-md-4\"></div>\r\n</div>\r\n"
+module.exports = "\r\n\r\n<div class=\"row\">\r\n  <div class=\"col-md-4\"></div>\r\n  <div class=\"col-md-4\">\r\n    <h1 class=\"sign-in\">Zaloguj</h1>\r\n    <form [formGroup]=\"loginForm\">\r\n      <div class=\"form-group\">\r\n        <label for=\"email\">Email</label>\r\n        <input formControlName=\"email\" type=\"text\" class=\"form-control\" placeholder=\"email\">\r\n        <div class=\"invalid-control\" *ngIf=\"!loginForm.controls['email'].valid && loginForm.controls['email'].touched\">Email jest nieprawidłowy.</div>\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n        <label for=\"password\">Hasło</label>\r\n        <input formControlName=\"password\" type=\"password\" class=\"form-control\" placeholder=\"hasło\">\r\n        <div class=\"invalid-control\" *ngIf=\"!loginForm.controls['password'].valid && loginForm.controls['password'].touched\">Hasło musi się składać z conajmniej 6 znaków.</div>\r\n      </div>\r\n\r\n      <a routerLink=\"/register\" class=\"sign-up\">Zarejestruj się</a>\r\n      <br>\r\n      <button type=\"button\" class=\"btn btn-default login-btn\" (click)=\"submit()\">Wyślij</button>\r\n    </form>\r\n  </div>\r\n  <div class=\"col-md-4\"></div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -283,12 +467,11 @@ var LoginComponent = (function () {
             var model = this.loginForm.value;
             this.accountService.login(model).subscribe(function (data) {
                 if (data) {
-                    var response = data.json();
-                    if (response['token']) {
-                        localStorage.setItem('token', response['token']);
+                    if (data.token) {
+                        localStorage.setItem('token', data.token);
                     }
-                    if (response['role']) {
-                        localStorage.setItem('role', response['role']);
+                    if (data.role) {
+                        localStorage.setItem('role', data.role);
                     }
                     _this.setLogged(true);
                     _this.router.navigateByUrl('product-list');
@@ -378,7 +561,7 @@ exports.LoginFormModel = LoginFormModel;
 /***/ "../../../../../src/app/navbar/navbar.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"top-nav\">\r\n    <a href=\"#\" class=\"top-nav-item no-hover\">Page Title</a>\r\n    <a href=\"#\" class=\"top-nav-item\">Page Link</a>\r\n    <a href=\"#\" class=\"top-nav-item\">Page Link</a>\r\n    <a href=\"#\" class=\"top-nav-item\">Page Link</a>\r\n    <a *ngIf=\"isLogged\" class=\"top-nav-item item-right\" (click)=\"logout()\">\r\n      <i class=\"fa fa-user\" aria-hidden=\"true\"></i>\r\n      <span class=\"sidebar-item-title\">Wyloguj</span>\r\n    </a>\r\n    <a *ngIf=\"!isLogged\" href=\"#\" class=\"top-nav-item item-right\" routerLink=\"/login\">\r\n        <i class=\"fa fa-user\" aria-hidden=\"true\"></i>\r\n        <span class=\"sidebar-item-title\">Zaloguj</span>\r\n    </a>\r\n    <a href=\"#\" class=\"top-nav-item item-right\">\r\n        <i class=\"fa fa-shopping-basket\" aria-hidden=\"true\"></i>\r\n    </a>\r\n</div>\r\n\r\n"
+module.exports = "<div class=\"top-nav\">\r\n    <a href=\"#\" class=\"top-nav-item no-hover\">Moje zamówienia</a>\r\n    <a routerLink=\"/product-list\" class=\"top-nav-item\">Lista produktów</a>\r\n    <a routerLink=\"/add-product\" class=\"top-nav-item\">Dodaj produkt</a>\r\n    <a href=\"#\" class=\"top-nav-item\">Dodaj kategorie</a>\r\n    <a *ngIf=\"isLogged\" class=\"top-nav-item item-right\" (click)=\"logout()\">\r\n      <i class=\"fa fa-user\" aria-hidden=\"true\"></i>\r\n      <span class=\"sidebar-item-title\">Wyloguj</span>\r\n    </a>\r\n    <a *ngIf=\"!isLogged\" href=\"#\" class=\"top-nav-item item-right\" routerLink=\"/login\">\r\n        <i class=\"fa fa-user\" aria-hidden=\"true\"></i>\r\n        <span class=\"sidebar-item-title\">Zaloguj</span>\r\n    </a>\r\n    <a href=\"#\" class=\"top-nav-item item-right\">\r\n        <i class=\"fa fa-shopping-basket\" aria-hidden=\"true\"></i>\r\n    </a>\r\n</div>\r\n\r\n"
 
 /***/ }),
 
@@ -399,16 +582,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__("../../../core/esm5/core.js");
 var account_service_1 = __webpack_require__("../../../../../src/app/shared/services/account.service.ts");
+var router_1 = __webpack_require__("../../../router/esm5/router.js");
 var NavbarComponent = (function () {
-    function NavbarComponent(accoutnService) {
+    function NavbarComponent(accoutnService, router) {
         this.accoutnService = accoutnService;
+        this.router = router;
         this.isLogged = false;
     }
     NavbarComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.accoutnService.isLogged.subscribe(function (data) {
+        this.isLoggedSubscription = this.accoutnService.isLogged.subscribe(function (data) {
             _this.isLogged = data;
         });
+    };
+    NavbarComponent.prototype.ngOnDestroy = function () {
+        this.isLoggedSubscription.unsubscribe();
+    };
+    NavbarComponent.prototype.addProduct = function (event) {
+        event.preventDefault();
+        this.router.navigateByUrl('add-product');
     };
     NavbarComponent.prototype.logout = function () {
         // czyszczenie ciastek, sesji, localStorage
@@ -419,7 +611,7 @@ var NavbarComponent = (function () {
             selector: 'app-navbar',
             template: __webpack_require__("../../../../../src/app/navbar/navbar.component.html")
         }),
-        __metadata("design:paramtypes", [account_service_1.AccountService])
+        __metadata("design:paramtypes", [account_service_1.AccountService, router_1.Router])
     ], NavbarComponent);
     return NavbarComponent;
 }());
@@ -431,7 +623,7 @@ exports.NavbarComponent = NavbarComponent;
 /***/ "../../../../../src/app/product-list/product-list.component.html":
 /***/ (function(module, exports) {
 
-module.exports = ""
+module.exports = "<div class=\"list-group\">\r\n  <div class=\"row\">\r\n    <div *ngFor=\"let product of products\" class=\"col-md-3 product-item\">\r\n      <a class=\"product-link\" routerLink=\"/\">\r\n        <div class=\"image-wrapper\">\r\n            <img [src]=\"product.image\" class=\"product-image\">\r\n        </div>\r\n        <h4 class=\"product-name\">{{product.name}}</h4>\r\n        <h5 class=\"product-price\">{{product.price}}</h5>\r\n    </a>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -450,18 +642,36 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var account_service_1 = __webpack_require__("../../../../../src/app/shared/services/account.service.ts");
 var core_1 = __webpack_require__("../../../core/esm5/core.js");
+var http_1 = __webpack_require__("../../../http/esm5/http.js");
+var product_service_1 = __webpack_require__("../../../../../src/app/shared/services/product.service.ts");
 var ProductListComponent = (function () {
-    function ProductListComponent(accountService) {
-        this.accountService = accountService;
+    function ProductListComponent(productService, http) {
+        this.productService = productService;
+        this.http = http;
+        this.products = [];
     }
+    ProductListComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        // let options = new RequestOptions();
+        // options.headers = new Headers();
+        // options.headers.append('Content-Type', 'application/json');
+        // options.headers.append('Authorization', 'Bearer '+ localStorage.getItem('token'));
+        // this.http.get('product/getAll', options).subscribe(data =>{
+        //   console.log(data);
+        //   this.products =  <IProduct[]>data.json();
+        // })
+        this.productService.getAllProducts().subscribe(function (data) {
+            console.log(data);
+            _this.products = data;
+        });
+    };
     ProductListComponent = __decorate([
         core_1.Component({
             selector: 'app-product-list',
             template: __webpack_require__("../../../../../src/app/product-list/product-list.component.html")
         }),
-        __metadata("design:paramtypes", [account_service_1.AccountService])
+        __metadata("design:paramtypes", [product_service_1.ProductService, http_1.Http])
     ], ProductListComponent);
     return ProductListComponent;
 }());
@@ -513,7 +723,7 @@ exports.ProductComponent = ProductComponent;
 /***/ "../../../../../src/app/register/register.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\r\n\r\n<div class=\"row\">\r\n    <div class=\"col-md-4\"></div>\r\n    <div class=\"col-md-4\">\r\n      <h1 class=\"sign-in\">Rejestracja</h1>\r\n      <form [formGroup]=\"registerForm\">\r\n        <div class=\"form-group\">\r\n            <label for=\"login\">Login</label>\r\n            <input formControlName=\"login\" type=\"text\" class=\"form-control\" placeholder=\"login\">\r\n            <div class=\"invalid-control\" *ngIf=\"!registerForm.controls['login'].valid && registerForm.controls['login'].touched\">Login jest nieprawidłowy.</div>\r\n        </div>\r\n        <div class=\"form-group\">\r\n          <label for=\"email\">Email</label>\r\n          <input formControlName=\"email\" type=\"text\" class=\"form-control\" placeholder=\"email\">\r\n          <div class=\"invalid-control\" *ngIf=\"!registerForm.controls['email'].valid && registerForm.controls['email'].touched\">Email jest nieprawidłowy.</div>\r\n        </div>\r\n\r\n        <div class=\"form-group\">\r\n          <label for=\"password\">Hasło</label>\r\n          <input formControlName=\"password\" type=\"password\" class=\"form-control\" placeholder=\"hasło\">\r\n          <div class=\"invalid-control\" *ngIf=\"!registerForm.controls['password'].valid && registerForm.controls['password'].touched\">Hasło musi się składać z conajmniej 6 znaków.</div>\r\n        </div>\r\n        <div class=\"form-group\">\r\n            <label for=\"confirmPassword\">Potwierdź hasło</label>\r\n            <input formControlName=\"confirmPassword\" type=\"password\" class=\"form-control\" placeholder=\"potwierdź hasło\">\r\n            <div class=\"invalid-control\" *ngIf=\"!registerForm.controls['confirmPassword'].valid && registerForm.controls['confirmPassword'].touched\">Hasła nie pasują do siebie.</div>\r\n        </div>\r\n        <button type=\"submit\" class=\"btn btn-default register-btn\" (click)=\"save()\">Wyślij</button>\r\n      </form>\r\n    </div>\r\n    <div class=\"col-md-4\"></div>\r\n  </div>\r\n"
+module.exports = "\r\n\r\n<div class=\"row\">\r\n    <div class=\"col-md-4\"></div>\r\n    <div class=\"col-md-4\">\r\n      <h1 class=\"sign-in\">Rejestracja</h1>\r\n      <form [formGroup]=\"registerForm\">\r\n        <div class=\"form-group\">\r\n            <label for=\"login\">Login</label>\r\n            <input formControlName=\"login\" type=\"text\" class=\"form-control\" placeholder=\"login\">\r\n            <div class=\"invalid-control\" *ngIf=\"!registerForm.controls['login'].valid && registerForm.controls['login'].touched\">Login jest nieprawidłowy.</div>\r\n        </div>\r\n        <div class=\"form-group\">\r\n          <label for=\"email\">Email</label>\r\n          <input formControlName=\"email\" type=\"text\" class=\"form-control\" placeholder=\"email\">\r\n          <div class=\"invalid-control\" *ngIf=\"!registerForm.controls['email'].valid && registerForm.controls['email'].touched\">Email jest nieprawidłowy.</div>\r\n        </div>\r\n\r\n        <div class=\"form-group\">\r\n          <label for=\"password\">Hasło</label>\r\n          <input formControlName=\"password\" type=\"password\" class=\"form-control\" placeholder=\"hasło\">\r\n          <div class=\"invalid-control\" *ngIf=\"!registerForm.controls['password'].valid && registerForm.controls['password'].touched\">Hasło musi się składać z conajmniej 6 znaków.</div>\r\n        </div>\r\n        <div class=\"form-group\">\r\n            <label for=\"confirmPassword\">Potwierdź hasło</label>\r\n            <input formControlName=\"confirmPassword\" type=\"password\" class=\"form-control\" placeholder=\"potwierdź hasło\">\r\n            <div class=\"invalid-control\" *ngIf=\"!registerForm.controls['confirmPassword'].valid && registerForm.controls['confirmPassword'].touched\">Hasła nie pasują do siebie.</div>\r\n        </div>\r\n        <button type=\"submit\" class=\"btn btn-default submit-btn\" (click)=\"save()\">Wyślij</button>\r\n      </form>\r\n    </div>\r\n    <div class=\"col-md-4\"></div>\r\n  </div>\r\n"
 
 /***/ }),
 
@@ -688,6 +898,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __export(__webpack_require__("../../../../../src/app/shared/form/form-model.ts"));
 __export(__webpack_require__("../../../../../src/app/shared/services/http.service.ts"));
 __export(__webpack_require__("../../../../../src/app/shared/services/account.service.ts"));
+__export(__webpack_require__("../../../../../src/app/shared/services/product.service.ts"));
+__export(__webpack_require__("../../../../../src/app/shared/services/loader.service.ts"));
 __export(__webpack_require__("../../../../../src/app/shared/loader/loader.component.ts"));
 
 
@@ -818,17 +1030,18 @@ var HttpService = (function () {
         if (options.headers == null) {
             options.headers = new http_1.Headers();
         }
+        if (!options.headers.has('Content-Type')) {
+            options.headers.append('Content-Type', 'application/json');
+        }
         if (localStorage.getItem('token') !== undefined && localStorage.getItem('token') !== null) {
             options.headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
         }
-        options.headers.append('Content-Type', 'application/json');
         return options;
     };
     HttpService.prototype.intercept = function (observable) {
         var _this = this;
-        this.isLoading.next(true);
-        return observable.catch(function (err, source) {
-            //if (err.status  == 401 && !_.endsWith(err.url, '/login')) {
+        setTimeout(function () { _this.isLoading.next(true); }, 0);
+        return observable.map(this.extract).catch(function (err, source) {
             if (err.status == 401) {
                 _this.router.navigateByUrl('login');
                 return Rx_1.Observable.empty();
@@ -837,8 +1050,18 @@ var HttpService = (function () {
                 return Rx_1.Observable.throw(err);
             }
         }).finally(function () {
-            _this.isLoading.next(false);
+            setTimeout(function () { _this.isLoading.next(false); }, 0);
         });
+    };
+    HttpService.prototype.extract = function (response) {
+        try {
+            var result = response.json() || response;
+            return result._body && result._body === 'null' ? null : result;
+        }
+        catch (e) {
+            console.log('error from httpservice', e);
+            return null;
+        }
     };
     HttpService = __decorate([
         core_1.Injectable(),
@@ -847,6 +1070,86 @@ var HttpService = (function () {
     return HttpService;
 }());
 exports.HttpService = HttpService;
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/shared/services/loader.service.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var Rx_1 = __webpack_require__("../../../../rxjs/_esm5/Rx.js");
+var core_1 = __webpack_require__("../../../core/esm5/core.js");
+var LoaderService = (function () {
+    function LoaderService() {
+        this.isLoading = new Rx_1.BehaviorSubject(false);
+        this.counter = 0;
+    }
+    LoaderService.prototype.setCounter = function (increase) {
+        this.counter = increase === true ? ++this.counter : --this.counter;
+        console.log('counter', this.counter, 'isLoading', this.isLoading.value);
+        if (this.counter > 0 && !this.isLoading.value) {
+            this.isLoading.next(true);
+            return;
+        }
+        this.isLoading.next(false);
+    };
+    LoaderService = __decorate([
+        core_1.Injectable(),
+        __metadata("design:paramtypes", [])
+    ], LoaderService);
+    return LoaderService;
+}());
+exports.LoaderService = LoaderService;
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/shared/services/product.service.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var http_service_1 = __webpack_require__("../../../../../src/app/shared/services/http.service.ts");
+var core_1 = __webpack_require__("../../../core/esm5/core.js");
+var ProductService = (function () {
+    function ProductService(httpService) {
+        this.httpService = httpService;
+    }
+    ProductService.prototype.addProduct = function (model) {
+        return this.httpService.post('product/addProduct', model);
+    };
+    ProductService.prototype.getAllProducts = function () {
+        return this.httpService.get('product/getAll');
+    };
+    ProductService = __decorate([
+        core_1.Injectable(),
+        __metadata("design:paramtypes", [http_service_1.HttpService])
+    ], ProductService);
+    return ProductService;
+}());
+exports.ProductService = ProductService;
 
 
 /***/ }),

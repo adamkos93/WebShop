@@ -15,19 +15,19 @@ export class HttpService {
 
     }
 
-    get(url: string, options?: RequestOptionsArgs): Observable<Response> {
+    get(url: string, options?: RequestOptionsArgs): Observable<any> {
         return this.intercept(this.http.get(url, this.getRequestOptionArgs(options)));
     }
 
-    post(url: string, body: any, options?: RequestOptionsArgs): Observable<Response> {
+    post(url: string, body: any, options?: RequestOptionsArgs): Observable<any> {
         return this.intercept(this.http.post(url, body, this.getRequestOptionArgs(options)));
     }
 
-    put(url: string, body: any, options?: RequestOptionsArgs): Observable<Response> {
+    put(url: string, body: any, options?: RequestOptionsArgs): Observable<any> {
         return this.intercept(this.http.put(url, body, this.getRequestOptionArgs(options)));
     }
 
-    delete(url: string, options?: RequestOptionsArgs): Observable<Response> {
+    delete(url: string, options?: RequestOptionsArgs): Observable<any> {
         return this.intercept(this.http.delete(url, this.getRequestOptionArgs(options)));
     }
 
@@ -38,17 +38,18 @@ export class HttpService {
         if (options.headers == null) {
             options.headers = new Headers();
         }
+        if(!options.headers.has('Content-Type')) {
+          options.headers.append('Content-Type', 'application/json');
+        }
         if(localStorage.getItem('token') !== undefined && localStorage.getItem('token')!== null) {
           options.headers.append('Authorization', 'Bearer '+ localStorage.getItem('token'));
         }
-        options.headers.append('Content-Type', 'application/json');
         return options;
     }
 
-    intercept(observable: Observable<Response>): Observable<Response> {
-        this.isLoading.next(true);
-        return observable.catch((err, source) => {
-            //if (err.status  == 401 && !_.endsWith(err.url, '/login')) {
+    intercept(observable: Observable<Response>): Observable<any> {
+        setTimeout(() => {this.isLoading.next(true)},0);
+        return observable.map(this.extract).catch((err, source) => {
             if (err.status  == 401) {
                 this.router.navigateByUrl('login');
                 return Observable.empty();
@@ -56,7 +57,17 @@ export class HttpService {
                 return Observable.throw(err);
             }
         }).finally(() => {
-          this.isLoading.next(false);
+          setTimeout(() => {this.isLoading.next(false)},0);
         });
+    }
+
+    private extract(response: Response) {
+      try {
+        const result = response.json() || response;
+        return result._body && result._body === 'null' ? null : result;
+      } catch (e) {
+        console.log('error from httpservice', e);
+        return null;
+      }
     }
 }

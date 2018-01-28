@@ -8,7 +8,7 @@ C:\Users\Adam\Documents\Visual Studio 2017\Projects\WebShop\WebShop.Shared\obj\D
 D:\WebShopRepo\WebShop\WebShop.Shared\bin\Debug\netcoreapp1.1\WebShop.Shared.deps.json
 D:\WebShopRepo\WebShop\WebShop.Shared\bin\Debug\netcoreapp1.1\WebShop.Shared.dll
 D:\WebShopRepo\WebShop\WebShop.Shared\bin\Debug\netcoreapp1.1\WebShop.Shared.pdb
-D:\WebShopRepo\WebShop\WebShop.Shared\obj\Debug\netcoreapp1.1\WebShop.Shared.csprojResolveAssemblyReference.cache
 D:\WebShopRepo\WebShop\WebShop.Shared\obj\Debug\netcoreapp1.1\WebShop.Shared.AssemblyInfo.cs
 D:\WebShopRepo\WebShop\WebShop.Shared\obj\Debug\netcoreapp1.1\WebShop.Shared.dll
 D:\WebShopRepo\WebShop\WebShop.Shared\obj\Debug\netcoreapp1.1\WebShop.Shared.pdb
+D:\WebShopRepo\WebShop\WebShop.Shared\obj\Debug\netcoreapp1.1\WebShop.Shared.csprojResolveAssemblyReference.cache
