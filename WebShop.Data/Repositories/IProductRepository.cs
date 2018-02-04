@@ -15,6 +15,8 @@ namespace WebShop.Data.Repositories
 
         Task<IEnumerable<Product>> GetAllAsync();
 
+        Task<IEnumerable<Category>> GetAllCategoriesAsync();
+
         Task<IEnumerable<Product>> GetAllByCategoryAsync(int categoryId);
 
         Task<IEnumerable<Product>> BrowseAsync(string name = "");
@@ -24,6 +26,8 @@ namespace WebShop.Data.Repositories
         Task UpdateAsync(Product product);
 
         Task DeleteAsync(int id);
+
+        Task<Tuple<List<Product>, int>> GetFilteredProducts(int page, int max, int? categoryId, int? minPrice, int? maxPrice, string name);
 
     }
 }

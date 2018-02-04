@@ -1,0 +1,21 @@
+<div class="container content-product"  *ngIf="product">
+  <div class="row">
+    <div class="col-md-6">
+        <img [src]="product.image" class="product-content-image">
+        <h5 class="product-content-title">{{product.name}}</h5>
+        <a *ngIf="category" routerLink="/" class="product-content-category">{{category.name}}</a><!--TODO: routerLink productList with categoryId-->
+    </div>
+    <div class="col-md-6">
+        <h5 class="product-content-price">{{product.price}} zł</h5>
+        <h5 class="product-content-description">{{product.description}}</h5>
+        <div class="center-block product-content-button">
+          <button type="button" class="btn btn-default" (click)="addToBasket()">Dodaj do koszyka <i class="fa fa-shopping-basket" aria-hidden="true"></i></button>
+        </div>
+    </div>
+  </div>
+  <span class="product-footer">
+      <i class="fa fa-cog" aria-hidden="true" (click)="showButtons()"></i>
+      <button *ngIf="isButtonsVisible" type="button" class="btn btn-secondary btn-sm" [routerLink]="['/edit-product', product.id]">Edytuj</button>
+      <button *ngIf="isButtonsVisible" type="button" class="btn btn-secondary btn-sm" (click)="removeProduct(product.id)">Usuń</button>
+  </span>
+</div>

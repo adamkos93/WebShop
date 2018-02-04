@@ -1,9 +1,10 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
-import { AddProductFormModel } from './add-product.form-model';
+import { ICategory } from '../shared/types/category.types';
 import { IProduct } from './../shared/types/product.types';
 import { Option } from './../shared/types/option.types';
+import { ProductFormModel } from './../product/product.form-model';
 import { ProductService } from './../shared/services/product.service';
 import { Router } from '@angular/router';
 
@@ -13,25 +14,28 @@ import { Router } from '@angular/router';
 })
 export class AddProductComponent implements OnInit {
   image: string='';
-  categories = <Option[]>[];
-  constructor(private addProductFormModel: AddProductFormModel,  private router: Router, private productService: ProductService) {
+  categories = <ICategory[]>[];
+  @ViewChild("imageInput") imageInput: ElementRef;
+  constructor(private productFormModel: ProductFormModel,  private router: Router, private productService: ProductService) {
 
   }
 
-  get addProductForm(): FormGroup {
-    return this.addProductFormModel.model;
+  get productForm(): FormGroup {
+    return this.productFormModel.model;
   }
-
+  // this.categories = [
+  //   {key: '1', value: 'Sport' },
+  //   {key: '2', value: 'Dom'}
+  // ];
   ngOnInit() {
     this.initializeFormModel(null);
-    this.categories = [
-      {key: '1', value: 'Sport' },
-      {key: '2', value: 'Dom'}
-    ];
+    this.productService.getAllCategories().subscribe(data => {
+      this.categories = data;
+    });
   }
 
   initializeFormModel(data) {
-    this.addProductFormModel.initializeModel(data);
+    this.productFormModel.initializeModel(data, true);
   }
 
   onFileChange(event) {
@@ -48,14 +52,14 @@ export class AddProductComponent implements OnInit {
 
   onSubmit(){
     if(this.image) {
-      this.addProductForm.get('image').setValue(this.image);
+      this.productForm.get('image').setValue(this.image);
     }
-    const price: string = this.addProductForm.get('price').value;
+    const price: string = this.productForm.get('price').value;
     if(price) {
-      this.addProductForm.get('price').setValue(price.replace(',','.')); //todo: dodanie walidacji 
+      this.productForm.get('price').setValue(price.replace(',','.')); //todo: dodanie walidacji
     }
-    if(this.addProductForm.valid) {
-    const model = <IProduct> this.addProductForm.value;
+    if(this.productForm.valid) {
+    const model = <IProduct> this.productForm.value;
     this.productService.addProduct(model).subscribe(data => {
           this.router.navigateByUrl('product-list');
       });
@@ -64,4 +68,11 @@ export class AddProductComponent implements OnInit {
     }
   }
 
+
+  removeImage(event:Event) {
+    event.preventDefault();
+    this.productForm.get('image').reset();
+    this.image ='';
+    this.imageInput.nativeElement.value="";
+  }
 }

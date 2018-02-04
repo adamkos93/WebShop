@@ -2,38 +2,41 @@
     <div class="col-md-4"></div>
     <div class="col-md-4">
       <h1 class="sign-in">Dodaj produkt</h1>
-      <form [formGroup]="addProductForm" (ngSubmit)="onSubmit()">
+      <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
             <label for="category">Wybierz kategorie:</label>
             <select class="form-control" formControlName="categoryId"  *ngIf="categories.length > 1">
                 <option value="" selected>Wybierz</option>
-                <option *ngFor="let option of categories" [value]="option.key">{{option.value}}</option>
+                <option *ngFor="let option of categories" [value]="option.id">{{option.name}}</option>
             </select>
         </div>
         <div class="form-group">
           <label for="name">Nazwa</label>
-          <input formControlName="name" type="text" class="form-control" placeholder="nazwa">
-          <div class="invalid-control" *ngIf="!addProductForm.controls['name'].valid && addProductForm.controls['name'].touched">Nazwa jest nieprawidłowy.</div>
+          <input formControlName="name" type="text" class="form-control" placeholder="nazwa" [maxLength]="22">
+          <div class="invalid-control" *ngIf="!productForm.controls['name'].valid && productForm.controls['name'].touched">Nazwa jest nieprawidłowy.</div>
         </div>
 
         <div class="form-group">
           <label for="price">Cena</label>
           <input formControlName="price" type="text" class="form-control" placeholder="cena">
-          <div class="invalid-control" *ngIf="!addProductForm.controls['price'].valid && addProductForm.controls['price'].touched">Cena jest nieprawidłowa.</div>
+          <div class="invalid-control" *ngIf="!productForm.controls['price'].valid && productForm.controls['price'].touched">Cena jest nieprawidłowa.</div>
         </div>
 
         <div class="form-group">
             <label for="image">Dodaj zdjęcie</label>
-            <input id="image" type="file" class="form-control" accept=".png, .jpg, .jpeg" (change)="onFileChange($event)" #imageInput>
-            <div class="invalid-control" *ngIf="!addProductForm.controls['image'].valid && addProductForm.controls['image'].touched">Obraz jest nieprawidłowy.</div>
+            <input id="image" type="file" class="form-control" accept=".png, .jpg, .jpeg" (change)="onFileChange($event)" #imageInput [disabled]="image">
+            <div class="invalid-control" *ngIf="!productForm.controls['image'].valid && productForm.controls['image'].touched">Obraz jest nieprawidłowy.</div>
         </div>
-        <!-- <img *ngIf="image" [src]="image" style="height:200px; width:200px;"> -->
+        <div class="img-holder">
+          <img *ngIf="image" [src]="image" style="height:150px; width:200px;">
+          <a *ngIf="image" class="link" (click)="removeImage($event)"><i class="fa fa-times-circle" style="color:red;" aria-hidden="true"></i></a>
+        </div>
         <div class="form-group">
             <label for="description">Opis</label>
-            <textarea formControlName="description" class="form-control" rows="4" id="description"></textarea>
+            <textarea formControlName="description" class="form-control" rows="4" id="description" [maxLength]="631"></textarea>
        </div>
 
-      <button type="submit" [disabled]="addProductForm.invalid" class="btn btn-default submit-btn">Wyślij</button>
+      <button type="submit" [disabled]="productForm.invalid" class="btn btn-default submit-btn">Wyślij</button>
       </form>
     </div>
     <div class="col-md-4"></div>

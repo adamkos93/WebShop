@@ -25,9 +25,11 @@
 .product-price, .product-name {
   text-align: center;
   color: #fff !important;
+  font-size: 15px;
 }
 
 a.product-link {
+  cursor: pointer;
   text-decoration: none !important;
   :hover {
     text-decoration: none !important;

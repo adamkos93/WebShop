@@ -1,0 +1,55 @@
+<div class="sidebar" [ngClass]="{'expanded': isOpen }" #sidebar>
+    <div class="sidebar-item no-hover" #burger (click)="toggleMenu()">
+      <i class="fa fa-bars hand" aria-hidden="true"></i>
+      <span class="sidebar-item-title" [ngClass]="{'hide': !isOpen }">Filtry</span>
+    </div>
+    <div class="filter-category-container" *ngIf="isOpen">
+      <h5 class="filter-head">Kategorie:</h5>
+      <div class="filter-category-content" id="style-1">
+        <!-- <a style="display:block;"  href=""></a> -->
+        <label class="category-list" *ngFor="let category of categories"><input type="radio" name="category" [value]="category.id" (click)="selectedCategory(category.id)"> {{category.name}}</label>
+      </div>
+
+      <h5 class="filter-head">Cena:</h5>
+      <div class="price-container row">
+        <p class="price-input-text">od</p><input id="number" type="number" class="form-control price-input" (focusout)="selctedMinPrice($event)"><p class="price-input-text">do</p><input id="number" type="number" class="form-control price-input" (focusout)="selctedMaxPrice($event)">
+      </div>
+
+      <h5 class="filter-head search-title">Nazwa:</h5>
+      <input class="form-control search-input" type="search" placeholder="search" (focusout)="selctedName($event)" />
+      <button type="button" class="btn btn-default filter-btn" (click)="search($event)">Szukaj</button>
+    </div>
+
+
+
+    <!-- <div class="sidebar-item active">
+      <a href="#">
+        <i class="fa fa-database" aria-hidden="true"></i>
+        <span class="sidebar-item-title" [ngClass]="{'hide': !isOpen }">Data Management</span>
+      </a>
+    </div>
+    <div class="sidebar-item">
+      <a href="#">
+        <i class="fa fa-map-o" aria-hidden="true"></i>
+        <span class="sidebar-item-title" [ngClass]="{'hide': !isOpen }">Location</span>
+      </a>
+    </div>
+    <div class="sidebar-item">
+      <a href="#">
+        <i class="fa fa-link" aria-hidden="true"></i>
+        <span class="sidebar-item-title" [ngClass]="{'hide': !isOpen }">Dynamic Links</span>
+      </a>
+    </div>
+    <div class="sidebar-item">
+      <a href="#">
+        <i class="fa fa-code" aria-hidden="true"></i>
+        <span class="sidebar-item-title" [ngClass]="{'hide': !isOpen }">Custom Scripting</span>
+      </a>
+    </div>
+    <div class="sidebar-item">
+      <a href="#">
+        <i class="fa fa-picture-o" aria-hidden="true"></i>
+        <span class="sidebar-item-title" [ngClass]="{'hide': !isOpen }">Asset Management</span>
+      </a>
+    </div> -->
+</div>

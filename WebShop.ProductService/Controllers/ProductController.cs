@@ -19,10 +19,10 @@ namespace WebShop.ProductService.Controllers
         }
 
 
-        [HttpGet("productId")]
-        public async Task<IActionResult> GetProduct(int id)
+        [HttpGet("getById")]
+        public async Task<IActionResult> GetProduct(int productId)
         {
-            var result = await _productService.GetAsync(id);
+            var result = await _productService.GetAsync(productId);
 
             if (result == null)
             {
@@ -39,6 +39,13 @@ namespace WebShop.ProductService.Controllers
             return Json(result);
         }
 
+        [HttpGet("getCategories")]
+        public async Task<IActionResult> GetCategories()
+        {
+            var result = await _productService.GetAllCategoriesAsync();
+            return Json(result);
+        }
+
         [HttpGet("getAllByCategory")]
         public async Task<IActionResult> GetAllProductByCategory(int categoryId)
         {
@@ -51,7 +58,7 @@ namespace WebShop.ProductService.Controllers
         public async Task<IActionResult> AddProduct([FromBody]ProductDto product)
         {
             await _productService.AddAsync(product);
-            return NoContent();
+            return Json("OK");
         }
 
         // POST api/values
@@ -59,15 +66,21 @@ namespace WebShop.ProductService.Controllers
         public async Task<IActionResult> UpdateProduct([FromBody]ProductDto product)
         {
             await _productService.UpdateAsync(product);
-            return NoContent();
+            return Json("OK");
         }
 
         // DELETE api/values/5
-        [HttpDelete("deleteProduct")]
-        public async Task<IActionResult> DeleteProduct(int id)
+        [HttpDelete("removeProduct")]
+        public async Task<IActionResult> RemoveProduct(int productId)
         {
-            await _productService.DeleteAsync(id);
-            return NoContent();
+            await _productService.DeleteAsync(productId);
+            return Json("OK");
+        }
+
+        [HttpGet("getFilteredProducts")]
+        public async Task<Tuple<List<ProductDto>, int>> GetFilteredProducts(int page, int max, int? categoryId, int? minPrice, int? maxPrice, string name)
+        {
+            return await _productService.GetFilteredProducts(page, max, categoryId, minPrice, maxPrice, name);
         }
     }
 }

@@ -14,6 +14,8 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using WebShop.Handlers;
 using System.IO;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace WebShop
 {
@@ -35,7 +37,10 @@ namespace WebShop
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
-            services.AddMvc();
+            services.AddMvc().AddJsonOptions(options => {
+              options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+              options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            });
             //services.AddDistributedMemoryCache();
             //services.AddSession(options =>
             //{ 

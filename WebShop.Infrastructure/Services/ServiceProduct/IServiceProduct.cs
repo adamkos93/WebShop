@@ -14,6 +14,8 @@ namespace WebShop.Infrastucture.Services.ServiceProduct
 
         Task<IEnumerable<ProductDto>> GetAllAsync();
 
+        Task<IEnumerable<CategoryDto>> GetAllCategoriesAsync();
+
         Task<IEnumerable<ProductDto>> GetAllByCategoryAsync(int categoryId);
 
         Task<IEnumerable<ProductDto>> BrowseAsync(string name = "");
@@ -22,7 +24,7 @@ namespace WebShop.Infrastucture.Services.ServiceProduct
 
         Task UpdateAsync(ProductDto product);
 
-
+        Task<Tuple<List<ProductDto>, int>> GetFilteredProducts(int page, int max, int? categoryId, int? minPrice, int? maxPrice, string name);
         Task DeleteAsync(int id);
 
     }

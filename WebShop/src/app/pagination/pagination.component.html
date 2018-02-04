@@ -1,0 +1,14 @@
+<div class="pagination-container">
+  <div class="pagination p1">
+    <ul>
+      <a (click)="changeSelectedPage(1)"><li><<</li></a>
+      <a (click)="changeSelectedPage(selectedPage-1)"><li><</li></a>
+      <ng-container *ngFor="let in of counter(buttonCounter); let i = index">
+        <a *ngIf="showPage(i+1, selectedPage)" [ngClass]="{'is-active': i+1 === selectedPage }"  (click)="changeSelectedPage(i+1)"><li>{{i+1}}</li></a>
+      </ng-container>
+      <a (click)="changeSelectedPage(selectedPage+1)"><li>></li></a>
+      <a (click)="changeSelectedPage(buttonCounter)"><li>>></li></a>
+    </ul>
+  </div>
+</div>
+<!-- i+1 >= selectedPage && i+1 <= selectedPage+2 -->

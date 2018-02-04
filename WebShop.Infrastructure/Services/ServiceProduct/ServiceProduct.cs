@@ -38,6 +38,13 @@ namespace WebShop.Infrastucture.Services.ServiceProduct
             return _mapper.Map<IEnumerable<Product>, IEnumerable<ProductDto>>(products);
         }
 
+        public async Task<IEnumerable<CategoryDto>> GetAllCategoriesAsync()
+        {
+            var categories = await _productRepository.GetAllCategoriesAsync();
+            if (categories == null) { throw new NullReferenceException(nameof(categories)); }
+            return _mapper.Map<IEnumerable<Category>, IEnumerable<CategoryDto>>(categories);
+        }
+
         public async Task<IEnumerable<ProductDto>> GetAllByCategoryAsync(int categoryId)
         {
             if (categoryId <= 0 ) { throw new ArgumentNullException(nameof(categoryId)); }
@@ -74,6 +81,12 @@ namespace WebShop.Infrastucture.Services.ServiceProduct
             //TODO: DO POPRAWKI
             if (id < 0) { throw new ArgumentException(nameof(id)); }
             await _productRepository.DeleteAsync(id);
+        }
+
+        public async Task<Tuple<List<ProductDto>, int>> GetFilteredProducts(int page, int max, int? categoryId, int? minPrice, int? maxPrice, string name)
+        {
+            var products = await _productRepository.GetFilteredProducts(page, max, categoryId, minPrice, maxPrice, name);
+            return Tuple.Create(_mapper.Map<List<Product>, List<ProductDto>>(products.Item1),products.Item2);
         }
     }
 }

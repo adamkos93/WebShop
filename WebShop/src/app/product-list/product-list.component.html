@@ -1,13 +1,14 @@
 <div class="list-group">
   <div class="row">
     <div *ngFor="let product of products" class="col-md-3 product-item">
-      <a class="product-link" routerLink="/">
+      <a class="product-link" [routerLink]="['/product', product.id]">
         <div class="image-wrapper">
             <img [src]="product.image" class="product-image">
         </div>
-        <h4 class="product-name">{{product.name}}</h4>
-        <h5 class="product-price">{{product.price}}</h5>
-    </a>
+        <h5 class="product-name">{{product.name}}</h5>
+        <h5 class="product-price">{{product.price}} zł</h5>
+      </a>
     </div>
   </div>
 </div>
+<app-pagination *ngIf="totalRecords" [totalRecords]="totalRecords" [max]="12" (selectedPageEmitter)="selectedPageEmitter($event)"></app-pagination>

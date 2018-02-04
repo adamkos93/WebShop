@@ -81,6 +81,8 @@ namespace WebShop.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int?>("Amount");
+
                     b.Property<int>("CategoryId");
 
                     b.Property<string>("Description");
@@ -121,7 +123,7 @@ namespace WebShop.Data.Migrations
             modelBuilder.Entity("WebShop.Data.Domain.Order", b =>
                 {
                     b.HasOne("WebShop.Data.Domain.User", "User")
-                        .WithMany()
+                        .WithMany("Orders")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

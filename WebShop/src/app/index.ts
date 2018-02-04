@@ -1,5 +1,5 @@
 export * from './navbar/navbar.component';
-export * from './category/category.component';
+export * from './filter/filter.component';
 export * from './login/login.component';
 export * from './login/login.form-model';
 export * from './app.component';
@@ -9,4 +9,6 @@ export * from './register/register.form-model';
 export * from './product-list/product-list.component';
 export * from './product/product.component';
 export * from './add-product/add-product.component';
-export * from './add-product/add-product.form-model';
+export * from './product/product.form-model';
+export * from './edit-product/edit-product.component';
+export * from './pagination/pagination.component';
