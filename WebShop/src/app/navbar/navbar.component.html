@@ -10,8 +10,7 @@
         <i class="fa fa-user" aria-hidden="true"></i>
         <span class="sidebar-item-title">Zaloguj</span>
     </a>
-    <a href="#" class="top-nav-item item-right">
-        <i class="fa fa-shopping-basket" aria-hidden="true"></i>
+    <a routerLink="/shopping-basket" class="top-nav-item item-right">
+        <i class="fa fa-shopping-basket" aria-hidden="true"><span *ngIf="basketItemsCounter">{{basketItemsCounter}}</span></i>
     </a>
 </div>
-

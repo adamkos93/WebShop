@@ -41,6 +41,7 @@ namespace WebShop
               options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
               options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             });
+            services.AddSession();
             //services.AddDistributedMemoryCache();
             //services.AddSession(options =>
             //{ 
@@ -87,7 +88,7 @@ namespace WebShop
             //    }
             //});
             app.UseMiddleware<ErrorHandlerMiddleware>();
-            //app.UseSession();
+            app.UseSession();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

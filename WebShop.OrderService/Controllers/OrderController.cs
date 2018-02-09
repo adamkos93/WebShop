@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using WebShop.Infrastucture.DTO;
 using WebShop.Infrastucture.Services.ServiceOrder;
+using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 
 namespace WebShop.OrderService.Controllers
 {
@@ -12,6 +14,7 @@ namespace WebShop.OrderService.Controllers
     public class OrderController : Controller
     {
         private readonly IServiceOrder _orderService;
+
 
         public OrderController(IServiceOrder orderService)
         {
@@ -29,22 +32,22 @@ namespace WebShop.OrderService.Controllers
         [HttpPost("addOrder")]
         public async Task<IActionResult> AddOrder([FromBody]OrderDto order)
         {
-            await _orderService.AddAsync(order);
-            return NoContent();
+            await _orderService.AddOrUpdateAsync(order);
+            return Json("OK");
         }
 
         [HttpPut("updateOrder")]
         public async Task<IActionResult> UpdateOrder([FromBody]OrderDto order)
         {
-            await _orderService.UpdateAsync(order);
-            return NoContent();
+            await _orderService.AddOrUpdateAsync(order, true);
+            return Json("OK");
         }
 
         [HttpDelete("deleteOrder")]
-        public async Task<IActionResult> DeleteOrder([FromBody]OrderDto order)
+        public async Task<IActionResult> DeleteOrder(int orderId)
         {
-            await _orderService.DeleteAsync(order);
-            return NoContent();
+            await _orderService.DeleteAsync(orderId);
+            return Json("OK");
         }
     }
 }

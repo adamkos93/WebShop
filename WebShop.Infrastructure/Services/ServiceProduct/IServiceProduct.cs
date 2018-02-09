@@ -27,5 +27,7 @@ namespace WebShop.Infrastucture.Services.ServiceProduct
         Task<Tuple<List<ProductDto>, int>> GetFilteredProducts(int page, int max, int? categoryId, int? minPrice, int? maxPrice, string name);
         Task DeleteAsync(int id);
 
+        Task<IEnumerable<ProductDto>> GetSelectedProducts(int[] productIds);
+
     }
 }

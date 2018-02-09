@@ -18,56 +18,88 @@ namespace WebShop.Infrastucture.Repositories
             _storeWebDbContext = storeWebDbContext;
         }
 
-        public async Task AddAsync(Order order, List<int> productsIds)
+        public async Task<Order> GetAsync(int id)
+          => await _storeWebDbContext.Order.FirstOrDefaultAsync(x => x.Id == id);
+
+        public async Task AddAsync(Order order, Dictionary<int,int> productItems)
         {
             await _storeWebDbContext.Order.AddAsync(order);
             await _storeWebDbContext.SaveChangesAsync();
 
             int id = order.Id;
 
-            if (productsIds.Count > 0 && id > 0)
+            if (productItems.Count > 0 && id > 0)
             {
-                List<OrderProduct> orderproducts = processOrderProducts(id, productsIds);
+                List<OrderProduct> orderproducts = processOrderProducts(id, productItems);
                 await _storeWebDbContext.OrderProduct.AddRangeAsync(orderproducts);
+                await refreshCountOfProducts(productItems);
                 await _storeWebDbContext.SaveChangesAsync();
             }
         }
 
-        public async Task UpdateAsync(Order order, List<int> productsIds)
+        public async Task UpdateAsync(Order order, Dictionary<int, int> productItems)
         {
             _storeWebDbContext.Order.Update(order);
+            Dictionary<int, int> oldProductItems = new Dictionary<int, int>();
             Task<List<OrderProduct>> oldProductsIds = _storeWebDbContext.OrderProduct.Where(x => x.OrderId == order.Id).ToListAsync(); //todo do sprawdzenia , jesli nie bangla to bez task
-            _storeWebDbContext.OrderProduct.RemoveRange(oldProductsIds.Result);
-            if (productsIds.Count > 0 && order.Id > 0)
+            foreach (var item in oldProductsIds.Result)
             {
-                List<OrderProduct> orderproducts = processOrderProducts(order.Id, productsIds);
+                oldProductItems.Add(item.ProductId, item.Count);
+            }
+            _storeWebDbContext.OrderProduct.RemoveRange(oldProductsIds.Result);
+            await refreshCountOfProducts(productItems, true);
+            if (productItems.Count > 0 && order.Id > 0)
+            {
+                List<OrderProduct> orderproducts = processOrderProducts(order.Id, productItems);
                 await _storeWebDbContext.OrderProduct.AddRangeAsync(orderproducts);
-
+                await refreshCountOfProducts(productItems);
             }
             await _storeWebDbContext.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(Order order, List<int> productsIds)
+        public async Task DeleteAsync(int orderId)
         {
-            Task<List<OrderProduct>> oldProductsIds = _storeWebDbContext.OrderProduct.Where(x => x.OrderId == order.Id).ToListAsync();
+            Dictionary<int, int> productItems = new Dictionary<int, int>();
+            var order = await GetAsync(orderId);
+            Task<List<OrderProduct>> oldProductsIds = _storeWebDbContext.OrderProduct.Where(x => x.OrderId == orderId).ToListAsync();
+            foreach (var item in oldProductsIds.Result)
+            {
+                productItems.Add(item.ProductId, item.Count);
+            }
             _storeWebDbContext.OrderProduct.RemoveRange(oldProductsIds.Result);
             _storeWebDbContext.Order.Remove(order);
+            await refreshCountOfProducts(productItems, true);
             await _storeWebDbContext.SaveChangesAsync();
         }
 
-        private List<OrderProduct> processOrderProducts(int orderId, List<int> productsIds)
+        private List<OrderProduct> processOrderProducts(int orderId, Dictionary<int, int> productItems)
         {
             List<OrderProduct> orderproducts = new List<OrderProduct>();
-            for (int i = 0; i < productsIds.Count; i++)
-            {
-                orderproducts.Add(new OrderProduct
-                {
+            foreach (var item in productItems) {
+                orderproducts.Add(new OrderProduct {
                     OrderId = orderId,
-                    ProductId = productsIds[i]
+                    ProductId = item.Key,
+                    Count = item.Value
                 });
             }
-
             return orderproducts;
+        }
+
+        private async Task refreshCountOfProducts(Dictionary<int, int> productItems, bool isRemoved=false) {
+            foreach (var item in productItems)
+            {
+                var entity =  _storeWebDbContext.Product.First(x => x.Id == item.Key);
+                if (isRemoved)
+                {
+                    entity.Amount = entity.Amount + item.Value;
+                }
+                else {
+                    entity.Amount = entity.Amount - item.Value;
+                }
+                
+                 _storeWebDbContext.Product.Update(entity);
+                await _storeWebDbContext.SaveChangesAsync();
+            }
         }
     }
 }

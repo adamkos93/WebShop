@@ -6,12 +6,15 @@ import { IFilterProductParameters, IProduct } from './../types/product.types';
 
 import { HttpService } from './http.service';
 import { ICategory } from './../types/category.types';
+import { IShoppingBasket } from './../types/shopping-basket.types';
 import { Injectable } from '@angular/core';
 
 @Injectable()
 export class ProductService {
   _categories = <ICategory[]>[];
   filterProductParameters: BehaviorSubject<IFilterProductParameters> = new BehaviorSubject<IFilterProductParameters>(null);
+  shoppingBasket: BehaviorSubject<IShoppingBasket> = new BehaviorSubject<IShoppingBasket>(null);
+  refresBasketCounter: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   get categories() {
     if(!this._categories || !this._categories.length) {
@@ -37,6 +40,10 @@ export class ProductService {
 
   getAllProducts(): Observable<IProduct[]> {
     return this.httpService.get('product/getAll');
+  }
+
+  getSelectedProducts(): Observable<IProduct[]> {
+    return this.httpService.get('product/getSelectedProducts');
   }
 
   getFilteredProducts(parameters: IFilterProductParameters) {

@@ -23,7 +23,7 @@ namespace WebShop.Infrastucture.Services.ServiceUser
             _jwtHandler = jwtHandler;
         }
 
-        public async Task<TokenDto> LoginAsync(UserDto user)
+        public async Task<Tuple<TokenDto,int>> LoginAsync(UserDto user)
         {
             if (user.Email == null || user.Password == null) { throw new ArgumentNullException($"{nameof(user.Email)},{nameof(user.Password)}"); }
             var domainUser = await _userRepository.GetAsync(user.Email);
@@ -32,14 +32,14 @@ namespace WebShop.Infrastucture.Services.ServiceUser
             if (domainUser.Password == hash)
             {
                 var jwt = _jwtHandler.CreateToken(domainUser);
-                return new TokenDto
+                return Tuple.Create(new TokenDto
                 {
                     Token = jwt.Token,
                     Expires = jwt.Expires,
                     Role = domainUser.Role
-                };
+                }, domainUser.Id);
             }
-            return new TokenDto() { };
+            return Tuple.Create(new TokenDto(){},0);
 
             //jwt
             //configuration 

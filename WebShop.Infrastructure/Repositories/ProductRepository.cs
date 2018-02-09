@@ -103,5 +103,8 @@ namespace WebShop.Infrastucture.Repositories
             return Tuple.Create(result, totalRecords);
 
         }
+
+        public async Task<IEnumerable<Product>> GetSelectedProducts(int[] productIds) 
+           => await _storeWebDbContext.Product.Where(x => productIds.Contains(x.Id)).ToListAsync(); 
     }
 }

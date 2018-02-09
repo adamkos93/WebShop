@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using WebShop.Data.Domain;
@@ -19,29 +20,27 @@ namespace WebShop.Infrastucture.Services.ServiceOrder
             _mapper = mapper;
         }
 
-        public async Task AddAsync(OrderDto order)
+        public async Task AddOrUpdateAsync(OrderDto order, bool isUpdate = false)
         {
             if (order == null) { throw new ArgumentNullException(nameof(order)); }
-            if (order.ProductIds == null) { throw new ArgumentNullException(nameof(order.ProductIds)); }
+            if (order.UserId <= 0) { throw new ArgumentNullException(nameof(order.UserId)); }
+            if (order.ProductItems == null) { throw new ArgumentNullException(nameof(order.ProductItems)); }
             var domainOrder = _mapper.Map<OrderDto, Order>(order);
-            await _orderRepository.AddAsync(domainOrder, order.ProductIds);
+            Dictionary<int, int> productItems = new Dictionary<int, int>();
+            foreach (var item in order.ProductItems) {
+                productItems.Add(item.ProductId, item.Amount);
+            }
+            if (isUpdate) {
+                await _orderRepository.UpdateAsync(domainOrder, productItems);
+                return;
+            }     
+            await _orderRepository.AddAsync(domainOrder, productItems);
         }
 
-
-        public async Task UpdateAsync(OrderDto order)
+        public async Task DeleteAsync(int orderId)
         {
-            if (order == null) { throw new ArgumentNullException(nameof(order)); }
-            if (order.ProductIds == null) { throw new ArgumentNullException(nameof(order.ProductIds)); }
-            var domainOrder = _mapper.Map<OrderDto, Order>(order);
-            await _orderRepository.UpdateAsync(domainOrder, order.ProductIds);
-        }
-
-        public async Task DeleteAsync(OrderDto order)
-        {
-            if (order == null) { throw new ArgumentNullException(nameof(order)); }
-            if (order.ProductIds == null) { throw new ArgumentNullException(nameof(order.ProductIds)); }
-            var domainOrder = _mapper.Map<OrderDto, Order>(order);
-            await _orderRepository.DeleteAsync(domainOrder, order.ProductIds);
+            if (orderId < 0) { throw new ArgumentException(nameof(orderId)); }
+            await _orderRepository.DeleteAsync(orderId);
         }
 
 

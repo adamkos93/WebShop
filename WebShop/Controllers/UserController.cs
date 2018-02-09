@@ -35,15 +35,22 @@ namespace WebShop.Controllers
         [HttpPost("loginAsync")]
         public async Task<IActionResult> Login([FromBody] UserDto user)
         {
-            var response = await _url.AppendPathSegments("user", "login").PostJsonAsync(user).ReceiveJson<TokenDto>();
-            if (!String.IsNullOrEmpty(response.Token)) {
-                Response.Cookies.Append("token", response.Token, new CookieOptions
+            var response = await _url.AppendPathSegments("user", "login").PostJsonAsync(user).ReceiveJson<Tuple<TokenDto,int>>();
+
+            if (response.Item2 > 0)
+            {
+                HttpContext.Session.SetString("UserId", response.Item2.ToString());
+            }
+            
+            if (!String.IsNullOrEmpty(response.Item1.Token)) {
+                Response.Cookies.Append("token", response.Item1.Token, new CookieOptions
                 {
                     HttpOnly = true,
                     Expires = DateTime.Now.AddMinutes(15),
                     Secure = true
                 });
             }
+             
             return Json(response);
         }
 

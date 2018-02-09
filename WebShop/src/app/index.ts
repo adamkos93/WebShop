@@ -12,3 +12,4 @@ export * from './add-product/add-product.component';
 export * from './product/product.form-model';
 export * from './edit-product/edit-product.component';
 export * from './pagination/pagination.component';
+export * from './shopping-basket/shopping-basket.component';

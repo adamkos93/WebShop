@@ -18,19 +18,11 @@ export class AppComponent implements OnInit, OnDestroy  {
    loaderSubscription: Subscription;
 
    ngOnInit() {
-    this.loadCategories();
     this.loaderSubscription = this.httpService.isLoading.subscribe(value => {
       setTimeout(() => {
         this.isLoaderVisible = value;
       }, 0);
     });
-   }
-
-   loadCategories() {
-    if(localStorage.getItem('categories')) {return;}
-    this.productService.getAllCategories().subscribe(value => {
-      localStorage.setItem('categories',JSON.stringify(value));
-    }); 
    }
 
    ngOnDestroy() {

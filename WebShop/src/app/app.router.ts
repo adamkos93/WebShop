@@ -8,6 +8,7 @@ import { ModuleWithProviders } from '@angular/core';
 import { ProductComponent, } from './product/product.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { RegisterComponent } from './register/register.component';
+import { ShoppingBasketComponent } from './shopping-basket/shopping-basket.component';
 
 export const router: Routes = [
   { 
@@ -47,6 +48,11 @@ export const router: Routes = [
   { 
     path:'edit-product/:productId',
     component: EditProductComponent, 
+    pathMatch: 'full',
+  },
+  { 
+    path:'shopping-basket',
+    component: ShoppingBasketComponent, 
     pathMatch: 'full',
   },
 ];

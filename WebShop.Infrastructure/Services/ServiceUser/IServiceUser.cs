@@ -8,7 +8,7 @@ namespace WebShop.Infrastucture.Services.ServiceUser
 {
     public interface IServiceUser
     {
-        Task<TokenDto> LoginAsync(UserDto user);
+        Task<Tuple<TokenDto, int>> LoginAsync(UserDto user);
         Task RegisterAsync(UserDto user);
     }
 }

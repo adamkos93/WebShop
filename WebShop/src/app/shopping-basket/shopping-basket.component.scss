@@ -1,0 +1,55 @@
+.basket-item {
+  margin-bottom: 25px;
+  background-color: #2e2f33;
+  height: 80px;
+  line-height: 80px;
+  text-align: left;
+}
+.basket-head {
+  text-align: center;
+}
+.basket-image {
+  max-width: 100px;
+  max-height: 60px;
+  margin-left: 10px;
+}
+.basket-container {
+  height: 600px;
+}
+.basket-content {
+  height:500px;
+  overflow:auto;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+#style-2::-webkit-scrollbar
+{
+	width: 12px;
+	background-color: #363642;
+}
+
+#style-2::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #555;
+}
+.remove-basket-btn {
+  cursor: pointer !important;
+  :hover {
+    cursor: pointer !important;
+  }
+}
+
+.basket-summary {
+  float: right;
+  height: 30px;
+  line-height: 30px;
+  margin-right: 20px;
+  .basket-btn {
+    margin-left: 10px;
+  }
+  .basket-summary-title {
+    font-size: 23px;
+  }
+}

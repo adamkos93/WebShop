@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using WebShop.Infrastucture.DTO;
 using WebShop.Infrastucture.Services.ServiceUser;
+using Microsoft.AspNetCore.Http;
 
 namespace WebShop.UserService.Controllers
 {

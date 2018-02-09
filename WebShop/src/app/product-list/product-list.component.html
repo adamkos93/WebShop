@@ -3,7 +3,8 @@
     <div *ngFor="let product of products" class="col-md-3 product-item">
       <a class="product-link" [routerLink]="['/product', product.id]">
         <div class="image-wrapper">
-            <img [src]="product.image" class="product-image">
+            <img *ngIf="product.image" [src]="product.image" class="product-image">
+            <img *ngIf="!product.image" src="./../../assets/no_foto.png" class="product-image">
         </div>
         <h5 class="product-name">{{product.name}}</h5>
         <h5 class="product-price">{{product.price}} zł</h5>

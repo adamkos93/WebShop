@@ -19,8 +19,17 @@ export class FilterComponent implements OnInit {
   constructor(private productService: ProductService, private router: Router) { }
 
   ngOnInit() {
-    this.categories = <ICategory[]>JSON.parse(localStorage.getItem("categories"))
+    this.loadCategories();
   }
+
+  loadCategories() {
+    this.productService.getAllCategories().subscribe(value => {
+      if(!value) { return; }
+      this.categories = value;
+      localStorage.setItem('categories',JSON.stringify(value));
+    });
+  }
+  
   toggleMenu() {
     this.isOpen = !this.isOpen;
   }

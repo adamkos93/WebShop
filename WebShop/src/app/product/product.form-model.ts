@@ -19,7 +19,7 @@ export class ProductFormModel extends FormModel{
         categoryId: [null, Validators.required],
         image: null,
         description: ['', Validators.required],
-        amount: ['']
+        amount: ['', Validators.required]
       })
     }
     if(data && !clear) {

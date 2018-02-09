@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using WebShop.Infrastucture.Services.ServiceProduct;
 using WebShop.Infrastucture.DTO;
+using Newtonsoft.Json;
+using WebShop.Infrastructure.DTO;
 
 namespace WebShop.ProductService.Controllers
 {
@@ -82,5 +84,15 @@ namespace WebShop.ProductService.Controllers
         {
             return await _productService.GetFilteredProducts(page, max, categoryId, minPrice, maxPrice, name);
         }
+
+        [HttpPost("getSelectedProducts")]
+        public async Task<IActionResult> GetSelectedProducts([FromBody]List<ProductItemDto> productItems)
+        {
+            var ids = productItems.Select(x => x.ProductId).ToArray();
+            if (productItems.Count == 0) { throw new ArgumentNullException(nameof(productItems)); };
+            var result = await _productService.GetSelectedProducts(ids);
+            return Json(result);
+        }
     }
+
 }

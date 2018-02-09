@@ -8,6 +8,9 @@ using Microsoft.Extensions.Options;
 using WebShop.Shared.Settings;
 using WebShop.Infrastucture.DTO;
 using Flurl;
+using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
+using WebShop.Infrastructure.DTO;
 
 namespace WebShop.Controllers
 {
@@ -17,7 +20,7 @@ namespace WebShop.Controllers
     private readonly string _url;
     private readonly IFlurlClient _flurlClient;
 
-    public ProductController(IOptions<ServicesUrlConfig> url)
+    public ProductController(IOptions<ServicesUrlConfig> url, IHttpContextAccessor httpContextAccessor)
     {
       _url = url.Value.ServiceProductUrl;
       _flurlClient = new FlurlClient(_url);
@@ -101,24 +104,46 @@ namespace WebShop.Controllers
     [HttpGet("getFilteredProducts")]
     public async Task<IActionResult> GetFilteredProducts(int page, int max, int? categoryId, int? minPrice, int? maxPrice, string name)
     {
-       var response = await _url.AppendPathSegments("product", "getFilteredProducts")
-           .SetQueryParam("page", page)
-           .SetQueryParam("max", max)
-           .SetQueryParam("categoryId", categoryId)
-           .SetQueryParam("minPrice", minPrice)
-           .SetQueryParam("maxPrice", maxPrice)
-           .SetQueryParam("name", name)
-           .GetAsync().ReceiveJson<Tuple<List<ProductDto>, int>>();
+      var response = await _url.AppendPathSegments("product", "getFilteredProducts")
+          .SetQueryParam("page", page)
+          .SetQueryParam("max", max)
+          .SetQueryParam("categoryId", categoryId)
+          .SetQueryParam("minPrice", minPrice)
+          .SetQueryParam("maxPrice", maxPrice)
+          .SetQueryParam("name", name)
+          .GetAsync().ReceiveJson<Tuple<List<ProductDto>, int>>();
 
-       var result = new {
-         products = response.Item1,
-         totalRecords = response.Item2
-       };
-       return Json(result);
+      var result = new
+      {
+        products = response.Item1,
+        totalRecords = response.Item2
+      };
+      return Json(result);
+    }
+
+    [HttpGet("getSelectedProducts")]
+    public async Task<IActionResult> GetSelectedProducts()
+    {
+      //TODO: cookie service!
+      string sourceString = HttpContext.Request.Headers["Cookie"].ToString();
+      List<ProductDto> result = new List<ProductDto>();
+      if (!String.IsNullOrEmpty(sourceString)) { 
+        string removeString = "basketItems=";
+        int index = sourceString.IndexOf(removeString);
+        string cleanPath = (index < 0)
+            ? sourceString
+            : sourceString.Remove(index, removeString.Length);
+        List<ProductItemDto> productItems = JsonConvert.DeserializeObject<List<ProductItemDto>>(cleanPath);
+        result = await _url.AppendPathSegments("product", "getSelectedProducts").PostJsonAsync(productItems).ReceiveJson<List<ProductDto>>();
+      }
+      return Json(result);
     }
   }
-
 }
+
+
+
+
 //if (categoryId > 0) {
 //   request.SetQueryParam("categoryId", categoryId);
 // }

@@ -60,3 +60,22 @@
     cursor: pointer !important;
   }
 }
+
+
+
+.amount-content {
+  white-space: pre-wrap;
+  margin-left: 9px;
+  margin-top: 10px;
+  max-width: 350px;
+  height: 30px;
+  line-height: 30px;
+
+  .basket-amount-text {
+    font-size: 20px;
+  }
+
+  .basket-item-amount {
+    width:75px;
+  }
+}

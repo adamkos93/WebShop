@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using WebShop.Infrastructure.DTO;
 
 namespace WebShop.Infrastucture.DTO
 {
@@ -25,8 +26,7 @@ namespace WebShop.Infrastucture.DTO
         public int FlatNumber { get; set; }
 
         public int UserId { get; set; }
-
-
+        public List<ProductItemDto> ProductItems { get; set; }
         public List<int> ProductIds { get; set; }
 
     }

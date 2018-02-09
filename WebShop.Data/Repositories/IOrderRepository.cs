@@ -8,8 +8,8 @@ namespace WebShop.Data.Repositories
 {
     public interface IOrderRepository
     {
-        Task AddAsync(Order order, List<int> productsIds);
-        Task UpdateAsync(Order order, List<int> productsIds);
-        Task DeleteAsync(Order order, List<int> productsIds);
+        Task AddAsync(Order order, Dictionary<int, int> productItems);
+        Task UpdateAsync(Order order, Dictionary<int, int> productItems);
+        Task DeleteAsync(int orderId);
     }
 }

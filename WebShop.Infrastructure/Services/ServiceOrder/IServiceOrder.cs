@@ -8,8 +8,7 @@ namespace WebShop.Infrastucture.Services.ServiceOrder
 {
     public interface IServiceOrder
     {
-        Task AddAsync(OrderDto order);
-        Task UpdateAsync(OrderDto order);
-        Task DeleteAsync(OrderDto order);
+        Task AddOrUpdateAsync(OrderDto order, bool isUpdate = false);
+        Task DeleteAsync(int orderId);
     }
 }

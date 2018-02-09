@@ -29,5 +29,7 @@ namespace WebShop.Data.Repositories
 
         Task<Tuple<List<Product>, int>> GetFilteredProducts(int page, int max, int? categoryId, int? minPrice, int? maxPrice, string name);
 
+        Task<IEnumerable<Product>> GetSelectedProducts(int[] productIds);
+
     }
 }

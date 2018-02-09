@@ -20,7 +20,7 @@ webpackEmptyAsyncContext.id = "../../../../../src/$$_lazy_route_resource lazy re
 /***/ "../../../../../src/app/add-product/add-product.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row\">\r\n    <div class=\"col-md-4\"></div>\r\n    <div class=\"col-md-4\">\r\n      <h1 class=\"sign-in\">Dodaj produkt</h1>\r\n      <form [formGroup]=\"productForm\" (ngSubmit)=\"onSubmit()\">\r\n        <div class=\"form-group\">\r\n            <label for=\"category\">Wybierz kategorie:</label>\r\n            <select class=\"form-control\" formControlName=\"categoryId\"  *ngIf=\"categories.length > 1\">\r\n                <option value=\"\" selected>Wybierz</option>\r\n                <option *ngFor=\"let option of categories\" [value]=\"option.id\">{{option.name}}</option>\r\n            </select>\r\n        </div>\r\n        <div class=\"form-group\">\r\n          <label for=\"name\">Nazwa</label>\r\n          <input formControlName=\"name\" type=\"text\" class=\"form-control\" placeholder=\"nazwa\" [maxLength]=\"22\">\r\n          <div class=\"invalid-control\" *ngIf=\"!productForm.controls['name'].valid && productForm.controls['name'].touched\">Nazwa jest nieprawidłowy.</div>\r\n        </div>\r\n\r\n        <div class=\"form-group\">\r\n          <label for=\"price\">Cena</label>\r\n          <input formControlName=\"price\" type=\"text\" class=\"form-control\" placeholder=\"cena\">\r\n          <div class=\"invalid-control\" *ngIf=\"!productForm.controls['price'].valid && productForm.controls['price'].touched\">Cena jest nieprawidłowa.</div>\r\n        </div>\r\n\r\n        <div class=\"form-group\">\r\n            <label for=\"image\">Dodaj zdjęcie</label>\r\n            <input id=\"image\" type=\"file\" class=\"form-control\" accept=\".png, .jpg, .jpeg\" (change)=\"onFileChange($event)\" #imageInput [disabled]=\"image\">\r\n            <div class=\"invalid-control\" *ngIf=\"!productForm.controls['image'].valid && productForm.controls['image'].touched\">Obraz jest nieprawidłowy.</div>\r\n        </div>\r\n        <div class=\"img-holder\">\r\n          <img *ngIf=\"image\" [src]=\"image\" style=\"height:150px; width:200px;\">\r\n          <a *ngIf=\"image\" class=\"link\" (click)=\"removeImage($event)\"><i class=\"fa fa-times-circle\" style=\"color:red;\" aria-hidden=\"true\"></i></a>\r\n        </div>\r\n        <div class=\"form-group\">\r\n            <label for=\"description\">Opis</label>\r\n            <textarea formControlName=\"description\" class=\"form-control\" rows=\"4\" id=\"description\" [maxLength]=\"631\"></textarea>\r\n       </div>\r\n\r\n      <button type=\"submit\" [disabled]=\"productForm.invalid\" class=\"btn btn-default submit-btn\">Wyślij</button>\r\n      </form>\r\n    </div>\r\n    <div class=\"col-md-4\"></div>\r\n  </div>\r\n"
+module.exports = "<div class=\"row\">\r\n    <div class=\"col-md-4\"></div>\r\n    <div class=\"col-md-4\">\r\n      <h1 class=\"sign-in\">Dodaj produkt</h1>\r\n      <form [formGroup]=\"productForm\" (ngSubmit)=\"onSubmit()\">\r\n        <div class=\"form-group\">\r\n            <label for=\"category\">Wybierz kategorie:</label>\r\n            <select class=\"form-control\" formControlName=\"categoryId\"  *ngIf=\"categories.length > 1\">\r\n                <option value=\"\" selected>Wybierz</option>\r\n                <option *ngFor=\"let option of categories\" [value]=\"option.id\">{{option.name}}</option>\r\n            </select>\r\n        </div>\r\n        <div class=\"form-group\">\r\n          <label for=\"name\">Nazwa</label>\r\n          <input formControlName=\"name\" type=\"text\" class=\"form-control\" placeholder=\"nazwa\" [maxLength]=\"22\">\r\n          <div class=\"invalid-control\" *ngIf=\"!productForm.controls['name'].valid && productForm.controls['name'].touched\">Nazwa jest nieprawidłowy.</div>\r\n        </div>\r\n\r\n        <div class=\"form-group\">\r\n          <label for=\"price\">Cena</label>\r\n          <input formControlName=\"price\" type=\"text\" class=\"form-control\" placeholder=\"cena\">\r\n          <div class=\"invalid-control\" *ngIf=\"!productForm.controls['price'].valid && productForm.controls['price'].touched\">Cena jest nieprawidłowa.</div>\r\n        </div>\r\n\r\n        <div class=\"form-group\">\r\n            <label for=\"image\">Dodaj zdjęcie</label>\r\n            <input id=\"image\" type=\"file\" class=\"form-control\" accept=\".png, .jpg, .jpeg\" (change)=\"onFileChange($event)\" #imageInput [disabled]=\"image\">\r\n            <div class=\"invalid-control\" *ngIf=\"!productForm.controls['image'].valid && productForm.controls['image'].touched\">Obraz jest nieprawidłowy.</div>\r\n        </div>\r\n        <div class=\"img-holder\">\r\n          <img *ngIf=\"image\" [src]=\"image\" style=\"height:150px; width:200px;\">\r\n          <a *ngIf=\"image\" class=\"link\" (click)=\"removeImage($event)\"><i class=\"fa fa-times-circle\" style=\"color:red;\" aria-hidden=\"true\"></i></a>\r\n        </div>\r\n        <div class=\"form-group\">\r\n          <label for=\"amount\">Ilość</label>\r\n          <input formControlName=\"amount\" type=\"number\" class=\"form-control amount-input\">\r\n          <div class=\"invalid-control\" *ngIf=\"!productForm.controls['amount'].valid && productForm.controls['amount'].touched\">Ilość jest nieprawidłowa.</div>\r\n        </div>\r\n        <div class=\"form-group\">\r\n            <label for=\"description\">Opis</label>\r\n            <textarea formControlName=\"description\" class=\"form-control\" rows=\"4\" id=\"description\" [maxLength]=\"631\"></textarea>\r\n       </div>\r\n\r\n      <button type=\"submit\" [disabled]=\"productForm.invalid\" class=\"btn btn-default submit-btn\">Wyślij</button>\r\n      </form>\r\n    </div>\r\n    <div class=\"col-md-4\"></div>\r\n  </div>\r\n"
 
 /***/ }),
 
@@ -162,19 +162,10 @@ var AppComponent = (function () {
     }
     AppComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.loadCategories();
         this.loaderSubscription = this.httpService.isLoading.subscribe(function (value) {
             setTimeout(function () {
                 _this.isLoaderVisible = value;
             }, 0);
-        });
-    };
-    AppComponent.prototype.loadCategories = function () {
-        if (localStorage.getItem('categories')) {
-            return;
-        }
-        this.productService.getAllCategories().subscribe(function (value) {
-            localStorage.setItem('categories', JSON.stringify(value));
         });
     };
     AppComponent.prototype.ngOnDestroy = function () {
@@ -229,7 +220,8 @@ var AppModule = (function () {
                 index_1.ProductListComponent,
                 index_1.AddProductComponent,
                 index_1.EditProductComponent,
-                index_1.PaginationComponent
+                index_1.PaginationComponent,
+                index_1.ShoppingBasketComponent
             ],
             imports: [
                 platform_browser_1.BrowserModule,
@@ -239,7 +231,7 @@ var AppModule = (function () {
                 ng_bootstrap_1.NgbModule.forRoot(),
                 app_router_1.routes
             ],
-            providers: [index_1.LoginFormModel, index_1.AccountService, index_1.HttpService, index_1.RegisterFormModel, index_1.ProductFormModel, index_1.ProductService, index_1.LoaderService],
+            providers: [index_1.LoginFormModel, index_1.CookieService, index_1.AccountService, index_1.HttpService, index_1.RegisterFormModel, index_1.ProductFormModel, index_1.ProductService, index_1.LoaderService],
             bootstrap: [index_1.AppComponent]
         })
     ], AppModule);
@@ -263,6 +255,7 @@ var login_component_1 = __webpack_require__("../../../../../src/app/login/login.
 var product_component_1 = __webpack_require__("../../../../../src/app/product/product.component.ts");
 var product_list_component_1 = __webpack_require__("../../../../../src/app/product-list/product-list.component.ts");
 var register_component_1 = __webpack_require__("../../../../../src/app/register/register.component.ts");
+var shopping_basket_component_1 = __webpack_require__("../../../../../src/app/shopping-basket/shopping-basket.component.ts");
 exports.router = [
     {
         path: '',
@@ -301,6 +294,11 @@ exports.router = [
     {
         path: 'edit-product/:productId',
         component: edit_product_component_1.EditProductComponent,
+        pathMatch: 'full',
+    },
+    {
+        path: 'shopping-basket',
+        component: shopping_basket_component_1.ShoppingBasketComponent,
         pathMatch: 'full',
     },
 ];
@@ -455,7 +453,17 @@ var FilterComponent = (function () {
         this.parameters = {};
     }
     FilterComponent.prototype.ngOnInit = function () {
-        this.categories = JSON.parse(localStorage.getItem("categories"));
+        this.loadCategories();
+    };
+    FilterComponent.prototype.loadCategories = function () {
+        var _this = this;
+        this.productService.getAllCategories().subscribe(function (value) {
+            if (!value) {
+                return;
+            }
+            _this.categories = value;
+            localStorage.setItem('categories', JSON.stringify(value));
+        });
     };
     FilterComponent.prototype.toggleMenu = function () {
         this.isOpen = !this.isOpen;
@@ -540,6 +548,7 @@ __export(__webpack_require__("../../../../../src/app/add-product/add-product.com
 __export(__webpack_require__("../../../../../src/app/product/product.form-model.ts"));
 __export(__webpack_require__("../../../../../src/app/edit-product/edit-product.component.ts"));
 __export(__webpack_require__("../../../../../src/app/pagination/pagination.component.ts"));
+__export(__webpack_require__("../../../../../src/app/shopping-basket/shopping-basket.component.ts"));
 
 
 /***/ }),
@@ -689,7 +698,7 @@ exports.LoginFormModel = LoginFormModel;
 /***/ "../../../../../src/app/navbar/navbar.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"top-nav\">\r\n    <a routerLink=\"/product-list\" class=\"top-nav-item\">Lista produktów</a>\r\n    <a href=\"#\" class=\"top-nav-item no-hover\">Moje zamówienia</a>\r\n    <a routerLink=\"/add-product\" class=\"top-nav-item\">Dodaj produkt</a>\r\n    <a *ngIf=\"isLogged\" class=\"top-nav-item item-right\" (click)=\"logout()\">\r\n      <i class=\"fa fa-user\" aria-hidden=\"true\"></i>\r\n      <span class=\"sidebar-item-title\">Wyloguj</span>\r\n    </a>\r\n    <a *ngIf=\"!isLogged\" href=\"#\" class=\"top-nav-item item-right\" routerLink=\"/login\">\r\n        <i class=\"fa fa-user\" aria-hidden=\"true\"></i>\r\n        <span class=\"sidebar-item-title\">Zaloguj</span>\r\n    </a>\r\n    <a href=\"#\" class=\"top-nav-item item-right\">\r\n        <i class=\"fa fa-shopping-basket\" aria-hidden=\"true\"></i>\r\n    </a>\r\n</div>\r\n\r\n"
+module.exports = "<div class=\"top-nav\">\r\n    <a routerLink=\"/product-list\" class=\"top-nav-item\">Lista produktów</a>\r\n    <a href=\"#\" class=\"top-nav-item no-hover\">Moje zamówienia</a>\r\n    <a routerLink=\"/add-product\" class=\"top-nav-item\">Dodaj produkt</a>\r\n    <a *ngIf=\"isLogged\" class=\"top-nav-item item-right\" (click)=\"logout()\">\r\n      <i class=\"fa fa-user\" aria-hidden=\"true\"></i>\r\n      <span class=\"sidebar-item-title\">Wyloguj</span>\r\n    </a>\r\n    <a *ngIf=\"!isLogged\" href=\"#\" class=\"top-nav-item item-right\" routerLink=\"/login\">\r\n        <i class=\"fa fa-user\" aria-hidden=\"true\"></i>\r\n        <span class=\"sidebar-item-title\">Zaloguj</span>\r\n    </a>\r\n    <a routerLink=\"/shopping-basket\" class=\"top-nav-item item-right\">\r\n        <i class=\"fa fa-shopping-basket\" aria-hidden=\"true\"><span *ngIf=\"basketItemsCounter\">{{basketItemsCounter}}</span></i>\r\n    </a>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -710,27 +719,59 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__("../../../core/esm5/core.js");
 var account_service_1 = __webpack_require__("../../../../../src/app/shared/services/account.service.ts");
+var cookie_service_1 = __webpack_require__("../../../../../src/app/shared/services/cookie.service.ts");
+var product_service_1 = __webpack_require__("../../../../../src/app/shared/services/product.service.ts");
 var router_1 = __webpack_require__("../../../router/esm5/router.js");
 var NavbarComponent = (function () {
-    function NavbarComponent(accoutnService, router) {
+    function NavbarComponent(accoutnService, router, productService, cookieService) {
         this.accoutnService = accoutnService;
         this.router = router;
+        this.productService = productService;
+        this.cookieService = cookieService;
         this.isLogged = false;
     }
     NavbarComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.checkBasketItemsCounter();
         this.isLoggedSubscription = this.accoutnService.isLogged.subscribe(function (data) {
             _this.isLogged = data;
+        });
+        this.addToBasketSubscription = this.productService.shoppingBasket.subscribe(function (data) {
+            if (!data) {
+                return;
+            }
+            _this.processShoppingBasket(data);
+            _this.checkBasketItemsCounter();
+        });
+        this.basketCounterSubscription = this.productService.refresBasketCounter.subscribe(function (data) {
+            if (data) {
+                _this.checkBasketItemsCounter();
+            }
         });
     };
     NavbarComponent.prototype.ngOnDestroy = function () {
         this.isLoggedSubscription.unsubscribe();
+        this.addToBasketSubscription.unsubscribe();
+        this.basketCounterSubscription.unsubscribe();
     };
     NavbarComponent.prototype.addProduct = function (event) {
         event.preventDefault();
         this.router.navigateByUrl('add-product');
     };
+    NavbarComponent.prototype.checkBasketItemsCounter = function () {
+        var items = this.cookieService.getCookie('basketItems');
+        var itemsArray = items ? JSON.parse(items) : [];
+        this.basketItemsCounter = itemsArray.length;
+    };
+    NavbarComponent.prototype.processShoppingBasket = function (item) {
+        var newItemsArray = [];
+        var items = this.cookieService.getCookie('basketItems');
+        newItemsArray = items ? JSON.parse(items) : [];
+        newItemsArray.push(item);
+        this.cookieService.setCookie('basketItems', JSON.stringify(newItemsArray), 1);
+    };
     NavbarComponent.prototype.logout = function () {
+        //TODO
         // czyszczenie ciastek, sesji, localStorage
         // czyszczenie po stronie backendu sesji
     };
@@ -739,7 +780,10 @@ var NavbarComponent = (function () {
             selector: 'app-navbar',
             template: __webpack_require__("../../../../../src/app/navbar/navbar.component.html")
         }),
-        __metadata("design:paramtypes", [account_service_1.AccountService, router_1.Router])
+        __metadata("design:paramtypes", [account_service_1.AccountService,
+            router_1.Router,
+            product_service_1.ProductService,
+            cookie_service_1.CookieService])
     ], NavbarComponent);
     return NavbarComponent;
 }());
@@ -751,7 +795,7 @@ exports.NavbarComponent = NavbarComponent;
 /***/ "../../../../../src/app/pagination/pagination.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"pagination-container\">\r\n  <div class=\"pagination p1\">\r\n    <ul>\r\n      <a (click)=\"changeSelectedPage(1)\"><li><<</li></a>\r\n      <a (click)=\"changeSelectedPage(selectedPage-1)\"><li><</li></a>\r\n      <ng-container *ngFor=\"let in of counter(buttonCounter); let i = index\">\r\n        <a *ngIf=\"showPage(i+1, selectedPage)\" [ngClass]=\"{'is-active': i+1 === selectedPage }\"  (click)=\"changeSelectedPage(i+1)\"><li>{{i+1}}</li></a>\r\n      </ng-container>\r\n      <a (click)=\"changeSelectedPage(selectedPage+1)\"><li>></li></a>\r\n      <a (click)=\"changeSelectedPage(buttonCounter)\"><li>>></li></a>\r\n    </ul>\r\n  </div>\r\n</div>\r\n<!-- i+1 >= selectedPage && i+1 <= selectedPage+2 -->\r\n"
+module.exports = "<div class=\"pagination-container\">\r\n  <div class=\"pagination p1\">\r\n    <ul>\r\n      <a (click)=\"changeSelectedPage(1)\"><li><<</li></a>\r\n      <a (click)=\"changeSelectedPage(selectedPage-1)\"><li><</li></a>\r\n      <ng-container *ngFor=\"let in of counter(buttonCounter); let i = index\">\r\n        <a *ngIf=\"showPage(i+1, selectedPage)\" [ngClass]=\"{'is-active': i+1 === selectedPage }\"  (click)=\"changeSelectedPage(i+1)\"><li>{{i+1}}</li></a>\r\n      </ng-container>\r\n      <a (click)=\"changeSelectedPage(selectedPage+1)\"><li>></li></a>\r\n      <a (click)=\"changeSelectedPage(buttonCounter)\"><li>>></li></a>\r\n    </ul>\r\n  </div>\r\n</div>\r\n\r\n"
 
 /***/ }),
 
@@ -855,7 +899,7 @@ exports.PaginationComponent = PaginationComponent;
 /***/ "../../../../../src/app/product-list/product-list.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"list-group\">\r\n  <div class=\"row\">\r\n    <div *ngFor=\"let product of products\" class=\"col-md-3 product-item\">\r\n      <a class=\"product-link\" [routerLink]=\"['/product', product.id]\">\r\n        <div class=\"image-wrapper\">\r\n            <img [src]=\"product.image\" class=\"product-image\">\r\n        </div>\r\n        <h5 class=\"product-name\">{{product.name}}</h5>\r\n        <h5 class=\"product-price\">{{product.price}} zł</h5>\r\n      </a>\r\n    </div>\r\n  </div>\r\n</div>\r\n<app-pagination *ngIf=\"totalRecords\" [totalRecords]=\"totalRecords\" [max]=\"12\" (selectedPageEmitter)=\"selectedPageEmitter($event)\"></app-pagination>\r\n"
+module.exports = "<div class=\"list-group\">\r\n  <div class=\"row\">\r\n    <div *ngFor=\"let product of products\" class=\"col-md-3 product-item\">\r\n      <a class=\"product-link\" [routerLink]=\"['/product', product.id]\">\r\n        <div class=\"image-wrapper\">\r\n            <img *ngIf=\"product.image\" [src]=\"product.image\" class=\"product-image\">\r\n            <img *ngIf=\"!product.image\" src=\"./../../assets/no_foto.png\" class=\"product-image\">\r\n        </div>\r\n        <h5 class=\"product-name\">{{product.name}}</h5>\r\n        <h5 class=\"product-price\">{{product.price}} zł</h5>\r\n      </a>\r\n    </div>\r\n  </div>\r\n</div>\r\n<app-pagination *ngIf=\"totalRecords\" [totalRecords]=\"totalRecords\" [max]=\"12\" (selectedPageEmitter)=\"selectedPageEmitter($event)\"></app-pagination>\r\n"
 
 /***/ }),
 
@@ -936,7 +980,7 @@ exports.ProductListComponent = ProductListComponent;
 /***/ "../../../../../src/app/product/product.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container content-product\"  *ngIf=\"product\">\r\n  <div class=\"row\">\r\n    <div class=\"col-md-6\">\r\n        <img [src]=\"product.image\" class=\"product-content-image\">\r\n        <h5 class=\"product-content-title\">{{product.name}}</h5>\r\n        <a *ngIf=\"category\" routerLink=\"/\" class=\"product-content-category\">{{category.name}}</a><!--TODO: routerLink productList with categoryId-->\r\n    </div>\r\n    <div class=\"col-md-6\">\r\n        <h5 class=\"product-content-price\">{{product.price}} zł</h5>\r\n        <h5 class=\"product-content-description\">{{product.description}}</h5>\r\n        <div class=\"center-block product-content-button\">\r\n          <button type=\"button\" class=\"btn btn-default\" (click)=\"addToBasket()\">Dodaj do koszyka <i class=\"fa fa-shopping-basket\" aria-hidden=\"true\"></i></button>\r\n        </div>\r\n    </div>\r\n  </div>\r\n  <span class=\"product-footer\">\r\n      <i class=\"fa fa-cog\" aria-hidden=\"true\" (click)=\"showButtons()\"></i>\r\n      <button *ngIf=\"isButtonsVisible\" type=\"button\" class=\"btn btn-secondary btn-sm\" [routerLink]=\"['/edit-product', product.id]\">Edytuj</button>\r\n      <button *ngIf=\"isButtonsVisible\" type=\"button\" class=\"btn btn-secondary btn-sm\" (click)=\"removeProduct(product.id)\">Usuń</button>\r\n  </span>\r\n</div>\r\n"
+module.exports = "<div class=\"container content-product\"  *ngIf=\"product\">\r\n  <div class=\"row\">\r\n    <div class=\"col-md-6\">\r\n        <img *ngIf=\"product.image\" [src]=\"product.image\" class=\"product-content-image\">\r\n        <img *ngIf=\"!product.image\" src=\"./../../assets/no_foto.png\" class=\"product-content-image\">\r\n        <h5 class=\"product-content-title\">{{product.name}}</h5>\r\n        <a *ngIf=\"category\" routerLink=\"/\" class=\"product-content-category\">{{category.name}}</a><!--TODO: routerLink productList with categoryId-->\r\n        <div *ngIf=\"!isInBasket && basketItemMaxAmount\" class=\"row amount-content\">\r\n          <input #basketItemAmount type=\"number\" class=\"form-control basket-item-amount\" min=\"1\" [max]=\"basketItemMaxAmount\" value=\"1\">\r\n          <p class=\"basket-amount-text\"> z {{basketItemMaxAmount.toString()}}</p>\r\n        </div>\r\n      </div>\r\n    <div class=\"col-md-6\">\r\n        <h5 class=\"product-content-price\">{{product.price}} zł</h5>\r\n        <h5 class=\"product-content-description\">{{product.description}}</h5>\r\n        <div class=\"center-block product-content-button\">\r\n          <button *ngIf=\"!isInBasket && basketItemMaxAmount\"  type=\"button\" class=\"btn btn-default add-to-basket-btn\" (click)=\"addToBasket(product.id)\">Dodaj do koszyka <i class=\"fa fa-shopping-basket\" aria-hidden=\"true\"></i></button>\r\n          <h5 *ngIf=\"!basketItemMaxAmount\">Produkt niedostępny!</h5>\r\n          <h5 *ngIf=\"isInBasket\">Produkt dodany do koszyka!</h5>\r\n        </div>\r\n  </div>\r\n  <span class=\"product-footer\">\r\n      <i class=\"fa fa-cog\" aria-hidden=\"true\" (click)=\"showButtons()\"></i>\r\n      <button *ngIf=\"isButtonsVisible\" type=\"button\" class=\"btn btn-secondary btn-sm\" [routerLink]=\"['/edit-product', product.id]\">Edytuj</button>\r\n      <button *ngIf=\"isButtonsVisible\" type=\"button\" class=\"btn btn-secondary btn-sm\" (click)=\"removeProduct(product.id)\">Usuń</button>\r\n  </span>\r\n</div>\r\n\r\n"
 
 /***/ }),
 
@@ -955,15 +999,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var _ = __webpack_require__("../../../../lodash/lodash.js");
 var router_1 = __webpack_require__("../../../router/esm5/router.js");
 var core_1 = __webpack_require__("../../../core/esm5/core.js");
+var cookie_service_1 = __webpack_require__("../../../../../src/app/shared/services/cookie.service.ts");
 var product_service_1 = __webpack_require__("../../../../../src/app/shared/services/product.service.ts");
 var ProductComponent = (function () {
-    function ProductComponent(route, productService, router) {
+    function ProductComponent(route, productService, router, cookieService) {
         this.route = route;
         this.productService = productService;
         this.router = router;
+        this.cookieService = cookieService;
         this.isButtonsVisible = false;
+        this.isInBasket = false;
+        this.basketItemMaxAmount = 0;
     }
     ProductComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -974,12 +1023,33 @@ var ProductComponent = (function () {
                     if (data) {
                         _this.product = data;
                         _this.category = _this.productService.getCategoryName(_this.product.categoryId);
+                        _this.basketItemMaxAmount = data.amount;
                     }
                 });
+                _this.checkIsInBasket(_this.productId);
             }
         });
     };
-    ProductComponent.prototype.addToBasket = function () {
+    ProductComponent.prototype.addToBasket = function (productId) {
+        var amount = this.basketItemAmount.nativeElement.value;
+        if (productId && amount) {
+            var payload = {
+                productId: productId,
+                amount: +amount
+            };
+            this.productService.shoppingBasket.next(payload);
+            this.isInBasket = true;
+        }
+    };
+    ProductComponent.prototype.checkIsInBasket = function (productId) {
+        var cookieItems = this.cookieService.getCookie('basketItems');
+        var items = cookieItems ? JSON.parse(cookieItems) : [];
+        if (_.find(items, { 'productId': productId })) {
+            this.isInBasket = true;
+        }
+        else {
+            this.isInBasket = false;
+        }
     };
     ProductComponent.prototype.ngOnDestroy = function () {
         this.sub.unsubscribe();
@@ -993,12 +1063,16 @@ var ProductComponent = (function () {
             _this.router.navigateByUrl('product-list');
         });
     };
+    __decorate([
+        core_1.ViewChild('basketItemAmount'),
+        __metadata("design:type", core_1.ElementRef)
+    ], ProductComponent.prototype, "basketItemAmount", void 0);
     ProductComponent = __decorate([
         core_1.Component({
             selector: 'app-product',
             template: __webpack_require__("../../../../../src/app/product/product.component.html")
         }),
-        __metadata("design:paramtypes", [router_1.ActivatedRoute, product_service_1.ProductService, router_1.Router])
+        __metadata("design:paramtypes", [router_1.ActivatedRoute, product_service_1.ProductService, router_1.Router, cookie_service_1.CookieService])
     ], ProductComponent);
     return ProductComponent;
 }());
@@ -1052,7 +1126,7 @@ var ProductFormModel = (function (_super) {
                 categoryId: [null, forms_1.Validators.required],
                 image: null,
                 description: ['', forms_1.Validators.required],
-                amount: ['']
+                amount: ['', forms_1.Validators.required]
             });
         }
         if (data && !clear) {
@@ -1252,6 +1326,7 @@ __export(__webpack_require__("../../../../../src/app/shared/services/account.ser
 __export(__webpack_require__("../../../../../src/app/shared/services/product.service.ts"));
 __export(__webpack_require__("../../../../../src/app/shared/services/loader.service.ts"));
 __export(__webpack_require__("../../../../../src/app/shared/loader/loader.component.ts"));
+__export(__webpack_require__("../../../../../src/app/shared/services/cookie.service.ts"));
 
 
 /***/ }),
@@ -1333,6 +1408,65 @@ var AccountService = (function () {
     return AccountService;
 }());
 exports.AccountService = AccountService;
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/shared/services/cookie.service.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var _ = __webpack_require__("../../../../lodash/lodash.js");
+var core_1 = __webpack_require__("../../../core/esm5/core.js");
+var CookieService = (function () {
+    function CookieService() {
+    }
+    CookieService.prototype.setCookie = function (name, value, expireDays) {
+        var date = new Date();
+        date.setTime(date.getTime() + (expireDays * 24 * 60 * 60 * 1000));
+        var expires = "expires=" + date.toUTCString();
+        document.cookie = name + '=' + value + '; ' + expires + ';path=/';
+    };
+    CookieService.prototype.getCookie = function (name) {
+        var cookieName = name + '=';
+        var cookieArray = document.cookie.split(';');
+        var cookieValue = "";
+        _.forEach(cookieArray, function (cookie, index) {
+            var selectedCookie = cookieArray[index];
+            _.forEach(selectedCookie, function (char) {
+                if (char.charAt(0) === ' ') {
+                    selectedCookie = selectedCookie.substring(1);
+                }
+            });
+            if (selectedCookie.indexOf(name) === 0) {
+                cookieValue = selectedCookie.substring(cookieName.length, selectedCookie.length);
+                return false;
+            }
+        });
+        return cookieValue;
+    };
+    CookieService.prototype.deleteCookie = function (name) {
+        //document.cookie = name +'=; Max-Age=-99999999;';  alternatywa
+        this.setCookie(name, "", -1);
+    };
+    CookieService = __decorate([
+        core_1.Injectable(),
+        __metadata("design:paramtypes", [])
+    ], CookieService);
+    return CookieService;
+}());
+exports.CookieService = CookieService;
 
 
 /***/ }),
@@ -1491,6 +1625,8 @@ var ProductService = (function () {
         this.httpService = httpService;
         this._categories = [];
         this.filterProductParameters = new Rx_1.BehaviorSubject(null);
+        this.shoppingBasket = new Rx_1.BehaviorSubject(null);
+        this.refresBasketCounter = new Rx_1.BehaviorSubject(false);
     }
     Object.defineProperty(ProductService.prototype, "categories", {
         get: function () {
@@ -1513,6 +1649,9 @@ var ProductService = (function () {
     };
     ProductService.prototype.getAllProducts = function () {
         return this.httpService.get('product/getAll');
+    };
+    ProductService.prototype.getSelectedProducts = function () {
+        return this.httpService.get('product/getSelectedProducts');
     };
     ProductService.prototype.getFilteredProducts = function (parameters) {
         var urlStringParameters = '?page=' + parameters.page + '&max=' + parameters.max;
@@ -1584,6 +1723,109 @@ var EmailValidator = (function () {
     return EmailValidator;
 }());
 exports.EmailValidator = EmailValidator;
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/shopping-basket/shopping-basket.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"basket-container\">\r\n  <h1 class=\"basket-head\">Koszyk</h1>\r\n  <div class=\"basket-content\" id=\"style-2\">\r\n    <div class=\"row\">\r\n      <div class=\"col-md-2\">\r\n          <h5></h5>\r\n      </div>\r\n      <div class=\"col-md-4\"><h5>Nazwa</h5></div>\r\n      <div class=\"col-md-2\"><h5>Ilość</h5></div>\r\n      <div class=\"col-md-2\"><h5>Cena</h5></div>\r\n      <div class=\"col-md-2\"><h5></h5></div>\r\n    </div>\r\n    <ng-container *ngIf=\"productsItem && productsItem.length\">\r\n      <div class=\"row basket-item\" *ngFor=\"let productItem of productsItem\">\r\n          <div class=\"col-md-2\">\r\n              <img *ngIf=\"productItem.product.image\" [src]=\"productItem.product.image\" class=\"basket-image\">\r\n              <img *ngIf=\"!productItem.product.image\" src=\"./../../assets/no_foto.png\" class=\"basket-image\">\r\n          </div>\r\n          <div class=\"col-md-4\">{{productItem.product.name}}</div>\r\n          <div class=\"col-md-2\">{{productItem.amount}}</div>\r\n          <div class=\"col-md-2\">{{productItem.product.price}} zł</div>\r\n          <div class=\"col-md-2\"><span class=\"remove-basket-btn\"><i class=\"fa fa-times\" aria-hidden=\"true\" (click)=\"removeItem(productItem.product.id)\"></i></span></div>\r\n      </div>\r\n    </ng-container>\r\n  </div>\r\n  <div class=\"row basket-summary\">\r\n    <p class=\"basket-summary-title\">Suma: {{sum}} zł</p> <button type=\"button\" class=\"btn btn-secondary btn-sm basket-btn\" (click)=\"order()\">Zamów</button>\r\n  </div>\r\n</div>\r\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/shopping-basket/shopping-basket.component.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var _ = __webpack_require__("../../../../lodash/lodash.js");
+var core_1 = __webpack_require__("../../../core/esm5/core.js");
+var cookie_service_1 = __webpack_require__("../../../../../src/app/shared/services/cookie.service.ts");
+var product_service_1 = __webpack_require__("../../../../../src/app/shared/services/product.service.ts");
+var ShoppingBasketComponent = (function () {
+    function ShoppingBasketComponent(cookieService, productService) {
+        this.cookieService = cookieService;
+        this.productService = productService;
+        this.items = {};
+        this.products = [];
+        this.productsItem = {};
+        this.sum = 0;
+    }
+    ShoppingBasketComponent.prototype.ngOnInit = function () {
+        var basketItems = this.cookieService.getCookie('basketItems');
+        this.items = basketItems ? JSON.parse(basketItems) : [];
+        this.getProducts();
+    };
+    ShoppingBasketComponent.prototype.getProducts = function () {
+        var _this = this;
+        this.productService.getSelectedProducts().subscribe(function (data) {
+            if (!data) {
+                return;
+            }
+            console.log(data);
+            _this.products = data;
+            _this.productsItem = _this.processProductItems(_this.products, _this.items);
+        });
+    };
+    ShoppingBasketComponent.prototype.processProductItems = function (products, items) {
+        var _this = this;
+        var productsItemArray = [];
+        if (!this.products || !this.items) {
+            return;
+        }
+        _.forEach(products, function (product) {
+            var productAmount = _.find(items, { 'productId': product.id });
+            if (!productAmount) {
+                return;
+            }
+            var productItem = {
+                product: product,
+                amount: productAmount.amount
+            };
+            _this.sum += productItem.amount * +productItem.product.price;
+            productsItemArray.push(productItem);
+        });
+        return productsItemArray;
+    };
+    ShoppingBasketComponent.prototype.removeItem = function (productId) {
+        var _this = this;
+        _.forEach(this.items, function (item, index) {
+            if (item.productId === productId) {
+                _this.items.splice(index, 1);
+                _this.cookieService.setCookie('basketItems', JSON.stringify(_this.items), 1);
+                return false;
+            }
+        });
+        _.forEach(this.productsItem, function (item, index) {
+            if (item.product.id === productId) {
+                _this.sum = _this.sum - (item.amount * +item.product.price);
+                _this.productsItem.splice(index, 1);
+                return false;
+            }
+        });
+        this.productService.refresBasketCounter.next(true);
+    };
+    ShoppingBasketComponent = __decorate([
+        core_1.Component({
+            selector: 'app-shopping-basket',
+            template: __webpack_require__("../../../../../src/app/shopping-basket/shopping-basket.component.html")
+        }),
+        __metadata("design:paramtypes", [cookie_service_1.CookieService, product_service_1.ProductService])
+    ], ShoppingBasketComponent);
+    return ShoppingBasketComponent;
+}());
+exports.ShoppingBasketComponent = ShoppingBasketComponent;
 
 
 /***/ }),

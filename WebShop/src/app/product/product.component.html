@@ -1,17 +1,23 @@
 <div class="container content-product"  *ngIf="product">
   <div class="row">
     <div class="col-md-6">
-        <img [src]="product.image" class="product-content-image">
+        <img *ngIf="product.image" [src]="product.image" class="product-content-image">
+        <img *ngIf="!product.image" src="./../../assets/no_foto.png" class="product-content-image">
         <h5 class="product-content-title">{{product.name}}</h5>
         <a *ngIf="category" routerLink="/" class="product-content-category">{{category.name}}</a><!--TODO: routerLink productList with categoryId-->
-    </div>
+        <div *ngIf="!isInBasket && basketItemMaxAmount" class="row amount-content">
+          <input #basketItemAmount type="number" class="form-control basket-item-amount" min="1" [max]="basketItemMaxAmount" value="1">
+          <p class="basket-amount-text"> z {{basketItemMaxAmount.toString()}}</p>
+        </div>
+      </div>
     <div class="col-md-6">
         <h5 class="product-content-price">{{product.price}} zł</h5>
         <h5 class="product-content-description">{{product.description}}</h5>
         <div class="center-block product-content-button">
-          <button type="button" class="btn btn-default" (click)="addToBasket()">Dodaj do koszyka <i class="fa fa-shopping-basket" aria-hidden="true"></i></button>
+          <button *ngIf="!isInBasket && basketItemMaxAmount"  type="button" class="btn btn-default add-to-basket-btn" (click)="addToBasket(product.id)">Dodaj do koszyka <i class="fa fa-shopping-basket" aria-hidden="true"></i></button>
+          <h5 *ngIf="!basketItemMaxAmount">Produkt niedostępny!</h5>
+          <h5 *ngIf="isInBasket">Produkt dodany do koszyka!</h5>
         </div>
-    </div>
   </div>
   <span class="product-footer">
       <i class="fa fa-cog" aria-hidden="true" (click)="showButtons()"></i>
@@ -19,3 +25,4 @@
       <button *ngIf="isButtonsVisible" type="button" class="btn btn-secondary btn-sm" (click)="removeProduct(product.id)">Usuń</button>
   </span>
 </div>
+

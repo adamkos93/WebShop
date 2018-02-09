@@ -88,5 +88,15 @@ namespace WebShop.Infrastucture.Services.ServiceProduct
             var products = await _productRepository.GetFilteredProducts(page, max, categoryId, minPrice, maxPrice, name);
             return Tuple.Create(_mapper.Map<List<Product>, List<ProductDto>>(products.Item1),products.Item2);
         }
+
+        public async Task<IEnumerable<ProductDto>> GetSelectedProducts(int[] productIds)
+        {
+            if (productIds == null || productIds.Length == 0) {
+                throw new ArgumentNullException(nameof(productIds));
+            }
+            var products = await _productRepository.GetSelectedProducts(productIds);
+            if (products == null) { throw new NullReferenceException(nameof(products)); }
+            return _mapper.Map<IEnumerable<Product>, IEnumerable<ProductDto>>(products);
+        }
     }
 }
