@@ -1,4 +1,4 @@
-import { AccountService, AddProductComponent, AppComponent, CookieService, EditProductComponent, FilterComponent, HttpService, LoaderComponent, LoaderService, LoginComponent, LoginFormModel, NavbarComponent, PaginationComponent, ProductComponent, ProductFormModel, ProductListComponent, ProductService, RegisterComponent, RegisterFormModel, ShoppingBasketComponent } from './index';
+import { AccountService, AddOrderComponent, AddProductComponent, AppComponent, CookieService, EditProductComponent, FilterComponent, HttpService, LoaderComponent, LoaderService, LoginComponent, LoginFormModel, NavbarComponent, OrderComponent, OrderFormModel, OrderListComponent, OrderService, PaginationComponent, ProductComponent, ProductFormModel, ProductListComponent, ProductService, RegisterComponent, RegisterFormModel, ShoppingBasketComponent } from './index';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { BrowserModule } from '@angular/platform-browser';
@@ -20,7 +20,10 @@ import { routes } from './app.router';
     AddProductComponent,
     EditProductComponent,
     PaginationComponent,
-    ShoppingBasketComponent
+    ShoppingBasketComponent,
+    AddOrderComponent,
+    OrderListComponent,
+    OrderComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +33,7 @@ import { routes } from './app.router';
     NgbModule.forRoot(),
     routes
   ],
-  providers: [LoginFormModel, CookieService, AccountService, HttpService, RegisterFormModel,ProductFormModel,ProductService, LoaderService],
+  providers: [LoginFormModel, CookieService, AccountService, HttpService, RegisterFormModel,ProductFormModel,ProductService, LoaderService, OrderFormModel, OrderService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

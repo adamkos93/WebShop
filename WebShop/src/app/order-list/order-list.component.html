@@ -1,0 +1,21 @@
+<div class="order-container">
+  <h1 class="order-head">Moje zamówienia</h1>
+  <div class="order-content" id="style-3">
+    <div class="row">
+      <div class="col-md-1"></div>
+      <div class="col-md-3"><h5>Nazwa</h5></div>
+      <div class="col-md-3"><h5>Data utworzenia</h5></div>
+      <div class="col-md-2"><h5>Status</h5></div>
+      <div class="col-md-3"><h5></h5></div>
+    </div>
+    <ng-container *ngIf="orders && orders.length">
+      <div class="row order-item" *ngFor="let order of orders" [routerLink]="['/order', order.id]">
+          <div class="col-md-1"></div>
+          <div class="col-md-3">Zamówienie nr {{order.id}}</div>
+          <div class="col-md-3">{{order.createdAt  | date:'dd/MM/yyyy hh:mm:ss'}}</div>
+          <div class="col-md-2">{{order.status}}</div>
+          <div class="col-md-3"><span class="remove-order-btn"><i class="fa fa-times" aria-hidden="true" (click)="removeItem(order.id)"></i></span></div>
+        </div>
+    </ng-container>
+  </div>
+</div>

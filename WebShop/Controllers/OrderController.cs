@@ -21,7 +21,7 @@ namespace WebShop.Controllers
        private readonly IFlurlClient _flurlClient;
        public OrderController(IOptions<ServicesUrlConfig> url)
        {
-         _url = url.Value.ServiceUserUrl;
+         _url = url.Value.ServiceOrderUrl;
          _flurlClient = new FlurlClient(_url);
        }
 
@@ -37,13 +37,14 @@ namespace WebShop.Controllers
          List<ProductItemDto> productItems = new List<ProductItemDto>();
          if (!String.IsNullOrEmpty(sourceString))
          {
-           string removeString = "basketItems=";
-           int index = sourceString.IndexOf(removeString);
-           string cleanPath = (index < 0)
-               ? sourceString
-               : sourceString.Remove(index, removeString.Length);
-           productItems = JsonConvert.DeserializeObject<List<ProductItemDto>>(cleanPath);
-           
+            int firstIndex = sourceString.IndexOf("[");
+            int lastIndex = sourceString.IndexOf("]");
+            bool isInSourceStrig = firstIndex != -1 && lastIndex != -1;
+            if (isInSourceStrig)
+            {
+              string cleanPath = sourceString.Substring(firstIndex, (lastIndex - firstIndex) + 1);
+              productItems = JsonConvert.DeserializeObject<List<ProductItemDto>>(cleanPath);
+            }
          }
          return productItems;
        }
@@ -60,8 +61,9 @@ namespace WebShop.Controllers
        {
          if (order == null) { throw new ArgumentNullException(nameof(order)); }
          order.UserId = getUserId();
+         order.CreatedAt = DateTime.Now;
          order.ProductItems = getbasketCookie();
-         var result = await _url.EnableCookies().AppendPathSegments("order", "addOrder").PostJsonAsync(order);
+         var result = await _url.AppendPathSegments("order", "addOrder").PostJsonAsync(order);
          return Json(result);
        }
        
@@ -81,6 +83,28 @@ namespace WebShop.Controllers
           if (orderId <= 0) { throw new ArgumentNullException(nameof(orderId)); }
           var result = await _url.AppendPathSegments("order", "deleteOrder").SetQueryParam("orderId", orderId).DeleteAsync();
           return Json(result);
+       }
+
+       [HttpGet("getOrdersByUser")]
+       public async Task<IActionResult> GetAllByUserAsync()
+       {
+         int userId = getUserId();
+         var result = await _url.AppendPathSegments("order", "getOrdersByUser").SetQueryParam("userId", userId).GetAsync().ReceiveJson<List<OrderDto>>();
+         return Json(result);
+       }
+
+       [HttpGet("getAllOrders")]
+       public async Task<IActionResult> GetAllAsync()
+       {
+         var result = await _url.AppendPathSegments("order", "getAllOrders").GetAsync().ReceiveJson<List<OrderDto>>();
+         return Json(result);
+       }
+
+       [HttpGet("getOrderById")]
+       public async Task<IActionResult> GetOrderById(int orderId)
+       {
+         var result = await _url.AppendPathSegments("order", "getOrderById").SetQueryParam("orderId", orderId).GetAsync().ReceiveJson<OrderDto>();
+         return Json(result);
        }
   }
 }

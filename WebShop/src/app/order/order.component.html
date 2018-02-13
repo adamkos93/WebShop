@@ -1,0 +1,29 @@
+<div class="container content-order"  *ngIf="orderProducts">
+  <h1 class="content-order-header">Szczegóły zamówienia</h1>
+  <div class="row adress">
+    <div class="col-md-4 offset-md-1">
+      <h5>Miasto: {{orderProducts.city}}</h5>
+      <h5>Kod pocztowy: {{orderProducts.postCode}}</h5>
+      <h5 class="street-header">Adres: {{orderProducts.street}} <h5> {{orderProducts.streetNumber}}</h5><h5 *ngIf="orderProducts.flatNumber"> / {{orderProducts.flatNumber}}</h5></h5>
+    </div>
+    <div class="col-md-4 offset-md-1">
+        <h5>Data utworzenia: {{orderProducts.createdAt  | date:'dd/MM/yyyy hh:mm:ss' }}</h5>
+        <h5>Status: {{orderProducts.status}}</h5>
+    </div>
+  </div>
+  <div class="order-product-container" *ngIf="orderProducts.orderProducts && orderProducts.orderProducts.length">
+    <div class="row">
+        <div class="col-md-4">Nazwa produktu</div>
+        <div class="col-md-4">Ilość</div>
+        <div class="col-md-4">Cena</div>
+    </div>
+    <div class="order-product-content" id="style-4">
+      <div class="row order-product-item" *ngFor="let product of orderProducts.orderProducts">
+          <div class="col-md-4">{{product.productName}}</div>
+          <div class="col-md-4">{{product.count}}</div>
+          <div class="col-md-4">{{product.price}} zł</div>
+      </div>
+    </div>
+  </div>
+</div>
+

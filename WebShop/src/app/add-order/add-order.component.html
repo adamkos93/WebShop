@@ -1,0 +1,42 @@
+
+
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+      <h1 class="sign-in">Zamówienie</h1>
+      <form [formGroup]="addOrderForm">
+        <div class="form-group">
+            <label for="city">Miasto</label>
+            <input formControlName="city" type="text" class="form-control" placeholder="miasto">
+            <div class="invalid-control" *ngIf="!addOrderForm.controls['city'].valid && addOrderForm.controls['city'].touched">Miasto jest nieprawidłowe.</div>
+        </div>
+        <div class="form-group">
+            <label for="postCode">Kod pocztowy</label>
+            <input formControlName="postCode" type="text" class="form-control" placeholder="kod pocztowy">
+            <div class="invalid-control" *ngIf="!addOrderForm.controls['postCode'].valid && addOrderForm.controls['postCode'].touched">Kod pocztowy jest nieprawidłowy.</div>
+        </div>
+        <div class="form-group">
+          <label for="street">Ulica</label>
+          <input formControlName="street" type="text" class="form-control" placeholder="ulica">
+          <div class="invalid-control" *ngIf="!addOrderForm.controls['street'].valid && addOrderForm.controls['street'].touched">Ulica jest nieprawidłowa.</div>
+        </div>
+        <div class="form-group">
+            <label for="streetNumber">Numer domu</label>
+            <input formControlName="streetNumber" type="text" class="form-control" placeholder="numer domu">
+            <div class="invalid-control" *ngIf="!addOrderForm.controls['streetNumber'].valid && addOrderForm.controls['streetNumber'].touched">Numer domu jest nieprawidłowy.</div>
+        </div>
+        <div class="form-group">
+            <label for="flatNumber">Numer mieszkania</label>
+            <input formControlName="flatNumber" type="text" class="form-control" placeholder="numer mieszkania">
+            <div class="invalid-control" *ngIf="!addOrderForm.controls['flatNumber'].valid && addOrderForm.controls['flatNumber'].touched">Numer mieszkania jest nieprawidłowy.</div>
+        </div>
+        <div class="form-group">
+          <label for="flatNumber">Numer telefonu</label>
+          <input formControlName="phoneNumber" type="text" class="form-control" placeholder="numer telefonu">
+          <div class="invalid-control" *ngIf="!addOrderForm.controls['phoneNumber'].valid && addOrderForm.controls['phoneNumber'].touched">Numer telefonu jest nieprawidłowy.</div>
+      </div>
+        <button type="submit" class="btn btn-default submit-btn" (click)="save()">Wyślij</button>
+      </form>
+    </div>
+    <div class="col-md-4"></div>
+  </div>

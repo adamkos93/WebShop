@@ -1,21 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Text;
+using WebShop.Infrastucture.DTO;
 
-namespace WebShop.Data.Domain
+namespace WebShop.Infrastructure.DTO
 {
-    public class OrderProduct
+    public class OrderProductDto
     {
-        [Key]
         public int Id { get; set; }
         public int ProductId { get; set; }
 
-        public Product Product { get; set; }
-
         public int OrderId { get; set; }
 
-        public Order Order { get; set; }
+        public OrderDto Order { get; set; }
 
         public string ProductName { get; set; }
 

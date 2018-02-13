@@ -1,6 +1,6 @@
 <div class="top-nav">
     <a routerLink="/product-list" class="top-nav-item">Lista produktów</a>
-    <a href="#" class="top-nav-item no-hover">Moje zamówienia</a>
+    <a href="#" class="top-nav-item no-hover" routerLink="/order-list">Moje zamówienia</a>
     <a routerLink="/add-product" class="top-nav-item">Dodaj produkt</a>
     <a *ngIf="isLogged" class="top-nav-item item-right" (click)="logout()">
       <i class="fa fa-user" aria-hidden="true"></i>

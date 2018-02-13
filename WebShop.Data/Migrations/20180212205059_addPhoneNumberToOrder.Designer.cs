@@ -8,9 +8,10 @@ using WebShop.Data;
 namespace WebShop.Data.Migrations
 {
     [DbContext(typeof(StoreWebDbContext))]
-    partial class StoreWebDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180212205059_addPhoneNumberToOrder")]
+    partial class addPhoneNumberToOrder
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")

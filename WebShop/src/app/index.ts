@@ -13,3 +13,7 @@ export * from './product/product.form-model';
 export * from './edit-product/edit-product.component';
 export * from './pagination/pagination.component';
 export * from './shopping-basket/shopping-basket.component';
+export * from './order/order.from-model';
+export * from './add-order/add-order.component';
+export * from './order-list/order-list.component';
+export * from './order/order.component';

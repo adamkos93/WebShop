@@ -17,6 +17,75 @@ webpackEmptyAsyncContext.id = "../../../../../src/$$_lazy_route_resource lazy re
 
 /***/ }),
 
+/***/ "../../../../../src/app/add-order/add-order.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "\r\n\r\n<div class=\"row\">\r\n    <div class=\"col-md-4\"></div>\r\n    <div class=\"col-md-4\">\r\n      <h1 class=\"sign-in\">Zamówienie</h1>\r\n      <form [formGroup]=\"addOrderForm\">\r\n        <div class=\"form-group\">\r\n            <label for=\"city\">Miasto</label>\r\n            <input formControlName=\"city\" type=\"text\" class=\"form-control\" placeholder=\"miasto\">\r\n            <div class=\"invalid-control\" *ngIf=\"!addOrderForm.controls['city'].valid && addOrderForm.controls['city'].touched\">Miasto jest nieprawidłowe.</div>\r\n        </div>\r\n        <div class=\"form-group\">\r\n            <label for=\"postCode\">Kod pocztowy</label>\r\n            <input formControlName=\"postCode\" type=\"text\" class=\"form-control\" placeholder=\"kod pocztowy\">\r\n            <div class=\"invalid-control\" *ngIf=\"!addOrderForm.controls['postCode'].valid && addOrderForm.controls['postCode'].touched\">Kod pocztowy jest nieprawidłowy.</div>\r\n        </div>\r\n        <div class=\"form-group\">\r\n          <label for=\"street\">Ulica</label>\r\n          <input formControlName=\"street\" type=\"text\" class=\"form-control\" placeholder=\"ulica\">\r\n          <div class=\"invalid-control\" *ngIf=\"!addOrderForm.controls['street'].valid && addOrderForm.controls['street'].touched\">Ulica jest nieprawidłowa.</div>\r\n        </div>\r\n        <div class=\"form-group\">\r\n            <label for=\"streetNumber\">Numer domu</label>\r\n            <input formControlName=\"streetNumber\" type=\"text\" class=\"form-control\" placeholder=\"numer domu\">\r\n            <div class=\"invalid-control\" *ngIf=\"!addOrderForm.controls['streetNumber'].valid && addOrderForm.controls['streetNumber'].touched\">Numer domu jest nieprawidłowy.</div>\r\n        </div>\r\n        <div class=\"form-group\">\r\n            <label for=\"flatNumber\">Numer mieszkania</label>\r\n            <input formControlName=\"flatNumber\" type=\"text\" class=\"form-control\" placeholder=\"numer mieszkania\">\r\n            <div class=\"invalid-control\" *ngIf=\"!addOrderForm.controls['flatNumber'].valid && addOrderForm.controls['flatNumber'].touched\">Numer mieszkania jest nieprawidłowy.</div>\r\n        </div>\r\n        <div class=\"form-group\">\r\n          <label for=\"flatNumber\">Numer telefonu</label>\r\n          <input formControlName=\"phoneNumber\" type=\"text\" class=\"form-control\" placeholder=\"numer telefonu\">\r\n          <div class=\"invalid-control\" *ngIf=\"!addOrderForm.controls['phoneNumber'].valid && addOrderForm.controls['phoneNumber'].touched\">Numer telefonu jest nieprawidłowy.</div>\r\n      </div>\r\n        <button type=\"submit\" class=\"btn btn-default submit-btn\" (click)=\"save()\">Wyślij</button>\r\n      </form>\r\n    </div>\r\n    <div class=\"col-md-4\"></div>\r\n  </div>\r\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/add-order/add-order.component.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("../../../core/esm5/core.js");
+var order_from_model_1 = __webpack_require__("../../../../../src/app/order/order.from-model.ts");
+var order_service_1 = __webpack_require__("../../../../../src/app/shared/services/order.service.ts");
+var router_1 = __webpack_require__("../../../router/esm5/router.js");
+var AddOrderComponent = (function () {
+    function AddOrderComponent(orderFormModel, router, orderService) {
+        this.orderFormModel = orderFormModel;
+        this.router = router;
+        this.orderService = orderService;
+    }
+    Object.defineProperty(AddOrderComponent.prototype, "addOrderForm", {
+        get: function () {
+            return this.orderFormModel.model;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    AddOrderComponent.prototype.ngOnInit = function () {
+        this.initializeFormModel(null);
+    };
+    AddOrderComponent.prototype.initializeFormModel = function (data) {
+        this.orderFormModel.initializeModel(data);
+    };
+    AddOrderComponent.prototype.save = function () {
+        var _this = this;
+        if (this.addOrderForm.valid) {
+            var model = this.addOrderForm.value;
+            model.status = 'Oczekujące';
+            this.orderService.addOrder(model).subscribe(function (data) {
+                _this.router.navigateByUrl('order-list');
+            });
+        }
+    };
+    AddOrderComponent = __decorate([
+        core_1.Component({
+            selector: 'app-add-order',
+            template: __webpack_require__("../../../../../src/app/add-order/add-order.component.html")
+        }),
+        __metadata("design:paramtypes", [order_from_model_1.OrderFormModel, router_1.Router, order_service_1.OrderService])
+    ], AddOrderComponent);
+    return AddOrderComponent;
+}());
+exports.AddOrderComponent = AddOrderComponent;
+
+
+/***/ }),
+
 /***/ "../../../../../src/app/add-product/add-product.component.html":
 /***/ (function(module, exports) {
 
@@ -221,7 +290,10 @@ var AppModule = (function () {
                 index_1.AddProductComponent,
                 index_1.EditProductComponent,
                 index_1.PaginationComponent,
-                index_1.ShoppingBasketComponent
+                index_1.ShoppingBasketComponent,
+                index_1.AddOrderComponent,
+                index_1.OrderListComponent,
+                index_1.OrderComponent
             ],
             imports: [
                 platform_browser_1.BrowserModule,
@@ -231,7 +303,7 @@ var AppModule = (function () {
                 ng_bootstrap_1.NgbModule.forRoot(),
                 app_router_1.routes
             ],
-            providers: [index_1.LoginFormModel, index_1.CookieService, index_1.AccountService, index_1.HttpService, index_1.RegisterFormModel, index_1.ProductFormModel, index_1.ProductService, index_1.LoaderService],
+            providers: [index_1.LoginFormModel, index_1.CookieService, index_1.AccountService, index_1.HttpService, index_1.RegisterFormModel, index_1.ProductFormModel, index_1.ProductService, index_1.LoaderService, index_1.OrderFormModel, index_1.OrderService],
             bootstrap: [index_1.AppComponent]
         })
     ], AppModule);
@@ -249,9 +321,12 @@ exports.AppModule = AppModule;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var router_1 = __webpack_require__("../../../router/esm5/router.js");
+var add_order_component_1 = __webpack_require__("../../../../../src/app/add-order/add-order.component.ts");
 var add_product_component_1 = __webpack_require__("../../../../../src/app/add-product/add-product.component.ts");
 var edit_product_component_1 = __webpack_require__("../../../../../src/app/edit-product/edit-product.component.ts");
 var login_component_1 = __webpack_require__("../../../../../src/app/login/login.component.ts");
+var order_component_1 = __webpack_require__("../../../../../src/app/order/order.component.ts");
+var order_list_component_1 = __webpack_require__("../../../../../src/app/order-list/order-list.component.ts");
 var product_component_1 = __webpack_require__("../../../../../src/app/product/product.component.ts");
 var product_list_component_1 = __webpack_require__("../../../../../src/app/product-list/product-list.component.ts");
 var register_component_1 = __webpack_require__("../../../../../src/app/register/register.component.ts");
@@ -299,6 +374,21 @@ exports.router = [
     {
         path: 'shopping-basket',
         component: shopping_basket_component_1.ShoppingBasketComponent,
+        pathMatch: 'full',
+    },
+    {
+        path: 'add-order',
+        component: add_order_component_1.AddOrderComponent,
+        pathMatch: 'full',
+    },
+    {
+        path: 'order-list',
+        component: order_list_component_1.OrderListComponent,
+        pathMatch: 'full',
+    },
+    {
+        path: 'order/:orderId',
+        component: order_component_1.OrderComponent,
         pathMatch: 'full',
     },
 ];
@@ -549,6 +639,10 @@ __export(__webpack_require__("../../../../../src/app/product/product.form-model.
 __export(__webpack_require__("../../../../../src/app/edit-product/edit-product.component.ts"));
 __export(__webpack_require__("../../../../../src/app/pagination/pagination.component.ts"));
 __export(__webpack_require__("../../../../../src/app/shopping-basket/shopping-basket.component.ts"));
+__export(__webpack_require__("../../../../../src/app/order/order.from-model.ts"));
+__export(__webpack_require__("../../../../../src/app/add-order/add-order.component.ts"));
+__export(__webpack_require__("../../../../../src/app/order-list/order-list.component.ts"));
+__export(__webpack_require__("../../../../../src/app/order/order.component.ts"));
 
 
 /***/ }),
@@ -698,7 +792,7 @@ exports.LoginFormModel = LoginFormModel;
 /***/ "../../../../../src/app/navbar/navbar.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"top-nav\">\r\n    <a routerLink=\"/product-list\" class=\"top-nav-item\">Lista produktów</a>\r\n    <a href=\"#\" class=\"top-nav-item no-hover\">Moje zamówienia</a>\r\n    <a routerLink=\"/add-product\" class=\"top-nav-item\">Dodaj produkt</a>\r\n    <a *ngIf=\"isLogged\" class=\"top-nav-item item-right\" (click)=\"logout()\">\r\n      <i class=\"fa fa-user\" aria-hidden=\"true\"></i>\r\n      <span class=\"sidebar-item-title\">Wyloguj</span>\r\n    </a>\r\n    <a *ngIf=\"!isLogged\" href=\"#\" class=\"top-nav-item item-right\" routerLink=\"/login\">\r\n        <i class=\"fa fa-user\" aria-hidden=\"true\"></i>\r\n        <span class=\"sidebar-item-title\">Zaloguj</span>\r\n    </a>\r\n    <a routerLink=\"/shopping-basket\" class=\"top-nav-item item-right\">\r\n        <i class=\"fa fa-shopping-basket\" aria-hidden=\"true\"><span *ngIf=\"basketItemsCounter\">{{basketItemsCounter}}</span></i>\r\n    </a>\r\n</div>\r\n"
+module.exports = "<div class=\"top-nav\">\r\n    <a routerLink=\"/product-list\" class=\"top-nav-item\">Lista produktów</a>\r\n    <a href=\"#\" class=\"top-nav-item no-hover\" routerLink=\"/order-list\">Moje zamówienia</a>\r\n    <a routerLink=\"/add-product\" class=\"top-nav-item\">Dodaj produkt</a>\r\n    <a *ngIf=\"isLogged\" class=\"top-nav-item item-right\" (click)=\"logout()\">\r\n      <i class=\"fa fa-user\" aria-hidden=\"true\"></i>\r\n      <span class=\"sidebar-item-title\">Wyloguj</span>\r\n    </a>\r\n    <a *ngIf=\"!isLogged\" href=\"#\" class=\"top-nav-item item-right\" routerLink=\"/login\">\r\n        <i class=\"fa fa-user\" aria-hidden=\"true\"></i>\r\n        <span class=\"sidebar-item-title\">Zaloguj</span>\r\n    </a>\r\n    <a routerLink=\"/shopping-basket\" class=\"top-nav-item item-right\">\r\n        <i class=\"fa fa-shopping-basket\" aria-hidden=\"true\"><span *ngIf=\"basketItemsCounter\">{{basketItemsCounter}}</span></i>\r\n    </a>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -788,6 +882,196 @@ var NavbarComponent = (function () {
     return NavbarComponent;
 }());
 exports.NavbarComponent = NavbarComponent;
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/order-list/order-list.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"order-container\">\r\n  <h1 class=\"order-head\">Moje zamówienia</h1>\r\n  <div class=\"order-content\" id=\"style-3\">\r\n    <div class=\"row\">\r\n      <div class=\"col-md-1\"></div>\r\n      <div class=\"col-md-3\"><h5>Nazwa</h5></div>\r\n      <div class=\"col-md-3\"><h5>Data utworzenia</h5></div>\r\n      <div class=\"col-md-2\"><h5>Status</h5></div>\r\n      <div class=\"col-md-3\"><h5></h5></div>\r\n    </div>\r\n    <ng-container *ngIf=\"orders && orders.length\">\r\n      <div class=\"row order-item\" *ngFor=\"let order of orders\" [routerLink]=\"['/order', order.id]\">\r\n          <div class=\"col-md-1\"></div>\r\n          <div class=\"col-md-3\">Zamówienie nr {{order.id}}</div>\r\n          <div class=\"col-md-3\">{{order.createdAt  | date:'dd/MM/yyyy hh:mm:ss'}}</div>\r\n          <div class=\"col-md-2\">{{order.status}}</div>\r\n          <div class=\"col-md-3\"><span class=\"remove-order-btn\"><i class=\"fa fa-times\" aria-hidden=\"true\" (click)=\"removeItem(order.id)\"></i></span></div>\r\n        </div>\r\n    </ng-container>\r\n  </div>\r\n</div>\r\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/order-list/order-list.component.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("../../../core/esm5/core.js");
+var order_service_1 = __webpack_require__("../../../../../src/app/shared/services/order.service.ts");
+var router_1 = __webpack_require__("../../../router/esm5/router.js");
+var OrderListComponent = (function () {
+    function OrderListComponent(orderService, router) {
+        this.orderService = orderService;
+        this.router = router;
+        this.orders = [];
+    }
+    OrderListComponent.prototype.ngOnInit = function () {
+        this.getOrders();
+    };
+    OrderListComponent.prototype.getOrders = function () {
+        var _this = this;
+        this.orderService.getOrdersByUser().subscribe(function (data) {
+            if (!data) {
+                return;
+            }
+            _this.orders = data;
+        });
+    };
+    OrderListComponent.prototype.removeItem = function (orderId) {
+        var _this = this;
+        this.orderService.deleteOrder(orderId).subscribe(function (data) {
+            _this.router.navigateByUrl('order-list');
+        });
+    };
+    OrderListComponent = __decorate([
+        core_1.Component({
+            selector: 'app-order-list',
+            template: __webpack_require__("../../../../../src/app/order-list/order-list.component.html")
+        }),
+        __metadata("design:paramtypes", [order_service_1.OrderService, router_1.Router])
+    ], OrderListComponent);
+    return OrderListComponent;
+}());
+exports.OrderListComponent = OrderListComponent;
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/order/order.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"container content-order\"  *ngIf=\"orderProducts\">\r\n  <h1 class=\"content-order-header\">Szczegóły zamówienia</h1>\r\n  <div class=\"row adress\">\r\n    <div class=\"col-md-4 offset-md-1\">\r\n      <h5>Miasto: {{orderProducts.city}}</h5>\r\n      <h5>Kod pocztowy: {{orderProducts.postCode}}</h5>\r\n      <h5 class=\"street-header\">Adres: {{orderProducts.street}} <h5> {{orderProducts.streetNumber}}</h5><h5 *ngIf=\"orderProducts.flatNumber\"> / {{orderProducts.flatNumber}}</h5></h5>\r\n    </div>\r\n    <div class=\"col-md-4 offset-md-1\">\r\n        <h5>Data utworzenia: {{orderProducts.createdAt  | date:'dd/MM/yyyy hh:mm:ss' }}</h5>\r\n        <h5>Status: {{orderProducts.status}}</h5>\r\n    </div>\r\n  </div>\r\n  <div class=\"order-product-container\" *ngIf=\"orderProducts.orderProducts && orderProducts.orderProducts.length\">\r\n    <div class=\"row\">\r\n        <div class=\"col-md-4\">Nazwa produktu</div>\r\n        <div class=\"col-md-4\">Ilość</div>\r\n        <div class=\"col-md-4\">Cena</div>\r\n    </div>\r\n    <div class=\"order-product-content\" id=\"style-4\">\r\n      <div class=\"row order-product-item\" *ngFor=\"let product of orderProducts.orderProducts\">\r\n          <div class=\"col-md-4\">{{product.productName}}</div>\r\n          <div class=\"col-md-4\">{{product.count}}</div>\r\n          <div class=\"col-md-4\">{{product.price}} zł</div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/order/order.component.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var router_1 = __webpack_require__("../../../router/esm5/router.js");
+var core_1 = __webpack_require__("../../../core/esm5/core.js");
+var order_service_1 = __webpack_require__("../../../../../src/app/shared/services/order.service.ts");
+var OrderComponent = (function () {
+    function OrderComponent(route, orderService) {
+        this.route = route;
+        this.orderService = orderService;
+    }
+    OrderComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.sub = this.route.params.subscribe(function (params) {
+            _this.orderId = +params['orderId'];
+            if (_this.orderId > 0) {
+                _this.orderService.getOrderById(_this.orderId).subscribe(function (data) {
+                    if (data) {
+                        console.log(data);
+                        _this.orderProducts = data;
+                    }
+                });
+            }
+        });
+    };
+    OrderComponent.prototype.ngOnDestroy = function () {
+        this.sub.unsubscribe();
+    };
+    OrderComponent = __decorate([
+        core_1.Component({
+            selector: 'app-order',
+            template: __webpack_require__("../../../../../src/app/order/order.component.html")
+        }),
+        __metadata("design:paramtypes", [router_1.ActivatedRoute, order_service_1.OrderService])
+    ], OrderComponent);
+    return OrderComponent;
+}());
+exports.OrderComponent = OrderComponent;
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/order/order.from-model.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var forms_1 = __webpack_require__("../../../forms/esm5/forms.js");
+var form_model_1 = __webpack_require__("../../../../../src/app/shared/form/form-model.ts");
+var core_1 = __webpack_require__("../../../core/esm5/core.js");
+var OrderFormModel = (function (_super) {
+    __extends(OrderFormModel, _super);
+    function OrderFormModel(fb) {
+        var _this = _super.call(this) || this;
+        _this.fb = fb;
+        return _this;
+    }
+    OrderFormModel.prototype.initializeModel = function (data, clear) {
+        if (clear === void 0) { clear = false; }
+        if (!this.form || clear) {
+            this.form = this.fb.group({
+                id: [''],
+                city: ['', forms_1.Validators.required],
+                createdAt: [''],
+                postCode: ['', forms_1.Validators.required],
+                flatNumber: [''],
+                street: ['', forms_1.Validators.required],
+                streetNumber: ['', forms_1.Validators.required],
+                status: [''],
+                phoneNumber: ['', forms_1.Validators.required]
+            });
+        }
+        if (data && !clear) {
+            this.form.patchValue(data, { emitEvent: false }); //do sprawdzenia!
+        }
+        return this.form;
+    };
+    OrderFormModel = __decorate([
+        core_1.Injectable(),
+        __metadata("design:paramtypes", [forms_1.FormBuilder])
+    ], OrderFormModel);
+    return OrderFormModel;
+}(form_model_1.FormModel));
+exports.OrderFormModel = OrderFormModel;
 
 
 /***/ }),
@@ -1327,6 +1611,7 @@ __export(__webpack_require__("../../../../../src/app/shared/services/product.ser
 __export(__webpack_require__("../../../../../src/app/shared/services/loader.service.ts"));
 __export(__webpack_require__("../../../../../src/app/shared/loader/loader.component.ts"));
 __export(__webpack_require__("../../../../../src/app/shared/services/cookie.service.ts"));
+__export(__webpack_require__("../../../../../src/app/shared/services/order.service.ts"));
 
 
 /***/ }),
@@ -1601,6 +1886,53 @@ exports.LoaderService = LoaderService;
 
 /***/ }),
 
+/***/ "../../../../../src/app/shared/services/order.service.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var http_service_1 = __webpack_require__("../../../../../src/app/shared/services/http.service.ts");
+var core_1 = __webpack_require__("../../../core/esm5/core.js");
+var OrderService = (function () {
+    function OrderService(httpService) {
+        this.httpService = httpService;
+    }
+    OrderService.prototype.addOrder = function (order) {
+        return this.httpService.post('order/addOrder', order);
+    };
+    OrderService.prototype.getOrdersByUser = function () {
+        return this.httpService.get('order/getOrdersByUser');
+    };
+    OrderService.prototype.getAllOrders = function () {
+        return this.httpService.get('order/getAllOrders');
+    };
+    OrderService.prototype.getOrderById = function (orderId) {
+        return this.httpService.get('order/getOrderById?orderId=' + orderId);
+    };
+    OrderService.prototype.deleteOrder = function (orderId) {
+        return this.httpService.delete('order/deleteOrder?orderId=' + orderId);
+    };
+    OrderService = __decorate([
+        core_1.Injectable(),
+        __metadata("design:paramtypes", [http_service_1.HttpService])
+    ], OrderService);
+    return OrderService;
+}());
+exports.OrderService = OrderService;
+
+
+/***/ }),
+
 /***/ "../../../../../src/app/shared/services/product.service.ts":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1730,7 +2062,7 @@ exports.EmailValidator = EmailValidator;
 /***/ "../../../../../src/app/shopping-basket/shopping-basket.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"basket-container\">\r\n  <h1 class=\"basket-head\">Koszyk</h1>\r\n  <div class=\"basket-content\" id=\"style-2\">\r\n    <div class=\"row\">\r\n      <div class=\"col-md-2\">\r\n          <h5></h5>\r\n      </div>\r\n      <div class=\"col-md-4\"><h5>Nazwa</h5></div>\r\n      <div class=\"col-md-2\"><h5>Ilość</h5></div>\r\n      <div class=\"col-md-2\"><h5>Cena</h5></div>\r\n      <div class=\"col-md-2\"><h5></h5></div>\r\n    </div>\r\n    <ng-container *ngIf=\"productsItem && productsItem.length\">\r\n      <div class=\"row basket-item\" *ngFor=\"let productItem of productsItem\">\r\n          <div class=\"col-md-2\">\r\n              <img *ngIf=\"productItem.product.image\" [src]=\"productItem.product.image\" class=\"basket-image\">\r\n              <img *ngIf=\"!productItem.product.image\" src=\"./../../assets/no_foto.png\" class=\"basket-image\">\r\n          </div>\r\n          <div class=\"col-md-4\">{{productItem.product.name}}</div>\r\n          <div class=\"col-md-2\">{{productItem.amount}}</div>\r\n          <div class=\"col-md-2\">{{productItem.product.price}} zł</div>\r\n          <div class=\"col-md-2\"><span class=\"remove-basket-btn\"><i class=\"fa fa-times\" aria-hidden=\"true\" (click)=\"removeItem(productItem.product.id)\"></i></span></div>\r\n      </div>\r\n    </ng-container>\r\n  </div>\r\n  <div class=\"row basket-summary\">\r\n    <p class=\"basket-summary-title\">Suma: {{sum}} zł</p> <button type=\"button\" class=\"btn btn-secondary btn-sm basket-btn\" (click)=\"order()\">Zamów</button>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"basket-container\">\r\n  <h1 class=\"basket-head\">Koszyk</h1>\r\n  <div class=\"basket-content\" id=\"style-2\">\r\n    <div class=\"row\">\r\n      <div class=\"col-md-2\">\r\n          <h5></h5>\r\n      </div>\r\n      <div class=\"col-md-4\"><h5>Nazwa</h5></div>\r\n      <div class=\"col-md-2\"><h5>Ilość</h5></div>\r\n      <div class=\"col-md-2\"><h5>Cena</h5></div>\r\n      <div class=\"col-md-2\"><h5></h5></div>\r\n    </div>\r\n    <ng-container *ngIf=\"productsItem && productsItem.length\">\r\n      <div class=\"row basket-item\" *ngFor=\"let productItem of productsItem\">\r\n          <div class=\"col-md-2\">\r\n              <img *ngIf=\"productItem.product.image\" [src]=\"productItem.product.image\" class=\"basket-image\">\r\n              <img *ngIf=\"!productItem.product.image\" src=\"./../../assets/no_foto.png\" class=\"basket-image\">\r\n          </div>\r\n          <div class=\"col-md-4\">{{productItem.product.name}}</div>\r\n          <div class=\"col-md-2\">{{productItem.amount}}</div>\r\n          <div class=\"col-md-2\">{{productItem.product.price}} zł</div>\r\n          <div class=\"col-md-2\"><span class=\"remove-basket-btn\"><i class=\"fa fa-times\" aria-hidden=\"true\" (click)=\"removeItem(productItem.product.id)\"></i></span></div>\r\n      </div>\r\n    </ng-container>\r\n  </div>\r\n  <div class=\"row basket-summary\">\r\n    <p class=\"basket-summary-title\">Suma: {{sum}} zł</p> <button type=\"button\" class=\"btn btn-secondary btn-sm basket-btn\" routerLink=\"/add-order\">Zamów</button>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 

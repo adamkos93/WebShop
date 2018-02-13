@@ -8,9 +8,10 @@ using WebShop.Data;
 namespace WebShop.Data.Migrations
 {
     [DbContext(typeof(StoreWebDbContext))]
-    partial class StoreWebDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180212011031_ModifyOrderTable")]
+    partial class ModifyOrderTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")
@@ -39,8 +40,6 @@ namespace WebShop.Data.Migrations
 
                     b.Property<int>("FlatNumber");
 
-                    b.Property<string>("PhoneNumber");
-
                     b.Property<string>("PostCode");
 
                     b.Property<string>("Status");
@@ -48,6 +47,8 @@ namespace WebShop.Data.Migrations
                     b.Property<string>("Street");
 
                     b.Property<int?>("StreetNumber");
+
+                    b.Property<string>("TotalPrice");
 
                     b.Property<int>("UserId");
 
@@ -67,11 +68,7 @@ namespace WebShop.Data.Migrations
 
                     b.Property<int>("OrderId");
 
-                    b.Property<double>("Price");
-
                     b.Property<int>("ProductId");
-
-                    b.Property<string>("ProductName");
 
                     b.HasKey("Id");
 

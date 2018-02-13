@@ -49,5 +49,23 @@ namespace WebShop.OrderService.Controllers
             await _orderService.DeleteAsync(orderId);
             return Json("OK");
         }
+        [HttpGet("getOrdersByUser")]
+        public async Task<IActionResult> GetAllByUserAsync(int userId)
+        {
+            var orders = await _orderService.GetAllByUserAsync(userId);
+            return Json(orders);
+        }
+        [HttpGet("getAllOrders")]
+        public async Task<IActionResult> GetAllAsync()
+        {
+            var orders = await _orderService.GetAllAsync();
+            return Json(orders);
+        }
+
+        [HttpGet("getOrderById")]
+        public async Task<IActionResult> GetOrderById(int orderId) {
+            var order = await _orderService.GetOrderById(orderId);
+            return Json(order);
+        }
     }
 }

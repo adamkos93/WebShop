@@ -21,6 +21,15 @@ namespace WebShop.Infrastucture.Repositories
         public async Task<Order> GetAsync(int id)
           => await _storeWebDbContext.Order.FirstOrDefaultAsync(x => x.Id == id);
 
+        public async Task<List<Order>> GetAllByUserAsync(int userId)
+         => await _storeWebDbContext.Order.Where(x => x.UserId == userId).ToListAsync();
+
+        public async Task<List<Order>> GetAllAsync()
+         => await _storeWebDbContext.Order.ToListAsync();
+
+        public async Task<Order> getOrderById(int orderId)
+            => await _storeWebDbContext.Order.Include(x => x.OrderProducts).FirstAsync(x => x.Id == orderId);
+
         public async Task AddAsync(Order order, Dictionary<int,int> productItems)
         {
             await _storeWebDbContext.Order.AddAsync(order);
@@ -30,7 +39,7 @@ namespace WebShop.Infrastucture.Repositories
 
             if (productItems.Count > 0 && id > 0)
             {
-                List<OrderProduct> orderproducts = processOrderProducts(id, productItems);
+                List<OrderProduct> orderproducts = await processOrderProducts(id, productItems);
                 await _storeWebDbContext.OrderProduct.AddRangeAsync(orderproducts);
                 await refreshCountOfProducts(productItems);
                 await _storeWebDbContext.SaveChangesAsync();
@@ -50,7 +59,7 @@ namespace WebShop.Infrastucture.Repositories
             await refreshCountOfProducts(productItems, true);
             if (productItems.Count > 0 && order.Id > 0)
             {
-                List<OrderProduct> orderproducts = processOrderProducts(order.Id, productItems);
+                List<OrderProduct> orderproducts = await processOrderProducts(order.Id, productItems);
                 await _storeWebDbContext.OrderProduct.AddRangeAsync(orderproducts);
                 await refreshCountOfProducts(productItems);
             }
@@ -72,14 +81,17 @@ namespace WebShop.Infrastucture.Repositories
             await _storeWebDbContext.SaveChangesAsync();
         }
 
-        private List<OrderProduct> processOrderProducts(int orderId, Dictionary<int, int> productItems)
+        private async Task<List<OrderProduct>> processOrderProducts(int orderId, Dictionary<int, int> productItems)
         {
             List<OrderProduct> orderproducts = new List<OrderProduct>();
             foreach (var item in productItems) {
+                var product = await _storeWebDbContext.Product.FirstAsync(x => x.Id == item.Key);
                 orderproducts.Add(new OrderProduct {
                     OrderId = orderId,
                     ProductId = item.Key,
-                    Count = item.Value
+                    Count = item.Value,
+                    ProductName = product.Name,
+                    Price = product.Price
                 });
             }
             return orderproducts;

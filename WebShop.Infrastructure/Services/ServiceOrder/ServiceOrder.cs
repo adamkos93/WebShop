@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WebShop.Data.Domain;
 using WebShop.Data.Repositories;
+using WebShop.Infrastructure.DTO;
 using WebShop.Infrastucture.DTO;
 
 namespace WebShop.Infrastucture.Services.ServiceOrder
@@ -43,6 +44,27 @@ namespace WebShop.Infrastucture.Services.ServiceOrder
             await _orderRepository.DeleteAsync(orderId);
         }
 
+        public async Task<List<OrderDto>> GetAllByUserAsync(int userId) 
+        {
+            if (userId <= 0) { throw new ArgumentNullException(nameof(userId)); }
+            var orders = await _orderRepository.GetAllAsync();
+            if (orders == null) { throw new NullReferenceException(nameof(orders)); }
+            return _mapper.Map<List<Order>, List<OrderDto>>(orders);
+        }
+        public async Task<List<OrderDto>> GetAllAsync()
+        {
+            var orders = await _orderRepository.GetAllAsync();
+            if (orders == null) { throw new NullReferenceException(nameof(orders)); }
+            return _mapper.Map<List<Order>, List<OrderDto>>(orders);
+        }
+
+        public async Task<OrderDto> GetOrderById(int orderId)
+        {
+            if (orderId <= 0) { throw new ArgumentNullException(nameof(orderId)); }
+            var orderProducts = await _orderRepository.getOrderById(orderId);
+            if (orderProducts == null) { throw new NullReferenceException(nameof(orderProducts)); }
+            return _mapper.Map<Order, OrderDto>(orderProducts);
+        }
 
     }
 }

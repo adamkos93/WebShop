@@ -10,8 +10,6 @@ namespace WebShop.Data.Domain
         [Key]
         public int Id { get; set; }
 
-        public string Title { get; set; }
-
         public DateTime CreatedAt { get; set; }
 
         public string City { get; set; }
@@ -21,6 +19,8 @@ namespace WebShop.Data.Domain
         public string PostCode { get; set; }
 
         public string Status { get; set; }
+
+        public string PhoneNumber { get; set; }
 
         public int? StreetNumber { get; set; }
 

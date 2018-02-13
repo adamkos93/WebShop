@@ -1,10 +1,13 @@
 import { RouterModule, Routes } from '@angular/router';
 
+import { AddOrderComponent } from './add-order/add-order.component';
 import { AddProductComponent } from './add-product/add-product.component';
 import { AppComponent } from './app.component';
 import { EditProductComponent } from './edit-product/edit-product.component';
 import { LoginComponent } from './login/login.component';
 import { ModuleWithProviders } from '@angular/core';
+import { OrderComponent } from './order/order.component';
+import { OrderListComponent } from './order-list/order-list.component';
 import { ProductComponent, } from './product/product.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { RegisterComponent } from './register/register.component';
@@ -53,6 +56,21 @@ export const router: Routes = [
   { 
     path:'shopping-basket',
     component: ShoppingBasketComponent, 
+    pathMatch: 'full',
+  },
+  { 
+    path:'add-order',
+    component: AddOrderComponent, 
+    pathMatch: 'full',
+  },
+  { 
+    path:'order-list',
+    component: OrderListComponent, 
+    pathMatch: 'full',
+  },
+  { 
+    path:'order/:orderId',
+    component: OrderComponent, 
     pathMatch: 'full',
   },
 ];

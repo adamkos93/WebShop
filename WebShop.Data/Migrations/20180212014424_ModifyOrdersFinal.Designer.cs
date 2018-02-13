@@ -8,9 +8,10 @@ using WebShop.Data;
 namespace WebShop.Data.Migrations
 {
     [DbContext(typeof(StoreWebDbContext))]
-    partial class StoreWebDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180212014424_ModifyOrdersFinal")]
+    partial class ModifyOrdersFinal
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")
@@ -38,8 +39,6 @@ namespace WebShop.Data.Migrations
                     b.Property<DateTime>("CreatedAt");
 
                     b.Property<int>("FlatNumber");
-
-                    b.Property<string>("PhoneNumber");
 
                     b.Property<string>("PostCode");
 

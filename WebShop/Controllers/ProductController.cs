@@ -127,14 +127,15 @@ namespace WebShop.Controllers
       //TODO: cookie service!
       string sourceString = HttpContext.Request.Headers["Cookie"].ToString();
       List<ProductDto> result = new List<ProductDto>();
-      if (!String.IsNullOrEmpty(sourceString)) { 
-        string removeString = "basketItems=";
-        int index = sourceString.IndexOf(removeString);
-        string cleanPath = (index < 0)
-            ? sourceString
-            : sourceString.Remove(index, removeString.Length);
-        List<ProductItemDto> productItems = JsonConvert.DeserializeObject<List<ProductItemDto>>(cleanPath);
-        result = await _url.AppendPathSegments("product", "getSelectedProducts").PostJsonAsync(productItems).ReceiveJson<List<ProductDto>>();
+      if (!String.IsNullOrEmpty(sourceString)) {
+        int firstIndex = sourceString.IndexOf("[");
+        int lastIndex = sourceString.IndexOf("]");
+        bool isInSourceStrig = firstIndex != -1 && lastIndex != -1;
+        if (isInSourceStrig) {
+          string cleanPath = sourceString.Substring(firstIndex, (lastIndex - firstIndex)+1);
+          List<ProductItemDto> productItems = JsonConvert.DeserializeObject<List<ProductItemDto>>(cleanPath);
+          result = await _url.AppendPathSegments("product", "getSelectedProducts").PostJsonAsync(productItems).ReceiveJson<List<ProductDto>>();
+        }
       }
       return Json(result);
     }
