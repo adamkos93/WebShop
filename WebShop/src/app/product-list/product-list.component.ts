@@ -18,6 +18,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
   totalRecords: number;
   subscription: Subscription;
   filterProductParameters = <IFilterProductParameters>{};
+  isDataLoaded = false;
   constructor(private productService: ProductService, private http: Http) {
 
   }
@@ -26,9 +27,12 @@ export class ProductListComponent implements OnInit, OnDestroy {
     this.subscription = this.productService.filterProductParameters.subscribe(data=>{
       if(data) {
         this.getFilteredProducts(data);
+        this.isDataLoaded = true;
       }
     });
-      
+    if(!this.isDataLoaded) {
+      this.getFilteredProducts(this.filterProductParameters);
+    }
     
   }
 

@@ -50,7 +50,8 @@ export class HttpService {
     intercept(observable: Observable<Response>): Observable<any> {
         setTimeout(() => {this.isLoading.next(true)},0);
         return observable.map(this.extract).catch((err, source) => {
-            if (err.status  == 401) {
+            if (err.status  === 401) {
+                console.log(err);
                 this.router.navigateByUrl('login');
                 return Observable.empty();
             } else {

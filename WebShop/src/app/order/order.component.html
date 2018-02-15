@@ -24,6 +24,14 @@
           <div class="col-md-4">{{product.price}} zł</div>
       </div>
     </div>
+    <span *ngIf="isAdmin" class="order-footer">
+        <i class="fa fa-cog" aria-hidden="true" (click)="showButtons()" style="display:inline-block"></i>
+        <h5 *ngIf="isButtonsVisible" style="display:inline-block">Zmień status na:
+          <ng-container *ngFor="let status of statuses">
+            <button *ngIf="status !== orderProducts.status" type="button" class="btn btn-secondary btn-sm" (click)="updateStatus(status)">{{status}}</button>
+          </ng-container>
+        </h5>
+    </span>
   </div>
 </div>
 

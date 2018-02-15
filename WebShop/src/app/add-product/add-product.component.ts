@@ -16,6 +16,7 @@ export class AddProductComponent implements OnInit {
   image: string='';
   categories = <ICategory[]>[];
   @ViewChild("imageInput") imageInput: ElementRef;
+  title="Dodaj produkt";
   constructor(private productFormModel: ProductFormModel,  private router: Router, private productService: ProductService) {
 
   }

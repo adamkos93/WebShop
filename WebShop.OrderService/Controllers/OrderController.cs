@@ -50,22 +50,26 @@ namespace WebShop.OrderService.Controllers
             return Json("OK");
         }
         [HttpGet("getOrdersByUser")]
-        public async Task<IActionResult> GetAllByUserAsync(int userId)
+        public async Task<Tuple<List<OrderDto>, int>> GetAllByUserAsync(int userId, int page, int max, bool? isNameAsc, bool? isDateAsc, bool? isStatusAsc)
         {
-            var orders = await _orderService.GetAllByUserAsync(userId);
-            return Json(orders);
+            return await _orderService.GetAllByUserAsync(userId, page, max, isDateAsc, isStatusAsc);
         }
         [HttpGet("getAllOrders")]
-        public async Task<IActionResult> GetAllAsync()
+        public async Task<Tuple<List<OrderDto>, int>> GetAllAsync(int page, int max, bool? isNameAsc, bool? isDateAsc, bool? isStatusAsc)
         {
-            var orders = await _orderService.GetAllAsync();
-            return Json(orders);
+            return await _orderService.GetAllAsync(page, max, isDateAsc, isStatusAsc);
         }
 
         [HttpGet("getOrderById")]
         public async Task<IActionResult> GetOrderById(int orderId) {
             var order = await _orderService.GetOrderById(orderId);
             return Json(order);
+        }
+
+        [HttpGet("updateStatus")]
+        public async Task UpdateStatus(int orderId, string status)
+        {
+           await _orderService.UpdateStatus(orderId,status);
         }
     }
 }

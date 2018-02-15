@@ -25,11 +25,23 @@ namespace WebShop.Controllers
             _flurlClient = new FlurlClient(_url);
         }
 
-        //[Authorize]
-        [HttpGet("test")]
-        public IActionResult Test()
+        public bool isLogged()
         {
-            return Json("TEST");
+           return !String.IsNullOrEmpty(HttpContext.Session.GetString("UserId"));     
+        }
+
+        [HttpGet("isUserLogged")]
+        public IActionResult IsUserLogged()
+        {
+           var result = isLogged();
+           return Json(result.ToString().ToLower());
+        }
+
+        [HttpGet("logout")]
+        public IActionResult Logout()
+        {
+           HttpContext.Session.Clear();
+           return Json("OK");
         }
 
         [HttpPost("loginAsync")]
@@ -43,15 +55,11 @@ namespace WebShop.Controllers
             }
             
             if (!String.IsNullOrEmpty(response.Item1.Token)) {
-                Response.Cookies.Append("token", response.Item1.Token, new CookieOptions
-                {
-                    HttpOnly = true,
-                    Expires = DateTime.Now.AddMinutes(15),
-                    Secure = true
-                });
+              return Json(response.Item1);
             }
-             
-            return Json(response);
+
+            return null;
+          
         }
 
 

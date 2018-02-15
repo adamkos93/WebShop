@@ -21,11 +21,76 @@ namespace WebShop.Infrastucture.Repositories
         public async Task<Order> GetAsync(int id)
           => await _storeWebDbContext.Order.FirstOrDefaultAsync(x => x.Id == id);
 
-        public async Task<List<Order>> GetAllByUserAsync(int userId)
-         => await _storeWebDbContext.Order.Where(x => x.UserId == userId).ToListAsync();
+        public async Task<Tuple<List<Order>,int>> GetAllByUserAsync(int userId, int page, int max, bool? isDateAsc, bool? isStatusAsc)
+        {
+            var query = _storeWebDbContext.Order.AsQueryable();
 
-        public async Task<List<Order>> GetAllAsync()
-         => await _storeWebDbContext.Order.ToListAsync();
+            if (isDateAsc != null)
+            {
+                if (isDateAsc == true)
+                {
+                    query = query.OrderBy(x => x.CreatedAt);
+                }
+                else
+                {
+                    query = query.OrderByDescending(x => x.CreatedAt);
+                }
+            }
+
+            if (isStatusAsc != null)
+            {
+                if (isStatusAsc == true)
+                {
+                    query = query.OrderBy(x => x.Status);
+                }
+                else
+                {
+                    query = query.OrderByDescending(x => x.Status);
+                }
+            }
+
+            int totalRecords = query.Count();
+
+            int skipRows = (page - 1) * max;
+
+            var result = await Task.FromResult(query.Where(x => x.UserId == userId).Skip(skipRows).Take(max).ToList());
+            return Tuple.Create(result, totalRecords);
+        }
+
+
+        public async Task<Tuple<List<Order>,int>> GetAllAsync(int page, int max, bool? isDateAsc, bool? isStatusAsc)
+        {
+            var query = _storeWebDbContext.Order.AsQueryable();
+
+            if (isDateAsc != null)
+            {
+                if (isDateAsc == true) {
+                    query = query.OrderBy(x => x.CreatedAt);
+                } else {
+                    query = query.OrderByDescending(x => x.CreatedAt);
+                }
+            }
+
+            if (isStatusAsc != null)
+            {
+                if (isStatusAsc == true)
+                {
+                    query = query.OrderBy(x => x.Status);
+                }
+                else
+                {
+                    query = query.OrderByDescending(x => x.Status);
+                }
+            }
+
+            int totalRecords = query.Count();
+
+            int skipRows = (page - 1) * max;
+
+            var result = await Task.FromResult(query.Skip(skipRows).Take(max).ToList());
+            return Tuple.Create(result, totalRecords);
+        }
+
 
         public async Task<Order> getOrderById(int orderId)
             => await _storeWebDbContext.Order.Include(x => x.OrderProducts).FirstAsync(x => x.Id == orderId);
@@ -44,6 +109,17 @@ namespace WebShop.Infrastucture.Repositories
                 await refreshCountOfProducts(productItems);
                 await _storeWebDbContext.SaveChangesAsync();
             }
+        }
+
+        public async Task UpdateStatus(int orderId, string status)
+        {
+            var order = await _storeWebDbContext.Order.FirstOrDefaultAsync(x => x.Id == orderId);
+            if (order != null)
+            {
+                order.Status = status;
+            }
+            _storeWebDbContext.Order.Update(order);
+            await _storeWebDbContext.SaveChangesAsync();
         }
 
         public async Task UpdateAsync(Order order, Dictionary<int, int> productItems)

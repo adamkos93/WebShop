@@ -19,6 +19,7 @@ export class EditProductComponent implements OnInit {
   productId: number;
   @ViewChild("imageInput") imageInput: ElementRef;
   private sub: any;
+  title="Edytuj produkt";
   constructor(private productFormModel: ProductFormModel,  private router: Router, private productService: ProductService, private activatedRoute: ActivatedRoute) {
 
   }

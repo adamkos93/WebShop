@@ -19,3 +19,15 @@ export interface IOrderProduct {
   price: string,
   count: number
 }
+
+export interface IFilterOrderParameters {
+  page: number,
+  max: number,
+  isStatusAsc?: boolean,
+  isDateAsc?: boolean,
+}
+
+export interface IFilteredOrderResult {
+  orders: IOrder[],
+  totalRecords: number
+}

@@ -1,5 +1,6 @@
 ﻿import { Component, OnDestroy, OnInit } from '@angular/core';
 
+import { AccountService } from './shared/services/account.service';
 import { Http } from '@angular/http'
 import { HttpService } from './shared/services/http.service';
 import { LoaderService } from './shared/services/loader.service';
@@ -11,7 +12,7 @@ import { Subscription } from 'rxjs/Rx';
    templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit, OnDestroy  {
-   constructor(private httpService: HttpService, private productService: ProductService) { }
+   constructor(private httpService: HttpService, private productService: ProductService, private accountService: AccountService) { }
    apiValues: string[] = [];
    isLoaderVisible = false;
    isRouterOutletVisible = true;
@@ -22,6 +23,10 @@ export class AppComponent implements OnInit, OnDestroy  {
       setTimeout(() => {
         this.isLoaderVisible = value;
       }, 0);
+    });
+    this.accountService.isUserLogged().subscribe(value => {
+      const result = (value === 'true');
+      this.accountService.isLogged.next(result);
     });
    }
 

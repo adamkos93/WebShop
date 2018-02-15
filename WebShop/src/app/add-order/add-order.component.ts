@@ -4,6 +4,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { IOrder } from '../shared/types/order.types';
 import { OrderFormModel } from './../order/order.from-model';
 import { OrderService } from './../shared/services/order.service';
+import { OrderStatusEnum } from '../shared/enums/order-status.enum';
 import { Router } from '@angular/router';
 
 @Component({
@@ -30,7 +31,7 @@ export class AddOrderComponent implements OnInit {
   save() {
     if(this.addOrderForm.valid) {
       const model = <IOrder> this.addOrderForm.value;
-      model.status = 'Oczekujące'
+      model.status = OrderStatusEnum[0];
       this.orderService.addOrder(model).subscribe(data =>{
         this.router.navigateByUrl('order-list');
       });

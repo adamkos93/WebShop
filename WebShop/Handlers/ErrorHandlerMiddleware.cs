@@ -22,6 +22,10 @@ namespace WebShop.Handlers
             {
                 await _next(context);
             }
+            catch (UnauthorizedAccessException exception)
+            {
+              await HandleErrorAsync(context, exception);
+            }
             catch (Exception exception)
             {
                 await HandleErrorAsync(context, exception);
@@ -33,8 +37,14 @@ namespace WebShop.Handlers
             var response = new { message = exception.Message };
             var payload = JsonConvert.SerializeObject(response);
             context.Response.ContentType = "application/json";
-            context.Response.StatusCode = 400;
-
+            var exceptionType = exception.GetType().Name;
+            if (exceptionType == "UnauthorizedAccessException")
+            {
+              context.Response.StatusCode = 401;
+            }
+            else {
+              context.Response.StatusCode = 400;
+            }
             return context.Response.WriteAsync(payload);
         }
     }

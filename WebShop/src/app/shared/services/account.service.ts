@@ -18,19 +18,23 @@ export class AccountService {
 
   }
 
+  checkIsAdmin() {
+    return localStorage.getItem('role') === 'admin';
+  }
+
   login(model: ILogin):Observable<IToken> {
     return this.httpService.post('user/loginAsync', model);
   }
 
   logout(){
-    
+    return this.httpService.get('user/logout');
   }
 
   register(model: IRegister) {
     return this.httpService.post('user/registerAsync', model);
   }
 
-  test() {
-    return this.httpService.get('user/test');
+  isUserLogged()  {
+    return this.httpService.get('user/isUserLogged');
   }
 }

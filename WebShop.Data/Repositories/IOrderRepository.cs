@@ -11,8 +11,9 @@ namespace WebShop.Data.Repositories
         Task AddAsync(Order order, Dictionary<int, int> productItems);
         Task UpdateAsync(Order order, Dictionary<int, int> productItems);
         Task DeleteAsync(int orderId);
-        Task<List<Order>> GetAllByUserAsync(int userId);
-        Task<List<Order>> GetAllAsync();
+        Task<Tuple<List<Order>, int>> GetAllByUserAsync(int userId, int page, int max, bool? isDateAsc, bool? isStatusAsc);
+        Task<Tuple<List<Order>, int>> GetAllAsync(int page, int max, bool? isDateAsc, bool? isStatusAsc);
         Task<Order> getOrderById(int orderId);
+        Task UpdateStatus(int orderId, string status);
     }
 }

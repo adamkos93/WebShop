@@ -19,7 +19,7 @@
           <h5 *ngIf="isInBasket">Produkt dodany do koszyka!</h5>
         </div>
   </div>
-  <span class="product-footer">
+  <span *ngIf="isAdmin" class="product-footer">
       <i class="fa fa-cog" aria-hidden="true" (click)="showButtons()"></i>
       <button *ngIf="isButtonsVisible" type="button" class="btn btn-secondary btn-sm" [routerLink]="['/edit-product', product.id]">Edytuj</button>
       <button *ngIf="isButtonsVisible" type="button" class="btn btn-secondary btn-sm" (click)="removeProduct(product.id)">Usuń</button>

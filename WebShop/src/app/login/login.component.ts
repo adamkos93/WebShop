@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.initializeFormModel(null);
+    this.accountService.isLogged.next(false);
   }
 
   initializeFormModel(data) {

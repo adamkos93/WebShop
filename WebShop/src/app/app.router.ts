@@ -21,7 +21,7 @@ export const router: Routes = [
   },
   { 
     path:'home/index', 
-    component: LoginComponent, 
+    component: ProductListComponent, 
   },
   { 
     path:'login',

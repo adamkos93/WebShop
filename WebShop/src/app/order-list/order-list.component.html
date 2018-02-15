@@ -1,11 +1,11 @@
 <div class="order-container">
-  <h1 class="order-head">Moje zamówienia</h1>
+  <h1 class="order-head">Zamówienia</h1>
   <div class="order-content" id="style-3">
     <div class="row">
       <div class="col-md-1"></div>
       <div class="col-md-3"><h5>Nazwa</h5></div>
-      <div class="col-md-3"><h5>Data utworzenia</h5></div>
-      <div class="col-md-2"><h5>Status</h5></div>
+      <div class="col-md-3"><h5>Data utworzenia <i class="fa fa-angle-up"  [ngClass]="{'arrow-clicked': isDateAsc === SortingEnum.Ascending }" (click)="sortDate(SortingEnum.Ascending)"></i><i class="fa fa-angle-down" [ngClass]="{'arrow-clicked': isDateAsc === SortingEnum.Descending }" (click)="sortDate(SortingEnum.Descending)"></i></h5></div>
+      <div class="col-md-2"><h5>Status <i class="fa fa-angle-up" [ngClass]="{'arrow-clicked': isStatusAsc === SortingEnum.Ascending }" (click)="sortStatus(SortingEnum.Ascending)"></i><i class="fa fa-angle-down" [ngClass]="{'arrow-clicked': isStatusAsc === SortingEnum.Descending }" (click)="sortStatus(SortingEnum.Descending)"></i></h5></div>
       <div class="col-md-3"><h5></h5></div>
     </div>
     <ng-container *ngIf="orders && orders.length">
@@ -14,8 +14,10 @@
           <div class="col-md-3">Zamówienie nr {{order.id}}</div>
           <div class="col-md-3">{{order.createdAt  | date:'dd/MM/yyyy hh:mm:ss'}}</div>
           <div class="col-md-2">{{order.status}}</div>
-          <div class="col-md-3"><span class="remove-order-btn"><i class="fa fa-times" aria-hidden="true" (click)="removeItem(order.id)"></i></span></div>
+          <div class="col-md-3"><span *ngIf="isAdmin" class="remove-order-btn"><i class="fa fa-times" aria-hidden="true" (click)="removeItem(order.id)"></i></span></div>
         </div>
     </ng-container>
   </div>
 </div>
+<app-pagination *ngIf="totalRecords" [totalRecords]="totalRecords" [max]="4" (selectedPageEmitter)="selectedPageEmitter($event)"></app-pagination>
+

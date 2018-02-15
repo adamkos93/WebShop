@@ -35,7 +35,6 @@ export class CookieService {
   }
 
   deleteCookie(name: string) {
-    //document.cookie = name +'=; Max-Age=-99999999;';  alternatywa
     this.setCookie(name, "", -1);
   }
 

@@ -3,6 +3,7 @@ import * as _ from 'lodash';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 
+import { AccountService } from './../shared/services/account.service';
 import { CookieService } from '../shared/services/cookie.service';
 import { ICategory } from '../shared/types/category.types';
 import { IProduct } from './../shared/types/product.types';
@@ -21,11 +22,12 @@ export class ProductComponent implements OnInit  {
   category:ICategory;
   isInBasket = false;
   basketItemMaxAmount = 0;
+  isAdmin = false;
   @ViewChild('basketItemAmount') basketItemAmount : ElementRef;
   private sub: any;
 
 
-  constructor(private route: ActivatedRoute, private productService: ProductService, private router: Router, private cookieService: CookieService) {}
+  constructor(private route: ActivatedRoute, private productService: ProductService, private router: Router, private cookieService: CookieService, private accountService: AccountService) {}
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
@@ -41,7 +43,7 @@ export class ProductComponent implements OnInit  {
           this.checkIsInBasket(this.productId);
         }
     });
-
+    this.isAdmin = this.accountService.checkIsAdmin();
   }
 
   addToBasket(productId: number) {

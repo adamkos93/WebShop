@@ -11,14 +11,17 @@ using WebShop.Infrastucture.DTO;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Http;
 using WebShop.Infrastructure.DTO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebShop.Controllers
 {
+    [Authorize]
     [Route("[controller]")]
     public class OrderController : Controller
     {
        private readonly string _url;
        private readonly IFlurlClient _flurlClient;
+       private string x; 
        public OrderController(IOptions<ServicesUrlConfig> url)
        {
          _url = url.Value.ServiceOrderUrl;
@@ -27,7 +30,13 @@ namespace WebShop.Controllers
 
        public int getUserId()
        {
-         return Int32.Parse(HttpContext.Session.GetString("UserId"));
+          try
+          {
+            return Int32.Parse(HttpContext.Session.GetString("UserId"));
+          }
+          catch(Exception) {
+             throw new UnauthorizedAccessException();
+          }
        }
 
     //todo cookie basket
@@ -86,17 +95,44 @@ namespace WebShop.Controllers
        }
 
        [HttpGet("getOrdersByUser")]
-       public async Task<IActionResult> GetAllByUserAsync()
+       public async Task<IActionResult> GetAllByUserAsync(int page, int max, bool? isDateAsc, bool? isStatusAsc)
        {
          int userId = getUserId();
-         var result = await _url.AppendPathSegments("order", "getOrdersByUser").SetQueryParam("userId", userId).GetAsync().ReceiveJson<List<OrderDto>>();
+         var response = await _url.AppendPathSegments("order", "getOrdersByUser")
+          .SetQueryParam("userId", userId)
+          .SetQueryParam("page", page)
+          .SetQueryParam("max", max)
+          .SetQueryParam("isDateAsc", isDateAsc)
+          .SetQueryParam("isStatusAsc", isStatusAsc)
+          .GetAsync()
+          .ReceiveJson<Tuple<List<OrderDto>, int>>();
+
+         var result = new
+         {
+           orders = response.Item1,
+           totalRecords = response.Item2
+         };
+       
          return Json(result);
        }
 
        [HttpGet("getAllOrders")]
-       public async Task<IActionResult> GetAllAsync()
+       public async Task<IActionResult> GetAllAsync(int page, int max, bool? isDateAsc, bool? isStatusAsc)
        {
-         var result = await _url.AppendPathSegments("order", "getAllOrders").GetAsync().ReceiveJson<List<OrderDto>>();
+         var response = await _url.AppendPathSegments("order", "getAllOrders")
+          .SetQueryParam("page", page)
+          .SetQueryParam("max", max)
+          .SetQueryParam("isDateAsc", isDateAsc)
+          .SetQueryParam("isStatusAsc", isStatusAsc)
+          .GetAsync()
+          .ReceiveJson<Tuple<List<OrderDto>, int>>();
+
+         var result = new
+         {
+           orders = response.Item1,
+           totalRecords = response.Item2
+         };
+
          return Json(result);
        }
 
@@ -106,5 +142,11 @@ namespace WebShop.Controllers
          var result = await _url.AppendPathSegments("order", "getOrderById").SetQueryParam("orderId", orderId).GetAsync().ReceiveJson<OrderDto>();
          return Json(result);
        }
-  }
+
+       [HttpGet("updateStatus")]
+       public async Task UpdateStatus(int orderId, string status)
+       {
+         await _url.AppendPathSegments("order", "updateStatus").SetQueryParam("orderId", orderId).SetQueryParam("status", status).GetAsync();
+       }
+    }
 }

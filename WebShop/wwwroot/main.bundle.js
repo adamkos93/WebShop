@@ -42,6 +42,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__("../../../core/esm5/core.js");
 var order_from_model_1 = __webpack_require__("../../../../../src/app/order/order.from-model.ts");
 var order_service_1 = __webpack_require__("../../../../../src/app/shared/services/order.service.ts");
+var order_status_enum_1 = __webpack_require__("../../../../../src/app/shared/enums/order-status.enum.ts");
 var router_1 = __webpack_require__("../../../router/esm5/router.js");
 var AddOrderComponent = (function () {
     function AddOrderComponent(orderFormModel, router, orderService) {
@@ -66,7 +67,7 @@ var AddOrderComponent = (function () {
         var _this = this;
         if (this.addOrderForm.valid) {
             var model = this.addOrderForm.value;
-            model.status = 'Oczekujące';
+            model.status = order_status_enum_1.OrderStatusEnum[0];
             this.orderService.addOrder(model).subscribe(function (data) {
                 _this.router.navigateByUrl('order-list');
             });
@@ -119,6 +120,7 @@ var AddProductComponent = (function () {
         this.productService = productService;
         this.image = '';
         this.categories = [];
+        this.title = "Dodaj produkt";
     }
     Object.defineProperty(AddProductComponent.prototype, "productForm", {
         get: function () {
@@ -219,12 +221,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__("../../../core/esm5/core.js");
+var account_service_1 = __webpack_require__("../../../../../src/app/shared/services/account.service.ts");
 var http_service_1 = __webpack_require__("../../../../../src/app/shared/services/http.service.ts");
 var product_service_1 = __webpack_require__("../../../../../src/app/shared/services/product.service.ts");
 var AppComponent = (function () {
-    function AppComponent(httpService, productService) {
+    function AppComponent(httpService, productService, accountService) {
         this.httpService = httpService;
         this.productService = productService;
+        this.accountService = accountService;
         this.apiValues = [];
         this.isLoaderVisible = false;
         this.isRouterOutletVisible = true;
@@ -236,6 +240,10 @@ var AppComponent = (function () {
                 _this.isLoaderVisible = value;
             }, 0);
         });
+        this.accountService.isUserLogged().subscribe(function (value) {
+            var result = (value === 'true');
+            _this.accountService.isLogged.next(result);
+        });
     };
     AppComponent.prototype.ngOnDestroy = function () {
         this.loaderSubscription.unsubscribe();
@@ -245,7 +253,7 @@ var AppComponent = (function () {
             selector: 'app-root',
             template: __webpack_require__("../../../../../src/app/app.component.html")
         }),
-        __metadata("design:paramtypes", [http_service_1.HttpService, product_service_1.ProductService])
+        __metadata("design:paramtypes", [http_service_1.HttpService, product_service_1.ProductService, account_service_1.AccountService])
     ], AppComponent);
     return AppComponent;
 }());
@@ -339,7 +347,7 @@ exports.router = [
     },
     {
         path: 'home/index',
-        component: login_component_1.LoginComponent,
+        component: product_list_component_1.ProductListComponent,
     },
     {
         path: 'login',
@@ -425,6 +433,7 @@ var EditProductComponent = (function () {
         this.activatedRoute = activatedRoute;
         this.image = '';
         this.categories = [];
+        this.title = "Edytuj produkt";
     }
     Object.defineProperty(EditProductComponent.prototype, "productForm", {
         get: function () {
@@ -512,7 +521,7 @@ exports.EditProductComponent = EditProductComponent;
 /***/ "../../../../../src/app/filter/filter.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"sidebar\" [ngClass]=\"{'expanded': isOpen }\" #sidebar>\r\n    <div class=\"sidebar-item no-hover\" #burger (click)=\"toggleMenu()\">\r\n      <i class=\"fa fa-bars hand\" aria-hidden=\"true\"></i>\r\n      <span class=\"sidebar-item-title\" [ngClass]=\"{'hide': !isOpen }\">Filtry</span>\r\n    </div>\r\n    <div class=\"filter-category-container\" *ngIf=\"isOpen\">\r\n      <h5 class=\"filter-head\">Kategorie:</h5>\r\n      <div class=\"filter-category-content\" id=\"style-1\">\r\n        <!-- <a style=\"display:block;\"  href=\"\"></a> -->\r\n        <label class=\"category-list\" *ngFor=\"let category of categories\"><input type=\"radio\" name=\"category\" [value]=\"category.id\" (click)=\"selectedCategory(category.id)\"> {{category.name}}</label>\r\n      </div>\r\n\r\n      <h5 class=\"filter-head\">Cena:</h5>\r\n      <div class=\"price-container row\">\r\n        <p class=\"price-input-text\">od</p><input id=\"number\" type=\"number\" class=\"form-control price-input\" (focusout)=\"selctedMinPrice($event)\"><p class=\"price-input-text\">do</p><input id=\"number\" type=\"number\" class=\"form-control price-input\" (focusout)=\"selctedMaxPrice($event)\">\r\n      </div>\r\n\r\n      <h5 class=\"filter-head search-title\">Nazwa:</h5>\r\n      <input class=\"form-control search-input\" type=\"search\" placeholder=\"search\" (focusout)=\"selctedName($event)\" />\r\n      <button type=\"button\" class=\"btn btn-default filter-btn\" (click)=\"search($event)\">Szukaj</button>\r\n    </div>\r\n\r\n\r\n\r\n    <!-- <div class=\"sidebar-item active\">\r\n      <a href=\"#\">\r\n        <i class=\"fa fa-database\" aria-hidden=\"true\"></i>\r\n        <span class=\"sidebar-item-title\" [ngClass]=\"{'hide': !isOpen }\">Data Management</span>\r\n      </a>\r\n    </div>\r\n    <div class=\"sidebar-item\">\r\n      <a href=\"#\">\r\n        <i class=\"fa fa-map-o\" aria-hidden=\"true\"></i>\r\n        <span class=\"sidebar-item-title\" [ngClass]=\"{'hide': !isOpen }\">Location</span>\r\n      </a>\r\n    </div>\r\n    <div class=\"sidebar-item\">\r\n      <a href=\"#\">\r\n        <i class=\"fa fa-link\" aria-hidden=\"true\"></i>\r\n        <span class=\"sidebar-item-title\" [ngClass]=\"{'hide': !isOpen }\">Dynamic Links</span>\r\n      </a>\r\n    </div>\r\n    <div class=\"sidebar-item\">\r\n      <a href=\"#\">\r\n        <i class=\"fa fa-code\" aria-hidden=\"true\"></i>\r\n        <span class=\"sidebar-item-title\" [ngClass]=\"{'hide': !isOpen }\">Custom Scripting</span>\r\n      </a>\r\n    </div>\r\n    <div class=\"sidebar-item\">\r\n      <a href=\"#\">\r\n        <i class=\"fa fa-picture-o\" aria-hidden=\"true\"></i>\r\n        <span class=\"sidebar-item-title\" [ngClass]=\"{'hide': !isOpen }\">Asset Management</span>\r\n      </a>\r\n    </div> -->\r\n</div>\r\n"
+module.exports = "<div class=\"sidebar\" [ngClass]=\"{'expanded': isOpen }\" #sidebar>\r\n    <div class=\"sidebar-item no-hover\" #burger (click)=\"toggleMenu()\">\r\n      <i class=\"fa fa-bars hand\" aria-hidden=\"true\"></i>\r\n      <span class=\"sidebar-item-title\" [ngClass]=\"{'hide': !isOpen }\">Filtry</span>\r\n    </div>\r\n    <div class=\"filter-category-container\" *ngIf=\"isOpen\">\r\n      <h5 class=\"filter-head\">Kategorie:</h5>\r\n      <div class=\"filter-category-content\" id=\"style-1\">\r\n        <!-- <a style=\"display:block;\"  href=\"\"></a> -->\r\n        <label class=\"category-list\" *ngFor=\"let category of categories\"><input type=\"radio\" name=\"category\" [value]=\"category.id\" (click)=\"selectedCategory(category.id)\"> {{category.name}}</label>\r\n      </div>\r\n\r\n      <h5 class=\"filter-head\">Cena:</h5>\r\n      <div class=\"price-container row\">\r\n        <p class=\"price-input-text\">od</p><input id=\"number\" type=\"number\" class=\"form-control price-input\" (focusout)=\"selctedMinPrice($event)\"><p class=\"price-input-text\">do</p><input id=\"number\" type=\"number\" class=\"form-control price-input\" (focusout)=\"selctedMaxPrice($event)\">\r\n      </div>\r\n\r\n      <h5 class=\"filter-head search-title\">Nazwa:</h5>\r\n      <input class=\"form-control search-input\" type=\"search\" placeholder=\"search\" (focusout)=\"selctedName($event)\" />\r\n      <button type=\"button\" class=\"btn btn-default filter-btn\" (click)=\"search($event)\">Szukaj</button>\r\n    </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -688,6 +697,7 @@ var LoginComponent = (function () {
     });
     LoginComponent.prototype.ngOnInit = function () {
         this.initializeFormModel(null);
+        this.accountService.isLogged.next(false);
     };
     LoginComponent.prototype.initializeFormModel = function (data) {
         this.loginFormModel.initializeModel(data);
@@ -792,7 +802,7 @@ exports.LoginFormModel = LoginFormModel;
 /***/ "../../../../../src/app/navbar/navbar.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"top-nav\">\r\n    <a routerLink=\"/product-list\" class=\"top-nav-item\">Lista produktów</a>\r\n    <a href=\"#\" class=\"top-nav-item no-hover\" routerLink=\"/order-list\">Moje zamówienia</a>\r\n    <a routerLink=\"/add-product\" class=\"top-nav-item\">Dodaj produkt</a>\r\n    <a *ngIf=\"isLogged\" class=\"top-nav-item item-right\" (click)=\"logout()\">\r\n      <i class=\"fa fa-user\" aria-hidden=\"true\"></i>\r\n      <span class=\"sidebar-item-title\">Wyloguj</span>\r\n    </a>\r\n    <a *ngIf=\"!isLogged\" href=\"#\" class=\"top-nav-item item-right\" routerLink=\"/login\">\r\n        <i class=\"fa fa-user\" aria-hidden=\"true\"></i>\r\n        <span class=\"sidebar-item-title\">Zaloguj</span>\r\n    </a>\r\n    <a routerLink=\"/shopping-basket\" class=\"top-nav-item item-right\">\r\n        <i class=\"fa fa-shopping-basket\" aria-hidden=\"true\"><span *ngIf=\"basketItemsCounter\">{{basketItemsCounter}}</span></i>\r\n    </a>\r\n</div>\r\n"
+module.exports = "<div class=\"top-nav\">\r\n    <a routerLink=\"/product-list\" class=\"top-nav-item\">Lista produktów</a>\r\n    <a href=\"#\" class=\"top-nav-item no-hover\" routerLink=\"/order-list\">Zamówienia</a>\r\n    <a *ngIf=\"isAdmin\" routerLink=\"/add-product\" class=\"top-nav-item\">Dodaj produkt</a>\r\n    <a *ngIf=\"isLogged\" class=\"top-nav-item item-right\" (click)=\"logout()\">\r\n      <i class=\"fa fa-user\" aria-hidden=\"true\"></i>\r\n      <span class=\"sidebar-item-title\">Wyloguj</span>\r\n    </a>\r\n    <a *ngIf=\"!isLogged\" href=\"#\" class=\"top-nav-item item-right\" routerLink=\"/login\">\r\n        <i class=\"fa fa-user\" aria-hidden=\"true\"></i>\r\n        <span class=\"sidebar-item-title\">Zaloguj</span>\r\n    </a>\r\n    <a routerLink=\"/shopping-basket\" class=\"top-nav-item item-right\">\r\n        <i class=\"fa fa-shopping-basket\" aria-hidden=\"true\"><span *ngIf=\"basketItemsCounter\">{{basketItemsCounter}}</span></i>\r\n    </a>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -817,18 +827,20 @@ var cookie_service_1 = __webpack_require__("../../../../../src/app/shared/servic
 var product_service_1 = __webpack_require__("../../../../../src/app/shared/services/product.service.ts");
 var router_1 = __webpack_require__("../../../router/esm5/router.js");
 var NavbarComponent = (function () {
-    function NavbarComponent(accoutnService, router, productService, cookieService) {
-        this.accoutnService = accoutnService;
+    function NavbarComponent(accountService, router, productService, cookieService) {
+        this.accountService = accountService;
         this.router = router;
         this.productService = productService;
         this.cookieService = cookieService;
         this.isLogged = false;
+        this.isAdmin = false;
     }
     NavbarComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.checkBasketItemsCounter();
-        this.isLoggedSubscription = this.accoutnService.isLogged.subscribe(function (data) {
+        this.isLoggedSubscription = this.accountService.isLogged.subscribe(function (data) {
             _this.isLogged = data;
+            _this.isAdmin = _this.accountService.checkIsAdmin();
         });
         this.addToBasketSubscription = this.productService.shoppingBasket.subscribe(function (data) {
             if (!data) {
@@ -865,6 +877,16 @@ var NavbarComponent = (function () {
         this.cookieService.setCookie('basketItems', JSON.stringify(newItemsArray), 1);
     };
     NavbarComponent.prototype.logout = function () {
+        var _this = this;
+        this.accountService.logout().subscribe(function (value) {
+            _this.isLogged = false;
+            _this.isAdmin = false;
+            _this.cookieService.deleteCookie('basketItems');
+            localStorage.removeItem('token');
+            localStorage.removeItem('role');
+            _this.checkBasketItemsCounter();
+            _this.router.navigateByUrl('product-list');
+        });
         //TODO
         // czyszczenie ciastek, sesji, localStorage
         // czyszczenie po stronie backendu sesji
@@ -889,7 +911,7 @@ exports.NavbarComponent = NavbarComponent;
 /***/ "../../../../../src/app/order-list/order-list.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"order-container\">\r\n  <h1 class=\"order-head\">Moje zamówienia</h1>\r\n  <div class=\"order-content\" id=\"style-3\">\r\n    <div class=\"row\">\r\n      <div class=\"col-md-1\"></div>\r\n      <div class=\"col-md-3\"><h5>Nazwa</h5></div>\r\n      <div class=\"col-md-3\"><h5>Data utworzenia</h5></div>\r\n      <div class=\"col-md-2\"><h5>Status</h5></div>\r\n      <div class=\"col-md-3\"><h5></h5></div>\r\n    </div>\r\n    <ng-container *ngIf=\"orders && orders.length\">\r\n      <div class=\"row order-item\" *ngFor=\"let order of orders\" [routerLink]=\"['/order', order.id]\">\r\n          <div class=\"col-md-1\"></div>\r\n          <div class=\"col-md-3\">Zamówienie nr {{order.id}}</div>\r\n          <div class=\"col-md-3\">{{order.createdAt  | date:'dd/MM/yyyy hh:mm:ss'}}</div>\r\n          <div class=\"col-md-2\">{{order.status}}</div>\r\n          <div class=\"col-md-3\"><span class=\"remove-order-btn\"><i class=\"fa fa-times\" aria-hidden=\"true\" (click)=\"removeItem(order.id)\"></i></span></div>\r\n        </div>\r\n    </ng-container>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"order-container\">\r\n  <h1 class=\"order-head\">Zamówienia</h1>\r\n  <div class=\"order-content\" id=\"style-3\">\r\n    <div class=\"row\">\r\n      <div class=\"col-md-1\"></div>\r\n      <div class=\"col-md-3\"><h5>Nazwa</h5></div>\r\n      <div class=\"col-md-3\"><h5>Data utworzenia <i class=\"fa fa-angle-up\"  [ngClass]=\"{'arrow-clicked': isDateAsc === SortingEnum.Ascending }\" (click)=\"sortDate(SortingEnum.Ascending)\"></i><i class=\"fa fa-angle-down\" [ngClass]=\"{'arrow-clicked': isDateAsc === SortingEnum.Descending }\" (click)=\"sortDate(SortingEnum.Descending)\"></i></h5></div>\r\n      <div class=\"col-md-2\"><h5>Status <i class=\"fa fa-angle-up\" [ngClass]=\"{'arrow-clicked': isStatusAsc === SortingEnum.Ascending }\" (click)=\"sortStatus(SortingEnum.Ascending)\"></i><i class=\"fa fa-angle-down\" [ngClass]=\"{'arrow-clicked': isStatusAsc === SortingEnum.Descending }\" (click)=\"sortStatus(SortingEnum.Descending)\"></i></h5></div>\r\n      <div class=\"col-md-3\"><h5></h5></div>\r\n    </div>\r\n    <ng-container *ngIf=\"orders && orders.length\">\r\n      <div class=\"row order-item\" *ngFor=\"let order of orders\" [routerLink]=\"['/order', order.id]\">\r\n          <div class=\"col-md-1\"></div>\r\n          <div class=\"col-md-3\">Zamówienie nr {{order.id}}</div>\r\n          <div class=\"col-md-3\">{{order.createdAt  | date:'dd/MM/yyyy hh:mm:ss'}}</div>\r\n          <div class=\"col-md-2\">{{order.status}}</div>\r\n          <div class=\"col-md-3\"><span *ngIf=\"isAdmin\" class=\"remove-order-btn\"><i class=\"fa fa-times\" aria-hidden=\"true\" (click)=\"removeItem(order.id)\"></i></span></div>\r\n        </div>\r\n    </ng-container>\r\n  </div>\r\n</div>\r\n<app-pagination *ngIf=\"totalRecords\" [totalRecords]=\"totalRecords\" [max]=\"4\" (selectedPageEmitter)=\"selectedPageEmitter($event)\"></app-pagination>\r\n\r\n"
 
 /***/ }),
 
@@ -909,24 +931,51 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__("../../../core/esm5/core.js");
+var account_service_1 = __webpack_require__("../../../../../src/app/shared/services/account.service.ts");
 var order_service_1 = __webpack_require__("../../../../../src/app/shared/services/order.service.ts");
 var router_1 = __webpack_require__("../../../router/esm5/router.js");
+var SortingEnum;
+(function (SortingEnum) {
+    SortingEnum[SortingEnum["None"] = 0] = "None";
+    SortingEnum[SortingEnum["Ascending"] = 1] = "Ascending";
+    SortingEnum[SortingEnum["Descending"] = 2] = "Descending";
+})(SortingEnum = exports.SortingEnum || (exports.SortingEnum = {}));
 var OrderListComponent = (function () {
-    function OrderListComponent(orderService, router) {
+    function OrderListComponent(orderService, router, accountService) {
         this.orderService = orderService;
         this.router = router;
+        this.accountService = accountService;
         this.orders = [];
+        this.isDateAsc = SortingEnum.None;
+        this.isStatusAsc = SortingEnum.None;
+        this.SortingEnum = SortingEnum;
+        this.filterOrderParameters = {};
+        this.isAdmin = false;
     }
     OrderListComponent.prototype.ngOnInit = function () {
-        this.getOrders();
+        this.filterOrderParameters.isDateAsc = null;
+        this.filterOrderParameters.isStatusAsc = null;
+        this.getOrders(this.filterOrderParameters);
+        this.isAdmin = this.accountService.checkIsAdmin();
     };
-    OrderListComponent.prototype.getOrders = function () {
+    OrderListComponent.prototype.getOrders = function (parameters) {
         var _this = this;
-        this.orderService.getOrdersByUser().subscribe(function (data) {
+        if (!parameters.page) {
+            parameters.page = 1;
+        }
+        if (!parameters.max) {
+            parameters.max = 4;
+        }
+        this.filterOrderParameters = parameters;
+        this.orderService.getOrdersByUser(this.filterOrderParameters).subscribe(function (data) {
             if (!data) {
                 return;
             }
-            _this.orders = data;
+            var result = data;
+            if (result) {
+                _this.orders = result.orders;
+                _this.totalRecords = result.totalRecords;
+            }
         });
     };
     OrderListComponent.prototype.removeItem = function (orderId) {
@@ -935,12 +984,35 @@ var OrderListComponent = (function () {
             _this.router.navigateByUrl('order-list');
         });
     };
+    OrderListComponent.prototype.sortDate = function (value) {
+        this.isDateAsc = value;
+        this.isStatusAsc = SortingEnum.None;
+        this.filterOrderParameters.page = 1;
+        this.filterOrderParameters.isDateAsc = this.isDateAsc === SortingEnum.Ascending;
+        this.filterOrderParameters.isStatusAsc = null;
+        this.getOrders(this.filterOrderParameters);
+    };
+    OrderListComponent.prototype.sortStatus = function (value) {
+        this.isStatusAsc = value;
+        this.isDateAsc = SortingEnum.None;
+        this.filterOrderParameters.page = 1;
+        this.filterOrderParameters.isDateAsc = null;
+        this.filterOrderParameters.isStatusAsc = this.isStatusAsc === SortingEnum.Ascending;
+        this.getOrders(this.filterOrderParameters);
+    };
+    OrderListComponent.prototype.selectedPageEmitter = function (event) {
+        var page = event;
+        if (page) {
+            this.filterOrderParameters.page = page;
+            this.getOrders(this.filterOrderParameters);
+        }
+    };
     OrderListComponent = __decorate([
         core_1.Component({
             selector: 'app-order-list',
             template: __webpack_require__("../../../../../src/app/order-list/order-list.component.html")
         }),
-        __metadata("design:paramtypes", [order_service_1.OrderService, router_1.Router])
+        __metadata("design:paramtypes", [order_service_1.OrderService, router_1.Router, account_service_1.AccountService])
     ], OrderListComponent);
     return OrderListComponent;
 }());
@@ -952,7 +1024,7 @@ exports.OrderListComponent = OrderListComponent;
 /***/ "../../../../../src/app/order/order.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container content-order\"  *ngIf=\"orderProducts\">\r\n  <h1 class=\"content-order-header\">Szczegóły zamówienia</h1>\r\n  <div class=\"row adress\">\r\n    <div class=\"col-md-4 offset-md-1\">\r\n      <h5>Miasto: {{orderProducts.city}}</h5>\r\n      <h5>Kod pocztowy: {{orderProducts.postCode}}</h5>\r\n      <h5 class=\"street-header\">Adres: {{orderProducts.street}} <h5> {{orderProducts.streetNumber}}</h5><h5 *ngIf=\"orderProducts.flatNumber\"> / {{orderProducts.flatNumber}}</h5></h5>\r\n    </div>\r\n    <div class=\"col-md-4 offset-md-1\">\r\n        <h5>Data utworzenia: {{orderProducts.createdAt  | date:'dd/MM/yyyy hh:mm:ss' }}</h5>\r\n        <h5>Status: {{orderProducts.status}}</h5>\r\n    </div>\r\n  </div>\r\n  <div class=\"order-product-container\" *ngIf=\"orderProducts.orderProducts && orderProducts.orderProducts.length\">\r\n    <div class=\"row\">\r\n        <div class=\"col-md-4\">Nazwa produktu</div>\r\n        <div class=\"col-md-4\">Ilość</div>\r\n        <div class=\"col-md-4\">Cena</div>\r\n    </div>\r\n    <div class=\"order-product-content\" id=\"style-4\">\r\n      <div class=\"row order-product-item\" *ngFor=\"let product of orderProducts.orderProducts\">\r\n          <div class=\"col-md-4\">{{product.productName}}</div>\r\n          <div class=\"col-md-4\">{{product.count}}</div>\r\n          <div class=\"col-md-4\">{{product.price}} zł</div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n"
+module.exports = "<div class=\"container content-order\"  *ngIf=\"orderProducts\">\r\n  <h1 class=\"content-order-header\">Szczegóły zamówienia</h1>\r\n  <div class=\"row adress\">\r\n    <div class=\"col-md-4 offset-md-1\">\r\n      <h5>Miasto: {{orderProducts.city}}</h5>\r\n      <h5>Kod pocztowy: {{orderProducts.postCode}}</h5>\r\n      <h5 class=\"street-header\">Adres: {{orderProducts.street}} <h5> {{orderProducts.streetNumber}}</h5><h5 *ngIf=\"orderProducts.flatNumber\"> / {{orderProducts.flatNumber}}</h5></h5>\r\n    </div>\r\n    <div class=\"col-md-4 offset-md-1\">\r\n        <h5>Data utworzenia: {{orderProducts.createdAt  | date:'dd/MM/yyyy hh:mm:ss' }}</h5>\r\n        <h5>Status: {{orderProducts.status}}</h5>\r\n    </div>\r\n  </div>\r\n  <div class=\"order-product-container\" *ngIf=\"orderProducts.orderProducts && orderProducts.orderProducts.length\">\r\n    <div class=\"row\">\r\n        <div class=\"col-md-4\">Nazwa produktu</div>\r\n        <div class=\"col-md-4\">Ilość</div>\r\n        <div class=\"col-md-4\">Cena</div>\r\n    </div>\r\n    <div class=\"order-product-content\" id=\"style-4\">\r\n      <div class=\"row order-product-item\" *ngFor=\"let product of orderProducts.orderProducts\">\r\n          <div class=\"col-md-4\">{{product.productName}}</div>\r\n          <div class=\"col-md-4\">{{product.count}}</div>\r\n          <div class=\"col-md-4\">{{product.price}} zł</div>\r\n      </div>\r\n    </div>\r\n    <span *ngIf=\"isAdmin\" class=\"order-footer\">\r\n        <i class=\"fa fa-cog\" aria-hidden=\"true\" (click)=\"showButtons()\" style=\"display:inline-block\"></i>\r\n        <h5 *ngIf=\"isButtonsVisible\" style=\"display:inline-block\">Zmień status na:\r\n          <ng-container *ngFor=\"let status of statuses\">\r\n            <button *ngIf=\"status !== orderProducts.status\" type=\"button\" class=\"btn btn-secondary btn-sm\" (click)=\"updateStatus(status)\">{{status}}</button>\r\n          </ng-container>\r\n        </h5>\r\n    </span>\r\n  </div>\r\n</div>\r\n\r\n"
 
 /***/ }),
 
@@ -973,11 +1045,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var router_1 = __webpack_require__("../../../router/esm5/router.js");
 var core_1 = __webpack_require__("../../../core/esm5/core.js");
+var account_service_1 = __webpack_require__("../../../../../src/app/shared/services/account.service.ts");
 var order_service_1 = __webpack_require__("../../../../../src/app/shared/services/order.service.ts");
+var order_status_enum_1 = __webpack_require__("../../../../../src/app/shared/enums/order-status.enum.ts");
 var OrderComponent = (function () {
-    function OrderComponent(route, orderService) {
+    function OrderComponent(route, orderService, router, accountService) {
         this.route = route;
         this.orderService = orderService;
+        this.router = router;
+        this.accountService = accountService;
+        this.isButtonsVisible = false;
+        this.isAdmin = false;
+        this.OrderStatusEnum = order_status_enum_1.OrderStatusEnum;
+        this.statuses = ['Anulowane', 'Przetwarzane', 'Wysłane'];
     }
     OrderComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -992,16 +1072,26 @@ var OrderComponent = (function () {
                 });
             }
         });
+        this.isAdmin = this.accountService.checkIsAdmin();
     };
     OrderComponent.prototype.ngOnDestroy = function () {
         this.sub.unsubscribe();
+    };
+    OrderComponent.prototype.showButtons = function () {
+        this.isButtonsVisible = !this.isButtonsVisible;
+    };
+    OrderComponent.prototype.updateStatus = function (status) {
+        var _this = this;
+        this.orderService.updateStatusOrder(this.orderId, status).subscribe(function (data) {
+            _this.router.navigateByUrl('order-list');
+        });
     };
     OrderComponent = __decorate([
         core_1.Component({
             selector: 'app-order',
             template: __webpack_require__("../../../../../src/app/order/order.component.html")
         }),
-        __metadata("design:paramtypes", [router_1.ActivatedRoute, order_service_1.OrderService])
+        __metadata("design:paramtypes", [router_1.ActivatedRoute, order_service_1.OrderService, router_1.Router, account_service_1.AccountService])
     ], OrderComponent);
     return OrderComponent;
 }());
@@ -1211,14 +1301,19 @@ var ProductListComponent = (function () {
         this.http = http;
         this.products = [];
         this.filterProductParameters = {};
+        this.isDataLoaded = false;
     }
     ProductListComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.subscription = this.productService.filterProductParameters.subscribe(function (data) {
             if (data) {
                 _this.getFilteredProducts(data);
+                _this.isDataLoaded = true;
             }
         });
+        if (!this.isDataLoaded) {
+            this.getFilteredProducts(this.filterProductParameters);
+        }
     };
     ProductListComponent.prototype.getFilteredProducts = function (parameters) {
         var _this = this;
@@ -1264,7 +1359,7 @@ exports.ProductListComponent = ProductListComponent;
 /***/ "../../../../../src/app/product/product.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container content-product\"  *ngIf=\"product\">\r\n  <div class=\"row\">\r\n    <div class=\"col-md-6\">\r\n        <img *ngIf=\"product.image\" [src]=\"product.image\" class=\"product-content-image\">\r\n        <img *ngIf=\"!product.image\" src=\"./../../assets/no_foto.png\" class=\"product-content-image\">\r\n        <h5 class=\"product-content-title\">{{product.name}}</h5>\r\n        <a *ngIf=\"category\" routerLink=\"/\" class=\"product-content-category\">{{category.name}}</a><!--TODO: routerLink productList with categoryId-->\r\n        <div *ngIf=\"!isInBasket && basketItemMaxAmount\" class=\"row amount-content\">\r\n          <input #basketItemAmount type=\"number\" class=\"form-control basket-item-amount\" min=\"1\" [max]=\"basketItemMaxAmount\" value=\"1\">\r\n          <p class=\"basket-amount-text\"> z {{basketItemMaxAmount.toString()}}</p>\r\n        </div>\r\n      </div>\r\n    <div class=\"col-md-6\">\r\n        <h5 class=\"product-content-price\">{{product.price}} zł</h5>\r\n        <h5 class=\"product-content-description\">{{product.description}}</h5>\r\n        <div class=\"center-block product-content-button\">\r\n          <button *ngIf=\"!isInBasket && basketItemMaxAmount\"  type=\"button\" class=\"btn btn-default add-to-basket-btn\" (click)=\"addToBasket(product.id)\">Dodaj do koszyka <i class=\"fa fa-shopping-basket\" aria-hidden=\"true\"></i></button>\r\n          <h5 *ngIf=\"!basketItemMaxAmount\">Produkt niedostępny!</h5>\r\n          <h5 *ngIf=\"isInBasket\">Produkt dodany do koszyka!</h5>\r\n        </div>\r\n  </div>\r\n  <span class=\"product-footer\">\r\n      <i class=\"fa fa-cog\" aria-hidden=\"true\" (click)=\"showButtons()\"></i>\r\n      <button *ngIf=\"isButtonsVisible\" type=\"button\" class=\"btn btn-secondary btn-sm\" [routerLink]=\"['/edit-product', product.id]\">Edytuj</button>\r\n      <button *ngIf=\"isButtonsVisible\" type=\"button\" class=\"btn btn-secondary btn-sm\" (click)=\"removeProduct(product.id)\">Usuń</button>\r\n  </span>\r\n</div>\r\n\r\n"
+module.exports = "<div class=\"container content-product\"  *ngIf=\"product\">\r\n  <div class=\"row\">\r\n    <div class=\"col-md-6\">\r\n        <img *ngIf=\"product.image\" [src]=\"product.image\" class=\"product-content-image\">\r\n        <img *ngIf=\"!product.image\" src=\"./../../assets/no_foto.png\" class=\"product-content-image\">\r\n        <h5 class=\"product-content-title\">{{product.name}}</h5>\r\n        <a *ngIf=\"category\" routerLink=\"/\" class=\"product-content-category\">{{category.name}}</a><!--TODO: routerLink productList with categoryId-->\r\n        <div *ngIf=\"!isInBasket && basketItemMaxAmount\" class=\"row amount-content\">\r\n          <input #basketItemAmount type=\"number\" class=\"form-control basket-item-amount\" min=\"1\" [max]=\"basketItemMaxAmount\" value=\"1\">\r\n          <p class=\"basket-amount-text\"> z {{basketItemMaxAmount.toString()}}</p>\r\n        </div>\r\n      </div>\r\n    <div class=\"col-md-6\">\r\n        <h5 class=\"product-content-price\">{{product.price}} zł</h5>\r\n        <h5 class=\"product-content-description\">{{product.description}}</h5>\r\n        <div class=\"center-block product-content-button\">\r\n          <button *ngIf=\"!isInBasket && basketItemMaxAmount\"  type=\"button\" class=\"btn btn-default add-to-basket-btn\" (click)=\"addToBasket(product.id)\">Dodaj do koszyka <i class=\"fa fa-shopping-basket\" aria-hidden=\"true\"></i></button>\r\n          <h5 *ngIf=\"!basketItemMaxAmount\">Produkt niedostępny!</h5>\r\n          <h5 *ngIf=\"isInBasket\">Produkt dodany do koszyka!</h5>\r\n        </div>\r\n  </div>\r\n  <span *ngIf=\"isAdmin\" class=\"product-footer\">\r\n      <i class=\"fa fa-cog\" aria-hidden=\"true\" (click)=\"showButtons()\"></i>\r\n      <button *ngIf=\"isButtonsVisible\" type=\"button\" class=\"btn btn-secondary btn-sm\" [routerLink]=\"['/edit-product', product.id]\">Edytuj</button>\r\n      <button *ngIf=\"isButtonsVisible\" type=\"button\" class=\"btn btn-secondary btn-sm\" (click)=\"removeProduct(product.id)\">Usuń</button>\r\n  </span>\r\n</div>\r\n\r\n"
 
 /***/ }),
 
@@ -1286,17 +1381,20 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var _ = __webpack_require__("../../../../lodash/lodash.js");
 var router_1 = __webpack_require__("../../../router/esm5/router.js");
 var core_1 = __webpack_require__("../../../core/esm5/core.js");
+var account_service_1 = __webpack_require__("../../../../../src/app/shared/services/account.service.ts");
 var cookie_service_1 = __webpack_require__("../../../../../src/app/shared/services/cookie.service.ts");
 var product_service_1 = __webpack_require__("../../../../../src/app/shared/services/product.service.ts");
 var ProductComponent = (function () {
-    function ProductComponent(route, productService, router, cookieService) {
+    function ProductComponent(route, productService, router, cookieService, accountService) {
         this.route = route;
         this.productService = productService;
         this.router = router;
         this.cookieService = cookieService;
+        this.accountService = accountService;
         this.isButtonsVisible = false;
         this.isInBasket = false;
         this.basketItemMaxAmount = 0;
+        this.isAdmin = false;
     }
     ProductComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -1313,6 +1411,7 @@ var ProductComponent = (function () {
                 _this.checkIsInBasket(_this.productId);
             }
         });
+        this.isAdmin = this.accountService.checkIsAdmin();
     };
     ProductComponent.prototype.addToBasket = function (productId) {
         var amount = this.basketItemAmount.nativeElement.value;
@@ -1356,7 +1455,7 @@ var ProductComponent = (function () {
             selector: 'app-product',
             template: __webpack_require__("../../../../../src/app/product/product.component.html")
         }),
-        __metadata("design:paramtypes", [router_1.ActivatedRoute, product_service_1.ProductService, router_1.Router, cookie_service_1.CookieService])
+        __metadata("design:paramtypes", [router_1.ActivatedRoute, product_service_1.ProductService, router_1.Router, cookie_service_1.CookieService, account_service_1.AccountService])
     ], ProductComponent);
     return ProductComponent;
 }());
@@ -1559,6 +1658,22 @@ exports.RegisterFormModel = RegisterFormModel;
 
 /***/ }),
 
+/***/ "../../../../../src/app/shared/enums/order-status.enum.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var OrderStatusEnum;
+(function (OrderStatusEnum) {
+    OrderStatusEnum[OrderStatusEnum["Przetwarzane"] = 0] = "Przetwarzane";
+    OrderStatusEnum[OrderStatusEnum["Wys\u0142ane"] = 1] = "Wys\u0142ane";
+    OrderStatusEnum[OrderStatusEnum["Anulowane"] = 2] = "Anulowane";
+})(OrderStatusEnum = exports.OrderStatusEnum || (exports.OrderStatusEnum = {}));
+
+
+/***/ }),
+
 /***/ "../../../../../src/app/shared/form/form-model.ts":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1675,16 +1790,20 @@ var AccountService = (function () {
         this.httpService = httpService;
         this.isLogged = new Rx_1.BehaviorSubject(false);
     }
+    AccountService.prototype.checkIsAdmin = function () {
+        return localStorage.getItem('role') === 'admin';
+    };
     AccountService.prototype.login = function (model) {
         return this.httpService.post('user/loginAsync', model);
     };
     AccountService.prototype.logout = function () {
+        return this.httpService.get('user/logout');
     };
     AccountService.prototype.register = function (model) {
         return this.httpService.post('user/registerAsync', model);
     };
-    AccountService.prototype.test = function () {
-        return this.httpService.get('user/test');
+    AccountService.prototype.isUserLogged = function () {
+        return this.httpService.get('user/isUserLogged');
     };
     AccountService = __decorate([
         core_1.Injectable(),
@@ -1742,7 +1861,6 @@ var CookieService = (function () {
         return cookieValue;
     };
     CookieService.prototype.deleteCookie = function (name) {
-        //document.cookie = name +'=; Max-Age=-99999999;';  alternatywa
         this.setCookie(name, "", -1);
     };
     CookieService = __decorate([
@@ -1812,7 +1930,8 @@ var HttpService = (function () {
         var _this = this;
         setTimeout(function () { _this.isLoading.next(true); }, 0);
         return observable.map(this.extract).catch(function (err, source) {
-            if (err.status == 401) {
+            if (err.status === 401) {
+                console.log(err);
                 _this.router.navigateByUrl('login');
                 return Rx_1.Observable.empty();
             }
@@ -1910,17 +2029,26 @@ var OrderService = (function () {
     OrderService.prototype.addOrder = function (order) {
         return this.httpService.post('order/addOrder', order);
     };
-    OrderService.prototype.getOrdersByUser = function () {
-        return this.httpService.get('order/getOrdersByUser');
+    OrderService.prototype.getOrdersByUser = function (parameters) {
+        var urlStringParameters = '?page=' + parameters.page + '&max=' + parameters.max;
+        urlStringParameters += '&isDateAsc=' + parameters.isDateAsc;
+        urlStringParameters += '&isStatusAsc=' + parameters.isStatusAsc;
+        return this.httpService.get('order/getOrdersByUser' + urlStringParameters);
     };
-    OrderService.prototype.getAllOrders = function () {
-        return this.httpService.get('order/getAllOrders');
+    OrderService.prototype.getAllOrders = function (parameters) {
+        var urlStringParameters = '?page=' + parameters.page + '&max=' + parameters.max;
+        urlStringParameters += '&isDateAsc=' + parameters.isDateAsc;
+        urlStringParameters += '&isStatusAsc=' + parameters.isStatusAsc;
+        return this.httpService.get('order/getAllOrders' + urlStringParameters);
     };
     OrderService.prototype.getOrderById = function (orderId) {
         return this.httpService.get('order/getOrderById?orderId=' + orderId);
     };
     OrderService.prototype.deleteOrder = function (orderId) {
         return this.httpService.delete('order/deleteOrder?orderId=' + orderId);
+    };
+    OrderService.prototype.updateStatusOrder = function (orderId, status) {
+        return this.httpService.get('order/updateStatus?orderId=' + orderId + '&status=' + status);
     };
     OrderService = __decorate([
         core_1.Injectable(),

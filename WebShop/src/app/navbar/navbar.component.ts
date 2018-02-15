@@ -17,7 +17,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
   isLoggedSubscription: Subscription;
   addToBasketSubscription: Subscription;
   basketCounterSubscription: Subscription;
-  constructor(private accoutnService: AccountService,
+  isAdmin = false;
+  constructor(private accountService: AccountService,
               private router: Router,
               private productService: ProductService,
               private cookieService: CookieService) { }
@@ -25,8 +26,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.checkBasketItemsCounter();
-    this.isLoggedSubscription = this.accoutnService.isLogged.subscribe(data =>{
+    this.isLoggedSubscription = this.accountService.isLogged.subscribe(data =>{
       this.isLogged = data;
+      this.isAdmin = this.accountService.checkIsAdmin();
     });
     this.addToBasketSubscription = this.productService.shoppingBasket.subscribe(data => {
       if(!data) { return;}
@@ -68,6 +70,15 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   logout(){
+    this.accountService.logout().subscribe(value=>{
+      this.isLogged = false;
+      this.isAdmin = false;
+      this.cookieService.deleteCookie('basketItems');
+      localStorage.removeItem('token');
+      localStorage.removeItem('role');
+      this.checkBasketItemsCounter();
+      this.router.navigateByUrl('product-list');
+    });
     //TODO
     // czyszczenie ciastek, sesji, localStorage
     // czyszczenie po stronie backendu sesji

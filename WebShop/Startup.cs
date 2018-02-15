@@ -41,15 +41,15 @@ namespace WebShop
               options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
               options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             });
-            services.AddSession();
+            //services.AddSession();
             //services.AddDistributedMemoryCache();
-            //services.AddSession(options =>
-            //{ 
-            //    options.CookieHttpOnly = true;
-            //    options.CookieName = ".ASPNetCoreSession";
-            //    options.IdleTimeout = TimeSpan.FromMinutes(15);
-            //    options.CookiePath = "/";
-            //});
+            services.AddSession(options =>
+            {
+              options.CookieHttpOnly = true;
+              options.CookieName = ".ASPNetCoreSession";
+              options.IdleTimeout = TimeSpan.FromMinutes(30);
+              options.CookiePath = "/";
+            });
             services.Configure<JwtSettings>(Configuration.GetSection("jwt"));
             services.Configure<ServicesUrlConfig>(Configuration.GetSection("services"));
 

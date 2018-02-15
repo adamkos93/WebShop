@@ -44,18 +44,19 @@ namespace WebShop.Infrastucture.Services.ServiceOrder
             await _orderRepository.DeleteAsync(orderId);
         }
 
-        public async Task<List<OrderDto>> GetAllByUserAsync(int userId) 
+        public async Task<Tuple<List<OrderDto>, int>> GetAllByUserAsync(int userId, int page, int max, bool? isDateAsc, bool? isStatusAsc) 
         {
             if (userId <= 0) { throw new ArgumentNullException(nameof(userId)); }
-            var orders = await _orderRepository.GetAllAsync();
+            var orders = await _orderRepository.GetAllByUserAsync(userId, page, max, isDateAsc, isStatusAsc);
             if (orders == null) { throw new NullReferenceException(nameof(orders)); }
-            return _mapper.Map<List<Order>, List<OrderDto>>(orders);
+            return Tuple.Create(_mapper.Map<List<Order>, List<OrderDto>>(orders.Item1), orders.Item2);
         }
-        public async Task<List<OrderDto>> GetAllAsync()
+    
+        public async Task<Tuple<List<OrderDto>, int>> GetAllAsync(int page, int max, bool? isDateAsc, bool? isStatusAsc)
         {
-            var orders = await _orderRepository.GetAllAsync();
+            var orders = await _orderRepository.GetAllAsync(page, max, isDateAsc, isStatusAsc);
             if (orders == null) { throw new NullReferenceException(nameof(orders)); }
-            return _mapper.Map<List<Order>, List<OrderDto>>(orders);
+            return Tuple.Create(_mapper.Map<List<Order>, List<OrderDto>>(orders.Item1), orders.Item2);
         }
 
         public async Task<OrderDto> GetOrderById(int orderId)
@@ -64,6 +65,13 @@ namespace WebShop.Infrastucture.Services.ServiceOrder
             var orderProducts = await _orderRepository.getOrderById(orderId);
             if (orderProducts == null) { throw new NullReferenceException(nameof(orderProducts)); }
             return _mapper.Map<Order, OrderDto>(orderProducts);
+        }
+
+        public async Task UpdateStatus(int orderId, string status)
+        {
+            if (orderId <= 0) { throw new ArgumentNullException(nameof(orderId)); }
+            if (String.IsNullOrEmpty(status)) { throw new ArgumentNullException(nameof(status)); }
+            await _orderRepository.UpdateStatus(orderId, status);
         }
 
     }

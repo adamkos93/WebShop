@@ -2,9 +2,9 @@ import * as _ from 'lodash';
 
 import { BehaviorSubject, Observable, Subject } from 'rxjs/Rx';
 import { Headers, Http, RequestOptions, RequestOptionsArgs } from '@angular/http';
+import { IFilterOrderParameters, IOrder } from './../types/order.types';
 
 import { HttpService } from './http.service';
-import { IOrder } from './../types/order.types';
 import { Injectable } from '@angular/core';
 
 @Injectable()
@@ -18,12 +18,18 @@ export class OrderService {
     return this.httpService.post('order/addOrder', order);
   }
 
-  getOrdersByUser() {
-    return this.httpService.get('order/getOrdersByUser');
+  getOrdersByUser(parameters: IFilterOrderParameters) {
+    let urlStringParameters = '?page='+ parameters.page +'&max='+ parameters.max;
+    urlStringParameters += '&isDateAsc=' + parameters.isDateAsc;
+    urlStringParameters += '&isStatusAsc=' + parameters.isStatusAsc;
+    return this.httpService.get('order/getOrdersByUser'+ urlStringParameters);
   }
 
-  getAllOrders() {
-    return this.httpService.get('order/getAllOrders');
+  getAllOrders(parameters: IFilterOrderParameters) {
+    let urlStringParameters = '?page='+ parameters.page +'&max='+ parameters.max;
+    urlStringParameters += '&isDateAsc=' + parameters.isDateAsc;
+    urlStringParameters += '&isStatusAsc=' + parameters.isStatusAsc;
+    return this.httpService.get('order/getAllOrders'+ urlStringParameters);
   }
 
   getOrderById(orderId: number) {
@@ -32,5 +38,9 @@ export class OrderService {
 
   deleteOrder(orderId: number) {
     return this.httpService.delete('order/deleteOrder?orderId='+orderId);
+  }
+
+  updateStatusOrder(orderId: number, status: string) {
+    return this.httpService.get('order/updateStatus?orderId='+orderId+'&status='+status);
   }
 }
